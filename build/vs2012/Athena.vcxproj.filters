@@ -13,5 +13,47 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{5847fce5-1183-43e5-b30b-9ff789c39f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{0694f7ab-fe11-4cd9-8777-c82f02255c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Display">
+      <UniqueIdentifier>{03877af3-eed0-4543-b2a1-554d71300c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO">
+      <UniqueIdentifier>{05a439d2-c3a0-421b-a2b8-a7195c1eac91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{df154743-4d78-4332-b3fa-984f8ebcbee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{0417b411-5606-4846-a1e8-685466ea5a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{1c646ca4-f289-4691-bd41-2c4d67251348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{8785fdfd-bee5-42aa-a053-f3bbefd4aab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display">
+      <UniqueIdentifier>{326cdd65-2f1d-4fa8-b6b0-ec8c8ee7df84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\IO">
+      <UniqueIdentifier>{6321dc9e-7609-4c16-bf5d-32ecc7a5c13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{34ac4edf-0f13-42ec-8348-fe139f8611af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{c62e8997-e1e8-40b4-8ef5-72e31741337d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts">
+      <UniqueIdentifier>{5f5baf79-887b-4dc5-b67c-03a48495246f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{10f011eb-2b32-4720-a4d7-ad0bc41a6cb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
