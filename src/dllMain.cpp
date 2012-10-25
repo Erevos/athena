@@ -3,21 +3,23 @@
 
 
 
-BOOLEAN WINAPI DllMain( HINSTANCE hDllHandle, DWORD nReason, LPVOID )
+// The function responsible of handling initialisation and deinitialisation of the DLL library.
+BOOLEAN WINAPI DllMain( HINSTANCE handle , DWORD reason , LPVOID )
 {
-	BOOLEAN bSuccess = TRUE;
+	BOOLEAN return_value = TRUE;
 
 
-	//  Perform global initialization.
-	switch ( nReason )
+	// Perform global initialization.
+	switch ( reason )
 	{
+		// When the library is being attached to the program.
 		case DLL_PROCESS_ATTACH:
 
-			//  For optimization.
-			DisableThreadLibraryCalls( hDllHandle );
+			// For optimization.
+			DisableThreadLibraryCalls(handle);
 			break;
 	}
 
 
-	return bSuccess;
+	return return_value;
  }

@@ -22,53 +22,49 @@
 			{
 				private:
 
+					#ifdef _WIN32
+						CRITICAL_SECTION _lock;
+					#else
+						pthread_mutex_t _lock;
+					#endif /* _WIN32 */
+
+					volatile bool _initialised;
+
+
+				protected:
+
+					friend class ConditionVariable;
+
+
+					#ifdef _WIN32
+						ATHENA_DLL CRITICAL_SECTION& ATHENA_CALL lock_ref();
+					#else
+						ATHENA_DLL pthread_mutex_t& ATHENA_CALL lock_ref();
+					#endif /* _WIN32 */
 
 
 				public:
 
-					ATHENA_DLL ATHENA_CALL CriticalSection();
+					#ifdef _WIN32
+						ATHENA_DLL ATHENA_CALL CriticalSection( DWORD spincount = 0);
+					#else
+						ATHENA_DLL ATHENA_CALL CriticalSection();
+					#endif /* _WIN32 */
+					
 					ATHENA_DLL ATHENA_CALL ~CriticalSection();
 
 
-					ATHENA_DLL bool ATHENA_CALL initialise();
-					ATHENA_DLL void ATHENA_CALL deinitialise();
 					ATHENA_DLL void ATHENA_CALL lock( const bool shared );
 					ATHENA_DLL bool ATHENA_CALL try_lock( const bool shared );
 					ATHENA_DLL void ATHENA_CALL unlock();
-			};
-			
-			
-			
-			/*
-				Function definitions.
-			*/
-
-			
-			inline bool CriticalSection::initialise()
-			{
-				return false;
-			};
-
-			inline void CriticalSection::deinitialise()
-			{
-			};
-
-			inline void CriticalSection::lock( const bool )
-			{
-			};
-
-			inline bool CriticalSection::try_lock( const bool )
-			{
-				return false;
-			};
-
-			inline void CriticalSection::unlock()
-			{
 			};
 
 		} /* utility */
 
 	} /* athena */
+
+
+	#include "criticalSection.inl"
 
 
 

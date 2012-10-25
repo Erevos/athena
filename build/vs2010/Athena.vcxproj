@@ -117,14 +117,25 @@
     <ClInclude Include="..\..\src\utility\criticalSection.hpp" />
     <ClInclude Include="..\..\src\utility\lock.hpp" />
     <ClInclude Include="..\..\src\utility\readersWriterLock.hpp" />
+    <ClInclude Include="..\..\src\utility\thread.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
     <ClCompile Include="..\..\src\dllMain.cpp" />
     <ClCompile Include="..\..\src\utility\conditionVariable.cpp" />
     <ClCompile Include="..\..\src\utility\criticalSection.cpp" />
     <ClCompile Include="..\..\src\utility\lock.cpp" />
     <ClCompile Include="..\..\src\utility\readersWriterLock.cpp" />
+    <ClCompile Include="..\..\src\utility\thread.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\core\event.inl" />
+    <None Include="..\..\src\core\eventManager.inl" />
+    <None Include="..\..\src\utility\conditionVariable.inl" />
+    <None Include="..\..\src\utility\criticalSection.inl" />
+    <None Include="..\..\src\utility\readersWriterLock.inl" />
+    <None Include="..\..\src\utility\thread.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
