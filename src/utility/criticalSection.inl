@@ -9,17 +9,32 @@
 		namespace utility
 		{
 
+			/*
+				A function returning a reference to the critical section variable.
+				For use with functions that need access to the variable.
+			*/
+
 			#ifdef _WIN32
-				inline ATHENA_DLL CRITICAL_SECTION& ATHENA_CALL CriticalSection::lock_ref()
+				inline CRITICAL_SECTION& CriticalSection::lock_ref()
 			#else
-				inline ATHENA_DLL pthread_mutex_t& ATHENA_CALL CriticalSection::lock_ref()
+				inline pthread_mutex_t& CriticalSection::lock_ref()
 			#endif /* _WIN32 */
 			{
 				return _lock;
 			};
 
+
+			// A function returning whether the critical section has been initialised.
+			inline bool CriticalSection::initialised() const
+			{
+				return _initialised;
+			};
+
+
+			// Function obtaining the critical section. The critical section does not support shared functionality.
 			inline void CriticalSection::lock( const bool )
 			{
+				// If the lock is initialised.
 				if ( _initialised )
 				{
 					#ifdef _WIN32
@@ -30,11 +45,13 @@
 				}
 			};
 
+			// Function trying to obtain the critical section. The critical section does not support shared functionality.
 			inline bool CriticalSection::try_lock( const bool )
 			{
 				bool return_value = false;
 
 
+				// If the lock is initialised.
 				if ( _initialised )
 				{
 					#ifdef _WIN32
@@ -48,8 +65,10 @@
 				return false;
 			};
 
+			// Function releasing the critical section. 
 			inline void CriticalSection::unlock()
 			{
+				// If the lock is initialised.
 				if ( _initialised )
 				{
 					#ifdef _WIN32

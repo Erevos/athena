@@ -8,6 +8,7 @@ namespace athena
 	namespace utility
 	{
 
+		// The constructor of the class.
 		ReadersWriterLock::ReadersWriterLock() : 
 			
 			#ifdef _WIN32	
@@ -26,6 +27,7 @@ namespace athena
 			#endif /* _WIN32 */
 		};
 
+		// The destructor of the class.
 		ReadersWriterLock::~ReadersWriterLock()
 		{
 			#ifdef _WIN32

@@ -19,9 +19,7 @@
 				if ( _instance == NULL )
 				{
 					_instance = new (std::nothrow) EventManager();
-
-					if ( _instance == NULL )
-						return_value = false;
+					return_value = ( _instance != NULL );
 				}
 
 				_instance_lock.unlock();

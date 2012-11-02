@@ -123,18 +123,23 @@
 
 				#ifdef _WIN32
 
+					// If the thread has not been created.
 					if ( _id == NULL )
 					{
+						// Create the thread.
 						_id = CreateThread(NULL,0,_thread_function,_parameter,0,NULL);
 
+						// If the thread has been created successfully.
 						if ( _id != NULL )
 							return_value = true;
 					}
 
 				#else
 
+					// If the thread has not been created.
 					if ( _id == 0 )
 					{
+						// If the thread creation is successful.
 						if ( pthread_create(_id,NULL,_thread_function,_parameter) == 0 )
 							return_value = true;
 					}
@@ -154,19 +159,27 @@
 
 				#ifdef _WIN32
 
+					// If the thread has been created.
 					if ( _id != NULL )
 					{
+						// Set the run flag to false.
 						_running = false;
+						// Wait for the thread to terminate.
 						WaitForSingleObjectEx(_id,INFINITE,FALSE);
+						// Reset the variable holding the id of the thread.
 						_id = NULL;
 					}
 
 				#else
 
+					// If the thread has been created.
 					if ( _id != 0 )
 					{
+						// Set the run flag to false.
 						_running = false;
+						// Wait for the thread to terminate.
 						pthread_join(_id,NULL);
+						// Reset the variable holding the id of the thread.
 						_id = 0;
 					}
 

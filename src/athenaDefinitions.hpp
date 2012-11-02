@@ -2,9 +2,6 @@
 	#define ATHENA_HPP
 
 
-	// THe function calling convention that the library is using.
-	#define ATHENA_CALL  __stdcall
-
 
 	// Windows definitions.
 	#ifdef _WIN32
@@ -19,6 +16,10 @@
 			#define NOMINMAX
 		#endif /* NOMINMAX */
 
+		// The function calling convention that the library is using.
+		#define ATHENA_PRECALL  __stdcall
+		#define ATHENA_POSTCALL 
+
 		// Macro that is used when the library is exported or imported.
 		#ifdef ATHENA_EXPORTS
 			#define ATHENA_DLL __declspec(dllexport)
@@ -27,7 +28,13 @@
 		#endif /* DLL_EXPORT */
 
 	#else	// Unix definitions.
+		
+		// The function calling convention that the library is using.
+		#define ATHENA_PRECALL  
+		#define ATHENA_POSTCALL __attribute__(stdcall)
+		
 		#define	ATHENA_DLL
+
 	#endif /* _WIN32 */
 
 

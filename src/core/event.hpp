@@ -14,22 +14,24 @@
 
 			enum ATHENA_DLL ParameterType
 			{
-				null  = 0 , 
-				boolean , 
-				character ,
-				shortInteger , 
-				integer , 
-				longInteger , 
-				real , 
-				doubleReal , 
-				pointer
+				Null  = 0 , 
+				Boolean , 
+				Character ,
+				ShortInteger , 
+				Integer , 
+				LongInteger , 
+				Real , 
+				DoubleReal , 
+				Pointer
 			};
+
 
 			struct ATHENA_DLL Parameter
 			{
 				ParameterType type;
 				void* data;
 			};
+
 
 			class Event
 			{
@@ -44,17 +46,17 @@
 					ATHENA_DLL static Parameter NullParameter;
 
 
-					ATHENA_DLL ATHENA_CALL Event( const unsigned long& id = 0 , const unsigned long& parameters = 0 );
-					ATHENA_DLL ATHENA_CALL ~Event();
+					ATHENA_DLL ATHENA_PRECALL Event( const unsigned long& id = 0 , const unsigned long& parameters = 0 ) ATHENA_POSTCALL;
+					ATHENA_DLL ATHENA_PRECALL ~Event() ATHENA_POSTCALL;
 
 
-					ATHENA_DLL void ATHENA_CALL parameter( const unsigned long& index , const Parameter& parameter );
-					ATHENA_DLL void ATHENA_CALL id( const unsigned long& id );
-					ATHENA_DLL void ATHENA_CALL clear();
+					ATHENA_DLL void ATHENA_PRECALL parameter( const unsigned long& index , const Parameter& parameter ) ATHENA_POSTCALL;
+					ATHENA_DLL void ATHENA_PRECALL id( const unsigned long& id ) ATHENA_POSTCALL;
+					ATHENA_DLL void ATHENA_PRECALL clear() ATHENA_POSTCALL;
 
-					ATHENA_DLL Parameter ATHENA_CALL parameter( const unsigned long& index ) const;
-					ATHENA_DLL unsigned long ATHENA_CALL id() const;
-					ATHENA_DLL unsigned long ATHENA_CALL parameter_count() const;
+					ATHENA_DLL Parameter ATHENA_PRECALL parameter( const unsigned long& index ) const ATHENA_POSTCALL;
+					ATHENA_DLL unsigned long ATHENA_PRECALL id() const ATHENA_POSTCALL;
+					ATHENA_DLL unsigned long ATHENA_PRECALL parameter_count() const ATHENA_POSTCALL;
 			};
 
 		} /* core */

@@ -25,7 +25,7 @@
 				typedef int (*threadFunction)( void* );
 			#endif /* _WIN32 */
 
-			// Class representing a thread.
+			// A class representing and handling a thread.
 			class Thread
 			{
 				private:
@@ -68,36 +68,36 @@
 				public:
 
 					// The constructor of the class.
-					ATHENA_DLL ATHENA_CALL Thread( threadFunction function = NULL , void* paramter = NULL  );
+					ATHENA_DLL ATHENA_PRECALL Thread( threadFunction function = NULL , void* paramter = NULL  ) ATHENA_POSTCALL;
 					// The destructor of the class.
-					ATHENA_DLL ATHENA_CALL ~Thread();
+					ATHENA_DLL ATHENA_PRECALL ~Thread() ATHENA_POSTCALL;
 
 
 					// Function setting the functionality of the thread. Must be called before the create() function.
-					ATHENA_DLL void ATHENA_CALL functionality( threadFunction function );
+					ATHENA_DLL void ATHENA_PRECALL functionality( threadFunction function ) ATHENA_POSTCALL;
 					// Function setting the parameter of the thread. Must be called before the create() function.
-					ATHENA_DLL void ATHENA_CALL parameter( void* value );
+					ATHENA_DLL void ATHENA_PRECALL parameter( void* value ) ATHENA_POSTCALL;
 
 
 					// Function returning the running status of the thread.
-					ATHENA_DLL bool ATHENA_CALL is_running() const;
+					ATHENA_DLL bool ATHENA_PRECALL is_running() const ATHENA_POSTCALL;
 					// Function returning the functionality function of the thread.
-					ATHENA_DLL threadFunction ATHENA_CALL functionality();
+					ATHENA_DLL threadFunction ATHENA_PRECALL functionality() ATHENA_POSTCALL;
 					// Function returning the parameter of the thread.
-					ATHENA_DLL void* ATHENA_CALL parameter();
+					ATHENA_DLL void* ATHENA_PRECALL parameter() ATHENA_POSTCALL;
 					
 					// Function returning the exit code of the thread. Should be called after destroy().
 					#ifdef _WIN32
-						ATHENA_DLL DWORD ATHENA_CALL exit_code() const;
+						ATHENA_DLL DWORD ATHENA_PRECALL exit_code() const ATHENA_POSTCALL;
 					#else
-						ATHENA_DLL int ATHENA_CALL exit_code() const;
+						ATHENA_DLL int ATHENA_PRECALL exit_code() const ATHENA_POSTCALL;
 					#endif /* _WIN32 */
 
 
 					// Function creating the thread. Returns true on success, false on failure.
-					ATHENA_DLL bool ATHENA_CALL create();
+					ATHENA_DLL bool ATHENA_PRECALL create() ATHENA_POSTCALL;
 					// Function destroying the thread.
-					ATHENA_DLL void ATHENA_CALL destroy();
+					ATHENA_DLL void ATHENA_PRECALL destroy() ATHENA_POSTCALL;
 			};
 
 		} /* utility */

@@ -113,6 +113,8 @@
     <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
+    <ClInclude Include="..\..\src\io\logEntry.hpp" />
+    <ClInclude Include="..\..\src\io\logManager.hpp" />
     <ClInclude Include="..\..\src\utility\conditionVariable.hpp" />
     <ClInclude Include="..\..\src\utility\criticalSection.hpp" />
     <ClInclude Include="..\..\src\utility\lock.hpp" />
@@ -123,6 +125,8 @@
     <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
     <ClCompile Include="..\..\src\dllMain.cpp" />
+    <ClCompile Include="..\..\src\io\logEntry.cpp" />
+    <ClCompile Include="..\..\src\io\logManager.cpp" />
     <ClCompile Include="..\..\src\utility\conditionVariable.cpp" />
     <ClCompile Include="..\..\src\utility\criticalSection.cpp" />
     <ClCompile Include="..\..\src\utility\lock.cpp" />
@@ -132,6 +136,9 @@
   <ItemGroup>
     <None Include="..\..\src\core\event.inl" />
     <None Include="..\..\src\core\eventManager.inl" />
+    <None Include="..\..\src\io\logEntry.inl" />
+    <None Include="..\..\src\io\logManagerA.inl" />
+    <None Include="..\..\src\io\LogManagerW.inl" />
     <None Include="..\..\src\utility\conditionVariable.inl" />
     <None Include="..\..\src\utility\criticalSection.inl" />
     <None Include="..\..\src\utility\readersWriterLock.inl" />

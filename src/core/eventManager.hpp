@@ -22,15 +22,15 @@
 					static utility::ReadersWriterLock _instance_lock;
 
 
-					ATHENA_CALL EventManager();
-					ATHENA_CALL ~EventManager();
+					ATHENA_PRECALL EventManager() ATHENA_POSTCALL;
+					ATHENA_PRECALL ~EventManager() ATHENA_POSTCALL;
 
 
 				public:
 
-					ATHENA_DLL static bool ATHENA_CALL initialise();
-					ATHENA_DLL static void ATHENA_CALL deinitialise();
-					ATHENA_DLL static EventManager* ATHENA_CALL get();
+					ATHENA_DLL static bool ATHENA_PRECALL initialise() ATHENA_POSTCALL;
+					ATHENA_DLL static void ATHENA_PRECALL deinitialise() ATHENA_POSTCALL;
+					ATHENA_DLL static EventManager* ATHENA_PRECALL get() ATHENA_POSTCALL;
 
 			};
 

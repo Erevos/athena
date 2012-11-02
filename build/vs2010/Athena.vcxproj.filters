@@ -81,6 +81,12 @@
     <ClInclude Include="..\..\src\utility\thread.hpp">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\io\logEntry.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\io\logManager.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\eventManager.cpp">
@@ -107,6 +113,12 @@
     <ClCompile Include="..\..\src\utility\thread.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\io\logEntry.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\logManager.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\event.inl">
@@ -126,6 +138,15 @@
     </None>
     <None Include="..\..\src\utility\thread.inl">
       <Filter>Header Files\Utility</Filter>
+    </None>
+    <None Include="..\..\src\io\logEntry.inl">
+      <Filter>Header Files\IO</Filter>
+    </None>
+    <None Include="..\..\src\io\logManagerA.inl">
+      <Filter>Header Files\IO</Filter>
+    </None>
+    <None Include="..\..\src\io\LogManagerW.inl">
+      <Filter>Header Files\IO</Filter>
     </None>
   </ItemGroup>
 </Project>
