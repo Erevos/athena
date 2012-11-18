@@ -9,39 +9,39 @@
 		namespace core
 		{
 
-			inline void Event::parameter( const unsigned long& index , const Parameter& parameter )
+			// Function responsible of setting the id code of the event.
+			inline void Event::code( const EventCode& value )
 			{
-				if ( index < _parameters.size() )
-					_parameters[index] = parameter;
-				else
-					_parameters.push_back(parameter);
+				_code = value;
 			};
 
-			inline void Event::id( const unsigned long& id )
+			// Function responsible of setting the cleanup function.
+			inline void Event::cleanup_function( EventCleanupFunction function )
 			{
-				_id = id;
+				_cleanup_function = function;
 			};
 
+			// Function responsible of clearing the parameter list.
 			inline void Event::clear()
 			{
 				_parameters.clear();
 			};
 
 
-			inline Parameter Event::parameter( const unsigned long& index ) const
+			// Function returning the id code of the event.
+			inline EventCode Event::code() const
 			{
-				if ( index < _parameters.size() ) 
-					return _parameters[index];
-				else
-					return NullParameter;
+				return _code;
 			};
 
-			inline unsigned long Event::id() const
+			// Function returning the cleanup function.
+			inline EventCleanupFunction Event::cleanup_function() const
 			{
-				return _id;
+				return _cleanup_function;
 			};
 
-			inline unsigned long Event::parameter_count() const
+			// Function returning the size of the parameter list.
+			inline unsigned int Event::parameter_count() const
 			{
 				return _parameters.size();
 			};

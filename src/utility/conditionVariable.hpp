@@ -29,6 +29,20 @@
 			class CriticalSection;
 			class ReadersWriterLock;
 
+			// A definition of the type of the wait values.
+			#ifdef _WIN32
+				typedef DWORD WaitValueType;
+			#else
+				typedef unsigned long WaitValueType;
+			#endif /* _WIN32 */
+
+			// A definition of the type of the flag values.
+			#ifdef _WIN32
+				typedef ULONG FlagValueType;
+			#else
+				typedef unsigned long FlagValueType;
+			#endif /* _WIN32 */
+
 
 			/*
 				Class handling a condition variable
@@ -66,19 +80,8 @@
 						The pthread API does not support condition variables for readers-writer whereas the Windows API does, 
 						therefore for portability issues the best approach would be to use critical sections with condition variables.
 					*/
-
-					#ifdef _WIN32
-
-						ATHENA_DLL void ATHENA_PRECALL wait( CriticalSection& lock , const DWORD milliseconds = INFINITE ) ATHENA_POSTCALL;
-						ATHENA_DLL void ATHENA_PRECALL wait( ReadersWriterLock& lock , const DWORD milliseconds = INFINITE , const ULONG flags = 0 ) ATHENA_POSTCALL;
-
-					#else
-
-						ATHENA_DLL void ATHENA_PRECALL wait( CriticalSection& lock , const unsigned long milliseconds = INFINITE ) ATHENA_POSTCALL;
-						ATHENA_DLL void ATHENA_PRECALL wait( ReadersWriterLock& lock , const unsigned long milliseconds = INFINITE , const unsigned long flags = 0 ) ATHENA_POSTCALL;
-
-					#endif /* _WIN32 */
-
+					ATHENA_DLL void ATHENA_PRECALL wait( CriticalSection& lock , const WaitValueType milliseconds = INFINITE ) ATHENA_POSTCALL;
+					ATHENA_DLL void ATHENA_PRECALL wait( ReadersWriterLock& lock , const WaitValueType milliseconds = INFINITE , const FlagValueType flags = 0 ) ATHENA_POSTCALL;
 					// Wake a single thread that is in a wait state.
 					ATHENA_DLL void ATHENA_PRECALL wake() ATHENA_POSTCALL;
 					// Wake all the threads that are in a  wait state on that condition variable.
@@ -88,9 +91,6 @@
 		} /* utility */
 
 	} /* athena */
-
-
-	#include "conditionVariable.inl"
 
 
 

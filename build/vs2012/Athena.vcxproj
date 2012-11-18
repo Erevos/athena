@@ -117,6 +117,9 @@
     <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
+    <ClInclude Include="..\..\src\core\entity.hpp" />
+    <ClInclude Include="..\..\src\core\parameter.hpp" />
+    <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
     <ClInclude Include="..\..\src\io\logEntry.hpp" />
     <ClInclude Include="..\..\src\io\logManager.hpp" />
     <ClInclude Include="..\..\src\utility\conditionVariable.hpp" />
@@ -124,18 +127,24 @@
     <ClInclude Include="..\..\src\utility\lock.hpp" />
     <ClInclude Include="..\..\src\utility\readersWriterLock.hpp" />
     <ClInclude Include="..\..\src\utility\thread.hpp" />
+    <ClInclude Include="..\..\src\utility\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
+    <ClCompile Include="..\..\src\core\entity.cpp" />
+    <ClCompile Include="..\..\src\core\parameter.cpp" />
+    <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
     <ClCompile Include="..\..\src\dllMain.cpp" />
     <ClCompile Include="..\..\src\io\logEntry.cpp" />
-    <ClCompile Include="..\..\src\io\logManager.cpp" />
+    <ClCompile Include="..\..\src\utility\timer.cpp" />
+    <None Include="..\..\src\io\logManager.inl" />
     <ClCompile Include="..\..\src\utility\conditionVariable.cpp" />
     <ClCompile Include="..\..\src\utility\criticalSection.cpp" />
     <ClCompile Include="..\..\src\utility\lock.cpp" />
     <ClCompile Include="..\..\src\utility\readersWriterLock.cpp" />
     <ClCompile Include="..\..\src\utility\thread.cpp" />
+    <None Include="..\..\src\utility\timer.inl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\event.inl" />
@@ -143,12 +152,16 @@
     <ClInclude Include="..\..\src\io\logEntry.inl">
       <FileType>Document</FileType>
     </ClInclude>
-    <None Include="..\..\src\io\logManagerA.inl" />
-    <None Include="..\..\src\io\LogManagerW.inl" />
-    <None Include="..\..\src\utility\conditionVariable.inl" />
+    <None Include="..\..\src\core\entity.inl" />
+    <None Include="..\..\src\core\parameter.inl" />
+    <ClCompile Include="..\..\src\io\logManagerA.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\logManagerW.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
     <None Include="..\..\src\utility\criticalSection.inl" />
     <None Include="..\..\src\utility\readersWriterLock.inl" />
-    <None Include="..\..\src\utility\thread.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

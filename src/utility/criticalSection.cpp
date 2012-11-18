@@ -12,7 +12,6 @@ namespace athena
 			The constructor of the class, for Windows implementations you can have an optional
 			parameter for the amount of "cycles" the critical section will try to obtain a lock.
 		*/
-
 		#ifdef _WIN32
 
 			CriticalSection::CriticalSection( DWORD spincount ) : 
@@ -56,6 +55,55 @@ namespace athena
 			#else
 				pthread_mutex_destroy(&_lock);
 			#endif /* _WIN32 */
+		};
+
+
+		// Function obtaining the critical section. The critical section does not support shared functionality.
+		void CriticalSection::lock( const bool )
+		{
+			// If the lock is initialised.
+			if ( _initialised )
+			{
+				#ifdef _WIN32
+					EnterCriticalSection(&_lock);
+				#else
+					pthread_mutex_lock(&_lock);
+				#endif /* _WIN32 */
+			}
+		};
+
+		// Function trying to obtain the critical section. The critical section does not support shared functionality.
+		bool CriticalSection::try_lock( const bool )
+		{
+			bool return_value = false;
+
+
+			// If the lock is initialised.
+			if ( _initialised )
+			{
+				#ifdef _WIN32
+					return_value = ( TryEnterCriticalSection(&_lock) != FALSE );
+				#else
+					return_value = ( pthread_mutex_trylokc(&_lock) == 0 );
+				#endif /* _WIN32 */
+			}
+
+
+			return return_value;
+		};
+
+		// Function releasing the critical section. 
+		void CriticalSection::unlock()
+		{
+			// If the lock is initialised.
+			if ( _initialised )
+			{
+				#ifdef _WIN32
+					LeaveCriticalSection(&_lock);
+				#else
+					pthread_mutex_unlock(&_lock);
+				#endif /* _WIN32 */
+			}
 		};
 
 	} /* utility */

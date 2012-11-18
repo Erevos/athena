@@ -1,6 +1,10 @@
 #ifndef ATHENA_HPP
 	#define ATHENA_HPP
 
+	
+
+	// A definition of a value to be used for invalid pointers.
+	#define INVALID_POINTER 0
 
 
 	// Windows definitions.
@@ -15,6 +19,17 @@
 		#ifndef	NOMINMAX
 			#define NOMINMAX
 		#endif /* NOMINMAX */
+
+		// A definition in order to detect memory leaks.
+		#ifdef			_DEBUG
+		
+			#ifndef		_CRTDBG_MAP_ALLOC
+				#define		_CRTDBG_MAP_ALLOC
+			#endif		/* _CRTDBG_MAP_ALLOC */
+
+				#include	<crtdbg.h>
+
+		#endif			/* _DEBUG */
 
 		// The function calling convention that the library is using.
 		#define ATHENA_PRECALL  __stdcall

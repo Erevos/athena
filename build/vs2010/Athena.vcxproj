@@ -138,7 +138,7 @@
     <None Include="..\..\src\core\eventManager.inl" />
     <None Include="..\..\src\io\logEntry.inl" />
     <None Include="..\..\src\io\logManagerA.inl" />
-    <None Include="..\..\src\io\LogManagerW.inl" />
+    <None Include="..\..\src\io\logManagerW.inl" />
     <None Include="..\..\src\utility\conditionVariable.inl" />
     <None Include="..\..\src\utility\criticalSection.inl" />
     <None Include="..\..\src\utility\readersWriterLock.inl" />

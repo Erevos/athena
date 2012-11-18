@@ -9,50 +9,15 @@
 		namespace core
 		{
 
-			inline bool EventManager::initialise()
-			{
-				bool return_value = true;
+			#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 
-
-				_instance_lock.lock(false);
-
-				if ( _instance == NULL )
+				// A function responsible of performing the operation of the manager if single-threaded mode is enabled.
+				inline void EventManager::operate()
 				{
-					_instance = new (std::nothrow) EventManager();
-					return_value = ( _instance != NULL );
+					_operate();
 				}
 
-				_instance_lock.unlock();
-
-
-				return return_value;
-			};
-
-			inline void EventManager::deinitialise()
-			{
-				_instance_lock.lock(false);
-
-				if ( _instance != NULL )
-				{
-					delete _instance;
-					_instance = NULL;
-				}
-
-				_instance_lock.unlock();
-			};
-
-			inline EventManager* EventManager::get()
-			{
-				EventManager* return_value = NULL;
-
-
-				_instance_lock.lock(true);
-				return_value = _instance;
-				_instance_lock.unlock();
-
-
-				return return_value;
-			};
+			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 		} /* core */
 

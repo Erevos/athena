@@ -28,7 +28,7 @@ namespace athena
 				InitializeConditionVariable(&_variable);
 			#else
 				
-				if ( pthread_cond_init(&_variable,NULL) == 0 )
+				if ( pthread_cond_init(&_variable,INVALID_POINTER) == 0 )
 					_initialised = true;
 
 			#endif /* _WIN32 */
@@ -53,12 +53,7 @@ namespace athena
 			The pthread API does not support condition variables for readers-writer whereas the Windows API does, 
 			therefore for portability issues the best approach would be to use critical sections with condition variables.
 		*/
-
-		#ifdef _WIN32
-			void ConditionVariable::wait( CriticalSection& lock , const DWORD milliseconds )
-		#else
-			void ConditionVariable::wait(  CriticalSection& lock , const unsigned long milliseconds )
-		#endif /* _WIN32 */
+		void ConditionVariable::wait( CriticalSection& lock , const WaitValueType milliseconds )
 		{
 			#ifdef _WIN32 
 				SleepConditionVariableCS(&_variable,&(lock.lock_ref()),milliseconds);
@@ -82,11 +77,7 @@ namespace athena
 			#endif /* _WIN32 */
 		};
 
-		#ifdef _WIN32
-			void ConditionVariable::wait( ReadersWriterLock& lock , const DWORD milliseconds , const ULONG flags )
-		#else
-			void ConditionVariable::wait(  ReadersWriterLock& lock , const unsigned long milliseconds , const unsigned long flags )
-		#endif /* _WIN32 */
+		void ConditionVariable::wait( ReadersWriterLock& lock , const WaitValueType milliseconds , const FlagValueType flags )
 		{
 			/*
 				The pthread implementation does not support condition variables for readers-writer locks , 
@@ -98,6 +89,37 @@ namespace athena
 				SleepConditionVariableSRW(&_variable,&(lock.lock_ref()),milliseconds,flags);
 			#else	
 			#endif /* _WIN32 */
+		};
+
+		// Wake a single thread that is in a wait state.
+		void ConditionVariable::wake()
+		{
+			// If the condition variable is initialised.
+			if ( _initialised )
+			{
+				// Wake the calling thread.
+
+				#ifdef _WIN32
+					WakeConditionVariable(&_variable);
+				#else
+					pthread_cond_signal(&_variable);
+				#endif /* _WIN32 */
+			}
+		};
+
+		// Wake all the threads that are in a  wait state on that condition variable.
+		void ConditionVariable::wake_all()
+		{
+			// If the condition variable is initialised.
+			if ( _initialised )
+			{
+				// Wake all the threads that are currently waiting on the condition variable.
+				#ifdef _WIN32
+					WakeAllConditionVariable(&_variable);
+				#else
+					pthread_cond_broadcast(&_variable);
+				#endif /* _WIN32 */
+			}
 		};
 
 	} /* utility */

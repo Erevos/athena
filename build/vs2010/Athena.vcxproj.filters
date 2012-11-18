@@ -145,7 +145,7 @@
     <None Include="..\..\src\io\logManagerA.inl">
       <Filter>Header Files\IO</Filter>
     </None>
-    <None Include="..\..\src\io\LogManagerW.inl">
+    <None Include="..\..\src\io\logManagerW.inl">
       <Filter>Header Files\IO</Filter>
     </None>
   </ItemGroup>

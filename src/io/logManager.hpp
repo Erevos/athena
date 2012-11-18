@@ -398,8 +398,7 @@
 	} /* athena */
 
 
-	#include "logManagerA.inl"
-	#include "LogManagerW.inl"
+	#include "logManager.inl"
 
 
 

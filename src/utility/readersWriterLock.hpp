@@ -53,7 +53,6 @@
 						A function returning a reference to the critical section variable.
 						For use with functions that need access to the variable.
 					*/
-
 					#ifdef _WIN32
 						ATHENA_DLL SRWLOCK& ATHENA_PRECALL lock_ref() ATHENA_POSTCALL;
 					#else
