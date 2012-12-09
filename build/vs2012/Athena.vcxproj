@@ -120,6 +120,8 @@
     <ClInclude Include="..\..\src\core\entity.hpp" />
     <ClInclude Include="..\..\src\core\parameter.hpp" />
     <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
+    <ClInclude Include="..\..\src\display\renderManager.hpp" />
+    <ClInclude Include="..\..\src\io\inputManager.hpp" />
     <ClInclude Include="..\..\src\io\logEntry.hpp" />
     <ClInclude Include="..\..\src\io\logManager.hpp" />
     <ClInclude Include="..\..\src\utility\conditionVariable.hpp" />
@@ -135,7 +137,9 @@
     <ClCompile Include="..\..\src\core\entity.cpp" />
     <ClCompile Include="..\..\src\core\parameter.cpp" />
     <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
+    <ClCompile Include="..\..\src\display\renderManager.cpp" />
     <ClCompile Include="..\..\src\dllMain.cpp" />
+    <ClCompile Include="..\..\src\io\inputManager.cpp" />
     <ClCompile Include="..\..\src\io\logEntry.cpp" />
     <ClCompile Include="..\..\src\utility\timer.cpp" />
     <None Include="..\..\src\io\logManager.inl" />

@@ -87,6 +87,24 @@
     <ClInclude Include="..\..\src\io\logManager.hpp">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\entity.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\parameter.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\periodicEventInfo.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\display\renderManager.hpp">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\io\inputManager.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utility\timer.hpp">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\eventManager.cpp">
@@ -116,7 +134,28 @@
     <ClCompile Include="..\..\src\io\logEntry.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\logManager.cpp">
+    <ClCompile Include="..\..\src\core\entity.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\parameter.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\periodicEventInfo.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\display\renderManager.cpp">
+      <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\inputManager.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utility\timer.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\logManagerA.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\logManagerW.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,23 +169,23 @@
     <None Include="..\..\src\utility\criticalSection.inl">
       <Filter>Header Files\Utility</Filter>
     </None>
-    <None Include="..\..\src\utility\conditionVariable.inl">
-      <Filter>Header Files\Utility</Filter>
-    </None>
     <None Include="..\..\src\utility\readersWriterLock.inl">
-      <Filter>Header Files\Utility</Filter>
-    </None>
-    <None Include="..\..\src\utility\thread.inl">
       <Filter>Header Files\Utility</Filter>
     </None>
     <None Include="..\..\src\io\logEntry.inl">
       <Filter>Header Files\IO</Filter>
     </None>
-    <None Include="..\..\src\io\logManagerA.inl">
+    <None Include="..\..\src\core\entity.inl">
+      <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\src\core\parameter.inl">
+      <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\src\io\logManager.inl">
       <Filter>Header Files\IO</Filter>
     </None>
-    <None Include="..\..\src\io\logManagerW.inl">
-      <Filter>Header Files\IO</Filter>
+    <None Include="..\..\src\utility\timer.inl">
+      <Filter>Header Files\Utility</Filter>
     </None>
   </ItemGroup>
 </Project>
