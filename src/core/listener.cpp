@@ -1,4 +1,4 @@
-#include "entity.hpp"
+#include "listener.hpp"
 #include "eventManager.hpp"
 
 
@@ -10,34 +10,34 @@ namespace athena
 	{
 
 		// The constructor of the class.
-		Entity::Entity( const unsigned int id ) : 
+		Listener::Listener( const unsigned int id ) : 
 			_id(id)
 		{
 		};
 
 		// The destructor of the class.
-		Entity::~Entity()
+		Listener::~Listener()
 		{
 		};
 
 
 		// A function to be called when the entity is created.
-		void Entity::on_create()
+		void Listener::on_create()
 		{
 		};
 
 		// A function to be called when the entity is destroyed.
-		void Entity::on_destroy()
+		void Listener::on_destroy()
 		{
 		};
 
 		// A function to be called when an event occurs.
-		void Entity::on_event( const Event& )
+		void Listener::on_event( const Event& )
 		{
 		};
 
 		// A function responsible of registering an event for the entity.
-		void Entity::register_event( const EventCode& code )
+		void Listener::register_event( const EventCode& code )
 		{
 			EventManager* manager = EventManager::get();
 
@@ -47,7 +47,7 @@ namespace athena
 		};
 
 		// A function responsible of unregistering an event for the entity.
-		void Entity::unregister_event( const EventCode& code )
+		void Listener::unregister_event( const EventCode& code )
 		{
 			EventManager* manager = EventManager::get();
 
@@ -57,7 +57,7 @@ namespace athena
 		};
 
 		// A function responsible of unregistering all events for the entity.
-		void Entity::unregister_all_events()
+		void Listener::unregister_all_events()
 		{
 			EventManager* manager = EventManager::get();
 

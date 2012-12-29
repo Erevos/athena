@@ -99,14 +99,14 @@
     <ClInclude Include="..\..\src\core\periodicEventInfo.hpp">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\core\entity.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\display\renderManager.hpp">
       <Filter>Header Files\Display</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\io\inputManager.hpp">
       <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\listener.hpp">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +152,14 @@
     <ClCompile Include="..\..\src\core\periodicEventInfo.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\core\entity.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\display\renderManager.cpp">
       <Filter>Source Files\Display</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\io\inputManager.cpp">
       <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\listener.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +184,7 @@
     <None Include="..\..\src\utility\timer.inl">
       <Filter>Header Files\Utility</Filter>
     </None>
-    <None Include="..\..\src\core\entity.inl">
+    <None Include="..\..\src\core\listener.inl">
       <Filter>Header Files\Core</Filter>
     </None>
   </ItemGroup>

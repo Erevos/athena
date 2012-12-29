@@ -90,9 +90,9 @@ namespace athena
 
 
 		// A function responsible of queuing an event to be removed.
-		void EventManager::_queue_entity_removal( Entity* entity )
+		void EventManager::_queue_entity_removal( Listener* entity )
 		{
-			std::vector<Entity*>::iterator entity_iterator(_pending_entity_removals.begin());
+			std::vector<Listener*>::iterator entity_iterator(_pending_entity_removals.begin());
 
 
 			while ( entity_iterator != _pending_entity_removals.end() )
@@ -129,12 +129,12 @@ namespace athena
 		void EventManager::_perform_removals()
 		{
 			for (
-					std::vector<Entity*>::iterator entity_iterator = _pending_entity_removals.begin();
+					std::vector<Listener*>::iterator entity_iterator = _pending_entity_removals.begin();
 					entity_iterator != _pending_entity_removals.end();
 					++entity_iterator
 				)
 			{
-				std::map<Entity*,std::vector<EventCode> >::iterator entity_list_iterator(_entity_list.find((*entity_iterator)));
+				std::map<Listener*,std::vector<EventCode> >::iterator entity_list_iterator(_entity_list.find((*entity_iterator)));
 
 
 				if ( entity_list_iterator != _entity_list.end() )
@@ -147,7 +147,7 @@ namespace athena
 					++event_iterator
 				)
 			{
-				std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find((*event_iterator)));
+				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find((*event_iterator)));
 
 
 				if ( event_list_iterator != _event_list.end() )
@@ -159,7 +159,7 @@ namespace athena
 		};
 
 		// A function responsible of adding notification regarding a single event for an entity.
-		void EventManager::_add_event( std::map<Entity*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code )
+		void EventManager::_add_event( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code )
 		{
 			std::vector<EventCode>::iterator event_iterator(entity_iterator->second.begin());
 
@@ -174,12 +174,12 @@ namespace athena
 
 			if ( event_iterator == entity_iterator->second.end() )
 			{
-				std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find(code));
+				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find(code));
 
 
 				if ( event_list_iterator != _event_list.end() )
 				{
-					std::vector<Entity*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
+					std::vector<Listener*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
 					
 
 					while ( event_list_entity_iterator != event_list_iterator->second.end() )
@@ -194,14 +194,14 @@ namespace athena
 						event_list_iterator->second.push_back(entity_iterator->first);
 				}
 				else
-					_event_list.insert(std::pair<EventCode,std::vector<Entity*> >(code,std::vector<Entity*>(1,entity_iterator->first)));
+					_event_list.insert(std::pair<EventCode,std::vector<Listener*> >(code,std::vector<Listener*>(1,entity_iterator->first)));
 
 				entity_iterator->second.push_back(code);
 			}
 		};
 
 		// A function responsible of removing notification regarding a single event for an entity.
-		void EventManager::_remove_event( std::map<Entity*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code )
+		void EventManager::_remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code )
 		{
 			std::vector<EventCode>::iterator event_iterator(entity_iterator->second.begin());
 
@@ -210,12 +210,12 @@ namespace athena
 			{
 				if ( (*event_iterator) == code )
 				{
-					std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find(code));
+					std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find(code));
 
 
 					if ( event_list_iterator != _event_list.end() )
 					{
-						std::vector<Entity*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
+						std::vector<Listener*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
 					
 
 						while ( event_list_entity_iterator != event_list_iterator->second.end() )
@@ -246,7 +246,7 @@ namespace athena
 		};
 
 		// A function responsible of removing notification regarding all events for an entity.
-		void EventManager::_remove_all_events( std::map<Entity*,std::vector<EventCode> >::iterator& entity_iterator )
+		void EventManager::_remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator )
 		{
 			for (
 					std::vector<EventCode>::iterator event_iterator(entity_iterator->second.begin());
@@ -254,12 +254,12 @@ namespace athena
 					++event_iterator
 				)
 			{
-				std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find((*event_iterator)));
+				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find((*event_iterator)));
 
 
 				if ( event_list_iterator != _event_list.end() )
 				{
-					std::vector<Entity*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
+					std::vector<Listener*>::iterator event_list_entity_iterator(event_list_iterator->second.begin());
 					
 
 					while ( event_list_entity_iterator != event_list_iterator->second.end() )
@@ -284,9 +284,9 @@ namespace athena
 		};
 
 		// The function that is used to perform any entity operations.
-		void EventManager::_perform_entity_operation( EntityOperation& operation )
+		void EventManager::_perform_entity_operation( ListenerOperation& operation )
 		{
-			std::map<Entity*,std::vector<EventCode> >::iterator entity_iterator(_entity_list.find(operation.entity));
+			std::map<Listener*,std::vector<EventCode> >::iterator entity_iterator(_entity_list.find(operation.entity));
 
 
 			switch ( operation.operation )
@@ -295,7 +295,7 @@ namespace athena
 
 					if ( entity_iterator == _entity_list.end() )
 					{
-						_entity_list.insert(std::pair<Entity*,std::vector<EventCode> >(operation.entity,std::vector<EventCode>(0,0)));
+						_entity_list.insert(std::pair<Listener*,std::vector<EventCode> >(operation.entity,std::vector<EventCode>(0,0)));
 						entity_iterator = _entity_list.find(operation.entity);
 					}
 
@@ -344,7 +344,7 @@ namespace athena
 				_lock.lock(false);
 
 				for (
-						std::deque<EntityOperation>::iterator operation_iterator = _pending_operation_queue.begin();
+						std::deque<ListenerOperation>::iterator operation_iterator = _pending_operation_queue.begin();
 						operation_iterator != _pending_operation_queue.end();
 						++operation_iterator
 					)
@@ -356,13 +356,13 @@ namespace athena
 				_lock.unlock();
 
 
-				std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find(event_iterator->code()));
+				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find(event_iterator->code()));
 
 
 				if ( event_list_iterator != _event_list.end() )
 				{
 					for (
-							std::vector<Entity*>::iterator event_list_entity_iterator = event_list_iterator->second.begin();
+							std::vector<Listener*>::iterator event_list_entity_iterator = event_list_iterator->second.begin();
 							event_list_entity_iterator != event_list_iterator->second.end();
 							++event_list_entity_iterator
 						)
@@ -387,14 +387,14 @@ namespace athena
 
 				if ( difference >= event_iterator->_period )
 				{
-					std::map<EventCode,std::vector<Entity*> >::iterator event_list_iterator(_event_list.find(event_iterator->_event.code()));
+					std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(_event_list.find(event_iterator->_event.code()));
 					Parameter parameter(event_iterator->_event.parameter(0));
 				
 					
 					*(static_cast<utility::TimerValueType*>(parameter.data())) = difference;
 
 					for (
-							std::deque<EntityOperation>::iterator operation_iterator = _pending_operation_queue.begin();
+							std::deque<ListenerOperation>::iterator operation_iterator = _pending_operation_queue.begin();
 							operation_iterator != _pending_operation_queue.end();
 							++operation_iterator
 						)
@@ -407,7 +407,7 @@ namespace athena
 					if ( event_list_iterator != _event_list.end() )
 					{
 						for (
-								std::vector<Entity*>::iterator event_list_entity_iterator = event_list_iterator->second.begin();
+								std::vector<Listener*>::iterator event_list_entity_iterator = event_list_iterator->second.begin();
 								event_list_entity_iterator != event_list_iterator->second.end();
 								++event_list_entity_iterator
 							)
@@ -645,9 +645,9 @@ namespace athena
 		};
 
 		// A function responsible of registering an entity for notification of the specified event code.
-		void EventManager::register_event( Entity* entity , const EventCode& code )
+		void EventManager::register_event( Listener* entity , const EventCode& code )
 		{
-			EntityOperation operation = {AddEvent,code,entity};
+			ListenerOperation operation = {AddEvent,code,entity};
 
 
 			_lock.lock(false);
@@ -662,9 +662,9 @@ namespace athena
 		};
 			
 		// A function responsible of unregistering an entity from notification of the specified event code.
-		void EventManager::unregister_event( Entity* entity , const EventCode& code )
+		void EventManager::unregister_event( Listener* entity , const EventCode& code )
 		{
-			EntityOperation operation = {RemoveEvent,code,entity};
+			ListenerOperation operation = {RemoveEvent,code,entity};
 
 
 			_lock.lock(false);
@@ -679,9 +679,9 @@ namespace athena
 		};
 
 		// A function responsible of unregistering an entity from notification of all events.
-		void EventManager::unregister_all_events( Entity* entity )
+		void EventManager::unregister_all_events( Listener* entity )
 		{
-			EntityOperation operation = {RemoveAllEvents,0,entity};
+			ListenerOperation operation = {RemoveAllEvents,0,entity};
 
 
 			_lock.lock(false);

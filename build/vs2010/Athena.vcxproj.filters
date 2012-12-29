@@ -87,9 +87,6 @@
     <ClInclude Include="..\..\src\io\logManager.hpp">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\core\entity.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\core\parameter.hpp">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\utility\timer.hpp">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\listener.hpp">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +134,6 @@
     <ClCompile Include="..\..\src\io\logEntry.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\core\entity.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\parameter.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -158,6 +155,9 @@
     <ClCompile Include="..\..\src\io\logManagerW.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\listener.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\event.inl">
@@ -175,9 +175,6 @@
     <None Include="..\..\src\io\logEntry.inl">
       <Filter>Header Files\IO</Filter>
     </None>
-    <None Include="..\..\src\core\entity.inl">
-      <Filter>Header Files\Core</Filter>
-    </None>
     <None Include="..\..\src\core\parameter.inl">
       <Filter>Header Files\Core</Filter>
     </None>
@@ -186,6 +183,9 @@
     </None>
     <None Include="..\..\src\utility\timer.inl">
       <Filter>Header Files\Utility</Filter>
+    </None>
+    <None Include="..\..\src\core\listener.inl">
+      <Filter>Header Files\Core</Filter>
     </None>
   </ItemGroup>
 </Project>

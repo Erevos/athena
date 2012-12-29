@@ -50,8 +50,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\bin\</OutDir>
-    <IntDir>$(SolutionDir)..\..\bin\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
+    <IntDir>$(ProjectDir)..\..\bin\$(Configuration)\</IntDir>
     <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
@@ -117,7 +117,7 @@
     <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
-    <ClInclude Include="..\..\src\core\entity.hpp" />
+    <ClInclude Include="..\..\src\core\listener.hpp" />
     <ClInclude Include="..\..\src\core\parameter.hpp" />
     <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
     <ClInclude Include="..\..\src\display\renderManager.hpp" />
@@ -134,7 +134,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
-    <ClCompile Include="..\..\src\core\entity.cpp" />
+    <ClCompile Include="..\..\src\core\listener.cpp" />
     <ClCompile Include="..\..\src\core\parameter.cpp" />
     <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
     <ClCompile Include="..\..\src\display\renderManager.cpp" />
@@ -156,7 +156,7 @@
     <ClInclude Include="..\..\src\io\logEntry.inl">
       <FileType>Document</FileType>
     </ClInclude>
-    <None Include="..\..\src\core\entity.inl" />
+    <None Include="..\..\src\core\listener.inl" />
     <None Include="..\..\src\core\parameter.inl" />
     <ClCompile Include="..\..\src\io\logManagerA.cpp">
       <FileType>Document</FileType>

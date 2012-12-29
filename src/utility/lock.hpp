@@ -1,46 +1,46 @@
-#ifndef ATHENA_PARALLEL_LOCK_HPP
-	#define ATHENA_PARALLEL_LOCK_HPP
+#ifndef ATHENA_UTILITY_LOCK_HPP
+#define ATHENA_UTILITY_LOCK_HPP
 
-	#include "../athenaDefinitions.hpp"
+#include "../athenaDefinitions.hpp"
 
 
 
-	namespace athena
+namespace athena
+{
+
+	namespace utility
 	{
 
-		namespace utility
+		/*
+			An abstract class representing a lock.
+			It is used as an interface for use by other lock classes.
+		*/
+		class Lock
 		{
+			public:
 
-			/*
-				An abstract class representing a lock.
-				It is used as an interface for use by other lock classes.
-			*/
-			class Lock
-			{
-				public:
-
-					// The constructor of the class.
-					ATHENA_DLL ATHENA_PRECALL Lock() ATHENA_POSTCALL;
-					// The destructor of the class.
-					ATHENA_DLL virtual ATHENA_PRECALL ~Lock() ATHENA_POSTCALL;
+				// The constructor of the class.
+				ATHENA_DLL Lock();
+				// The destructor of the class.
+				ATHENA_DLL virtual ~Lock();
 
 
-					//  A function returning whether the lock has been initialised.
-					ATHENA_DLL virtual bool ATHENA_PRECALL initialised() const = 0 ATHENA_POSTCALL;
+				//  A function returning whether the lock has been initialised.
+				ATHENA_DLL virtual bool initialised() const = 0;
 
 
-					// A function acquiring the lock.
-					ATHENA_DLL virtual void ATHENA_PRECALL lock( const bool shared = false ) = 0 ATHENA_POSTCALL;
-					// A function trying to acquire the lock. Returns true on success.
-					ATHENA_DLL virtual bool ATHENA_PRECALL try_lock( const bool shared = false ) = 0 ATHENA_POSTCALL;
-					// A function releasing the lock.
-					ATHENA_DLL virtual void ATHENA_PRECALL unlock() = 0 ATHENA_POSTCALL;
-			};
+				// A function acquiring the lock.
+				ATHENA_DLL virtual void lock( const bool shared = false ) = 0;
+				// A function trying to acquire the lock. Returns true on success.
+				ATHENA_DLL virtual bool try_lock( const bool shared = false ) = 0;
+				// A function releasing the lock.
+				ATHENA_DLL virtual void unlock() = 0;
+		};
 
-		} /* utility */
+	} /* utility */
 
-	} /* athena */
+} /* athena */
 
 
 
-#endif /* ATHENA_PARALLEL_LOCK_HPP */
+#endif /* ATHENA_UTILITY_LOCK_HPP */

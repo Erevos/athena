@@ -111,9 +111,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
-    <ClInclude Include="..\..\src\core\entity.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
+    <ClInclude Include="..\..\src\core\listener.hpp" />
     <ClInclude Include="..\..\src\core\parameter.hpp" />
     <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
     <ClInclude Include="..\..\src\display\renderManager.hpp" />
@@ -128,9 +128,9 @@
     <ClInclude Include="..\..\src\utility\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\core\entity.cpp" />
     <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
+    <ClCompile Include="..\..\src\core\listener.cpp" />
     <ClCompile Include="..\..\src\core\parameter.cpp" />
     <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
     <ClCompile Include="..\..\src\display\renderManager.cpp" />
@@ -147,9 +147,9 @@
     <ClCompile Include="..\..\src\utility\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\core\entity.inl" />
     <None Include="..\..\src\core\event.inl" />
     <None Include="..\..\src\core\eventManager.inl" />
+    <None Include="..\..\src\core\listener.inl" />
     <None Include="..\..\src\core\parameter.inl" />
     <None Include="..\..\src\io\logEntry.inl" />
     <None Include="..\..\src\io\logManager.inl" />

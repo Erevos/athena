@@ -1,29 +1,32 @@
 #ifndef ATHENA_UTILITY_TIMER_INL
-	#define ATHENA_UTILITY_TIMER_INL
+#define ATHENA_UTILITY_TIMER_INL
+
+#ifndef ATHENA_UTILITY_TIMER_HPP
+	#error "timer.hpp must be included before timer.inl"
+#endif /* ATHENA_UTILITY_TIMER_HPP */
 
 
+namespace athena
+{
 
-	namespace athena
+	namespace utility
 	{
 
-		namespace utility
+		// A function returning the current time in milliseconds.
+		inline TimerValueType Timer::milliseconds()
 		{
+			return seconds()*1000.0;
+		};
 
-			// A function returning the current time in milliseconds.
-			inline TimerValueType Timer::milliseconds()
-			{
-				return seconds()*1000.0;
-			};
+		// A function returning the difference since the last call in milliseconds.
+		inline TimerValueType Timer::difference_in_milliseconds()
+		{
+			return difference_in_seconds()*1000.0;
+		};
 
-			// A function returning the difference since the last call in milliseconds.
-			inline TimerValueType Timer::difference_in_milliseconds()
-			{
-				return difference_in_seconds()*1000.0;
-			};
+	} /* utility */
 
-		} /* utility */
-
-	} /* athena */
+} /* athena */
 
 
 
