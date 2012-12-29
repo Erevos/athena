@@ -21,15 +21,16 @@
 	#endif /* NOMINMAX */
 
 	// A definition in order to detect memory leaks.
-	#ifdef			_DEBUG
+	#ifdef _DEBUG
 		
-		#ifndef		_CRTDBG_MAP_ALLOC
-			#define		_CRTDBG_MAP_ALLOC
-		#endif		/* _CRTDBG_MAP_ALLOC */
+		#ifndef _CRTDBG_MAP_ALLOC
+			#define _CRTDBG_MAP_ALLOC
+		#endif /* _CRTDBG_MAP_ALLOC */
 
-			#include	<crtdbg.h>
+		#include <stdlib.h>
+		#include <crtdbg.h>
 
-	#endif			/* _DEBUG */
+	#endif /* _DEBUG */
 
 	// Macro that is used when the library is exported or imported.
 	#ifdef ATHENA_EXPORTS
