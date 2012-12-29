@@ -2,6 +2,7 @@
 #define ATHENA_CORE_EVENTMANAGER_HPP
 
 #include "../athenaDefinitions.hpp"
+#include "../athenaEventCodes.hpp"
 #include "../utility/criticalSection.hpp"
 #include "../utility/timer.hpp"
 #include "event.hpp"
@@ -25,12 +26,13 @@ namespace athena
 	{
 
 		/*
-			An enumeration holding the possible operations on an entity or
-			the possible operations an entity can perform regarding an event.
+			An enumeration holding the possible operations on a listener or
+			the possible operations a listener can perform regarding an event.
 		*/
 		enum AvailableListenerOperations
 		{
 			AddEvent = 0 , 
+			AddAllEvents , 
 			RemoveEvent , 
 			RemoveAllEvents , 
 		};
@@ -38,13 +40,13 @@ namespace athena
 
 		/*
 			A struct that is used by the Event Manager in order to 
-			manage any pending entity operations.
+			manage any pending listener operations.
 		*/
 		struct ListenerOperation
 		{
 			AvailableListenerOperations operation;
 			EventCode code;
-			Listener* entity;
+			Listener* listener;
 		};
 
 
@@ -71,7 +73,7 @@ namespace athena
 				#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 				#else
 						
-					/// The amount of time the spawned thread will sleep if there is nothing to do.
+					// The amount of time the spawned thread will sleep if there is nothing to do.
 					#ifdef _WIN32
 						static const unsigned long _sleep_time;
 					#else
@@ -84,20 +86,20 @@ namespace athena
 				// The map that holds the registry of events and the entities that are registered for each event.
 				std::map<EventCode,std::vector<Listener*> > _event_list;
 				// The map that holds the registry of entities and the events they are registered with.
-				std::map<Listener*,std::vector<EventCode> > _entity_list;
+				std::map<Listener*,std::vector<EventCode> > _listener_list;
 				// The event queue that is processed by the event manager.
 				std::deque<Event> _event_queue;
 				// The periodic event list that is triggered every specified interval.
 				std::vector<PeriodicEventInfo> _periodic_event_list;
 				/*
-					The pending entity operation queue that is used to 
-					insert or delete entities or event notifications from the event and entity list
+					The pending listener operation queue that is used to 
+					insert or delete entities or event notifications from the event and listener list
 				*/
 				std::deque<ListenerOperation> _pending_operation_queue;
 				// An array holding the events to be removed from the event list.
 				std::vector<EventCode> _pending_event_removals;
-				// An array  holding the entities to be removed from the entity list.
-				std::vector<Listener*> _pending_entity_removals;
+				// An array  holding the entities to be removed from the listener list.
+				std::vector<Listener*> _pending_listener_removals;
 				// A lock that is used to handle concurrency issues.
 				utility::CriticalSection _lock;
 				// A lock that is used to handle initialisation issues.
@@ -123,20 +125,20 @@ namespace athena
 				~EventManager();
 
 
-				// A function responsible of queuing a entity to be removed.
-				void _queue_entity_removal( Listener* entity );
+				// A function responsible of queuing a listener to be removed.
+				void _queue_listener_removal( Listener* listener );
 				// A function responsible of queuing an event to be removed.
 				void _queue_event_removal( const EventCode& code );
 				// A function responsible of performing any queued removals.
 				void _perform_removals();
-				// A function responsible of adding notification regarding a single event for an entity.
-				void _add_event( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code );
-				// A function responsible of removing notification regarding a single event for an entity.
-				void _remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator , const EventCode& code );
-				// A function responsible of removing notification regarding all events for an entity.
-				void _remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& entity_iterator );
-				// A function responsible of performing any entity operations.
-				void _perform_entity_operation( ListenerOperation& operation );
+				// A function responsible of adding notification regarding a single event for a listener.
+				void _add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				// A function responsible of removing notification regarding a single event for a listener.
+				void _remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				// A function responsible of removing notification regarding all events for a listener.
+				void _remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable );
+				// A function responsible of performing any listener operations.
+				void _perform_listener_operation( ListenerOperation& operation );
 				// A function responsible of performing the operation of the event manager.
 				void _operate();
 				// A function responsible of performing cleanup.
@@ -168,12 +170,19 @@ namespace athena
 				ATHENA_DLL void triger_event_periodically( Event& event , const double& period );
 				// A function responsible of unregistering an event from being triggered periodically.
 				ATHENA_DLL void stop_triggerring_event_periodically( const EventCode& code );
-				// A function responsible of registering an entity for notification of the specified event code.
-				ATHENA_DLL void register_event( Listener* entity , const EventCode& code );
-				// A function responsible of unregistering an entity from notification of the specified event code.
-				ATHENA_DLL void unregister_event( Listener* entity , const EventCode& code );
-				// A function responsible of unregistering an entity from notification of all events.
-				ATHENA_DLL void unregister_all_events( Listener* entity );
+				// A function responsible of registering a listener for notification of the specified event code.
+				ATHENA_DLL void register_event( Listener* listener , const EventCode& code );
+				/*
+					A function responsible of registering all events for the listener.
+					This function will unregister all previously registered events.
+					Additionally, events cannot be unregistered on an individual basis, instead a call
+					to unregister_all_events must be made.
+				*/
+				ATHENA_DLL void register_all_events( Listener* listener );
+				// A function responsible of unregistering a listener from notification of the specified event code.
+				ATHENA_DLL void unregister_event( Listener* listener , const EventCode& code );
+				// A function responsible of unregistering a listener from notification of all events.
+				ATHENA_DLL void unregister_all_events( Listener* listener );
 
 				#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 

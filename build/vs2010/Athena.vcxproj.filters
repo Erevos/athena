@@ -105,6 +105,9 @@
     <ClInclude Include="..\..\src\core\listener.hpp">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\athenaEventCodes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\eventManager.cpp">

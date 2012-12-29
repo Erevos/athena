@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
+    <ClInclude Include="..\..\src\athenaEventCodes.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
     <ClInclude Include="..\..\src\core\listener.hpp" />

@@ -32,7 +32,7 @@ namespace athena
 
 				// The list of the parameters.
 				std::vector<Parameter> _parameters;
-				// The id code of the event
+				// The id code of the event. A valid code id is greater than 0. 0 is reserved for the ALL_EVENTS virtual event.
 				EventCode _code;
 				// The function to be called in order to perform cleanup.
 				EventCleanupFunction _cleanup_function;
