@@ -32,7 +32,7 @@ namespace athena
 					_initialised = true;
 
 			#endif /* _WIN32 */
-		};
+		}
 
 		// The destructor of the class.
 		ConditionVariable::~ConditionVariable()
@@ -41,7 +41,7 @@ namespace athena
 			#else
 				pthread_cond_destroy(&_variable);
 			#endif /* _WIN32 */
-		};
+		}
 
 
 		/*
@@ -75,7 +75,7 @@ namespace athena
 				}
 
 			#endif /* _WIN32 */
-		};
+		}
 
 		void ConditionVariable::wait( ReadersWriterLock& lock , const WaitValueType milliseconds , const FlagValueType flags )
 		{
@@ -89,7 +89,7 @@ namespace athena
 				SleepConditionVariableSRW(&_variable,&(lock.lock_ref()),milliseconds,flags);
 			#else	
 			#endif /* _WIN32 */
-		};
+		}
 
 		// Wake a single thread that is in a wait state.
 		void ConditionVariable::wake()
@@ -105,7 +105,7 @@ namespace athena
 					pthread_cond_signal(&_variable);
 				#endif /* _WIN32 */
 			}
-		};
+		}
 
 		// Wake all the threads that are in a  wait state on that condition variable.
 		void ConditionVariable::wake_all()
@@ -120,7 +120,7 @@ namespace athena
 					pthread_cond_broadcast(&_variable);
 				#endif /* _WIN32 */
 			}
-		};
+		}
 
 	} /* utility */
 

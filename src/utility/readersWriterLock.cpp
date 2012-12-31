@@ -25,7 +25,7 @@ namespace athena
 			#else
 				_initialised = ( pthread_rwlock_init(&_lock,INVALID_POINTER) == 0 )
 			#endif /* _WIN32 */
-		};
+		}
 
 		// The destructor of the class.
 		ReadersWriterLock::~ReadersWriterLock()
@@ -34,7 +34,7 @@ namespace athena
 			#else
 				pthread_rwlock_destroy(&_lock);
 			#endif /* _WIN32 */
-		};
+		}
 
 
 		// Function obtaining the critical section. The Readers-Writer lock supports shared functionality.
@@ -71,7 +71,7 @@ namespace athena
 					_shared_lock = false;
 				}
 			}
-		};
+		}
 
 		/*
 			Function trying to obtain the critical section.
@@ -116,7 +116,7 @@ namespace athena
 
 				
 			return false;
-		};
+		}
 
 		// Function releasing the Readers-Writer lock. 
 		void ReadersWriterLock::unlock()
@@ -146,7 +146,7 @@ namespace athena
 					#endif /* _WIN32 */
 				}
 			}
-		};
+		}
 
 	} /* utility */
 

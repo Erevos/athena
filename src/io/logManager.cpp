@@ -34,10 +34,10 @@ namespace athena
 			_auto_dump_threshold(10000),
 			_auto_dump_count(0),
 			_auto_dump_offset(0),
-			_auto_dump_file_open_mode(std::ofstream::app),
 			_type_separator(" "),
 			_message_separator(" "),
 			_timestamp_separator(" "),
+			_auto_dump_file_open_mode(std::ofstream::app),
 			_auto_purge(false),
 			_auto_dump(false),
 			_echo(false)

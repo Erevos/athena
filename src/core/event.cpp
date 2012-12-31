@@ -14,12 +14,12 @@ namespace athena
 			_code(code) , 
 			_cleanup_function(INVALID_POINTER)
 		{
-		};
+		}
 
 		// The destructor of the class.
 		Event::~Event()
 		{
-		};
+		}
 
 
 		// Function responsible of setting the parameter at the given index or adding a new parameter to the list.
@@ -32,7 +32,7 @@ namespace athena
 			}
 			else
 				_parameters.push_back(Parameter(type,data));
-		};
+		}
 
 		// Function responsible of performing cleanup.
 		void Event::cleanup()
@@ -41,7 +41,7 @@ namespace athena
 				(*_cleanup_function)(*this);
 
 			clear();
-		};
+		}
 
 
 		// Function returning the parameter at the given index.
@@ -51,7 +51,7 @@ namespace athena
 				return _parameters[index];
 			else
 				return Parameter(Null,INVALID_POINTER);
-		};
+		}
 
 	} /* core */
 

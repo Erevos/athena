@@ -17,12 +17,12 @@ namespace athena
 		// The constructor of the class.
 		InputManager::InputManager()
 		{
-		};
+		}
 
 		// The destructor of the class.
 		InputManager::~InputManager()
 		{
-		};
+		}
 
 
 		// A function responsible of initialising the single instance of the class.
@@ -43,7 +43,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function responsible of deinitialising the single instance of the class.
 		void InputManager::deinitialise()
@@ -57,7 +57,7 @@ namespace athena
 			}
 
 			_instance_lock.unlock();
-		};
+		}
 
 		// A function responsible of returning a single instance of the class.
 		InputManager* InputManager::get()
@@ -71,7 +71,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 	} /* io */
 

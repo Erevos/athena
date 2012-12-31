@@ -11,12 +11,12 @@ namespace athena
 		// The constructor of the class.
 		Lock::Lock()
 		{
-		};
+		}
 
 		// The destructor of the class.
 		Lock::~Lock()
 		{
-		};
+		}
 
 	} /* utility */
 

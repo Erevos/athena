@@ -24,14 +24,14 @@ namespace athena
 		#endif /* _WIN32 */
 		{
 			return _lock;
-		};
+		}
 
 
 		// A function returning whether the critical section has been initialised.
 		inline bool ReadersWriterLock::initialised() const
 		{
 			return _initialised;
-		};
+		}
 
 	} /* utility */
 

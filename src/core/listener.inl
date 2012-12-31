@@ -17,14 +17,14 @@ namespace athena
 		inline void Listener::id( const unsigned int value )
 		{
 			_id = value;
-		};
+		}
 
 
 		// A function returning the id of the listener.
 		inline unsigned int Listener::id() const
 		{
 			return _id;
-		};
+		}
 
 	} /* core */
 

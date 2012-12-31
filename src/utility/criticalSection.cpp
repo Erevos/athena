@@ -45,7 +45,7 @@ namespace athena
 				}
 
 			#endif /* _WIN32 */
-		};
+		}
 
 		// The destructor of the class.
 		CriticalSection::~CriticalSection()
@@ -55,7 +55,7 @@ namespace athena
 			#else
 				pthread_mutex_destroy(&_lock);
 			#endif /* _WIN32 */
-		};
+		}
 
 
 		// Function obtaining the critical section. The critical section does not support shared functionality.
@@ -70,7 +70,7 @@ namespace athena
 					pthread_mutex_lock(&_lock);
 				#endif /* _WIN32 */
 			}
-		};
+		}
 
 		// Function trying to obtain the critical section. The critical section does not support shared functionality.
 		bool CriticalSection::try_lock( const bool )
@@ -90,7 +90,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function releasing the critical section. 
 		void CriticalSection::unlock()
@@ -104,7 +104,7 @@ namespace athena
 					pthread_mutex_unlock(&_lock);
 				#endif /* _WIN32 */
 			}
-		};
+		}
 
 	} /* utility */
 

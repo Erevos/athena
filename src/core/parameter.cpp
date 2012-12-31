@@ -13,12 +13,12 @@ namespace athena
 			_type(type) , 
 			_data(data)
 		{
-		};
+		}
 
 		// The destructor of the class.
 		Parameter::~Parameter()
 		{
-		};
+		}
 
 	} /* core */
 

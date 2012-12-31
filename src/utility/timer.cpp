@@ -34,7 +34,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function responsible of getting the frequency.
 		unsigned long long Timer::_get_frequency()
@@ -64,7 +64,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 
 		// The constructor of the class.
@@ -76,12 +76,12 @@ namespace athena
 			_frequency(1) , 
 			_paused(false)
 		{
-		};
+		}
 
 		// The destructor of the class.
 		Timer::~Timer()
 		{
-		};
+		}
 
 
 		// A function responsible of starting the timer.
@@ -94,7 +94,7 @@ namespace athena
 			_reverse_frequency = static_cast<TimerValueType>(1)/static_cast<TimerValueType>(_frequency);
 			_paused = false;
 			_lock.unlock();
-		};
+		}
 
 		// A function responsible of pausing the timer.
 		void Timer::pause()
@@ -102,7 +102,7 @@ namespace athena
 			_lock.lock(false);
 			_paused = true;
 			_lock.unlock();
-		};
+		}
 
 		// A function responsible of resuming the timer if it is paused.
 		void Timer::resume()
@@ -110,7 +110,7 @@ namespace athena
 			_lock.lock(false);
 			_paused = false;
 			_lock.unlock();
-		};
+		}
 
 
 		// A function returning the current time in seconds.
@@ -129,7 +129,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function returning the difference since the last call in seconds.
 		TimerValueType Timer::difference_in_seconds()
@@ -151,7 +151,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function returning the current time of the timer.
 		unsigned long long Timer::time()
@@ -169,7 +169,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function returning the frequency of the timer.
 		unsigned long long Timer::frequency()
@@ -183,7 +183,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function returning whether the timer is paused or not.
 		bool Timer::is_paused()
@@ -197,7 +197,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 	} /* utility */
 

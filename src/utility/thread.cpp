@@ -28,7 +28,7 @@ namespace athena
 			#else
 				pthread_exit(&(thread->_exit_code));
 			#endif /* _WIN32 */
-		};
+		}
 
 
 		// The constructor of the class.
@@ -40,14 +40,14 @@ namespace athena
 			_parameter(parameter) , 
 			_running(false)
 		{
-		};
+		}
 
 		// The destructor of the class.
 		Thread::~Thread()
 		{
 			// Destroy the thread if it is not already destroyed.
 			destroy();
-		};
+		}
 
 
 		// Function setting the functionality of the thread. Must be called before the create() function.
@@ -56,7 +56,7 @@ namespace athena
 			_lock.lock(false);
 			_function = function;
 			_lock.unlock();
-		};
+		}
 			
 		// Function setting the parameter of the thread. Must be called before the create() function.
 		void Thread::parameter( void* value )
@@ -64,7 +64,7 @@ namespace athena
 			_lock.lock(false);
 			_parameter = value;
 			_lock.unlock();
-		};
+		}
 
 
 		// Function returning the running status of the thread.
@@ -79,7 +79,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the functionality function of the thread.
 		ThreadFunction Thread::functionality()
@@ -93,7 +93,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the parameter of the thread.
 		void* Thread::parameter()
@@ -107,7 +107,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the exit code of the thread. Should be called after destroy().
 		ThreadExitType Thread::exit_code() const
@@ -121,7 +121,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 
 		// Function creating the thread. Returns true on success, false on failure.
@@ -161,7 +161,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function destroying the thread.
 		void Thread::destroy()
@@ -201,7 +201,7 @@ namespace athena
 			#endif /* _WIN32 */
 
 			_lock.unlock();
-		};
+		}
 
 	} /* utility */
 

@@ -17,26 +17,26 @@ namespace athena
 		inline void Parameter::type( const ParameterType& type )
 		{
 			_type = type;
-		};
+		}
 
 		// A function responsible of setting the data of the parameter.
 		inline void Parameter::data( void* data )
 		{
 			_data = data;
-		};
+		}
 
 					
 		// A function returning the type of the parameter.
 		inline ParameterType Parameter::type() const
 		{
 			return _type;
-		};
+		}
 
 		// A function returning the data of the parameter.
 		inline void* Parameter::data() const
 		{
 			return _data;
-		};
+		}
 
 	} /* core */
 

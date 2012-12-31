@@ -56,7 +56,7 @@ namespace athena
 
 
 				return return_value;
-			};
+			}
 
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
@@ -80,14 +80,14 @@ namespace athena
 			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 		{
-		};
+		}
 
 		// The destructor of the class.
 		EventManager::~EventManager()
 		{
 			// Perform cleanup if it has not been done already.
 			_cleanup();
-		};
+		}
 
 
 		// A function responsible of queuing an event to be removed.
@@ -109,7 +109,7 @@ namespace athena
 			// If the listener is not queued for removal, add it to the queue.
 			if  ( listener_iterator == _pending_listener_removals.end() )
 				_pending_listener_removals.push_back(listener);
-		};
+		}
 
 		// A function responsible of queuing an event to be removed.
 		void EventManager::_queue_event_removal( const EventCode& code )
@@ -130,7 +130,7 @@ namespace athena
 			// If the event is not queued for removal, add it to the queue.
 			if  ( event_iterator == _pending_event_removals.end() )
 				_pending_event_removals.push_back(code);
-		};
+		}
 
 		// A function responsible of performing any queued removals.
 		void EventManager::_perform_removals()
@@ -170,7 +170,7 @@ namespace athena
 			// Clear the removal queues.
 			_pending_listener_removals.clear();
 			_pending_event_removals.clear();
-		};
+		}
 
 		// A function responsible of adding notification regarding a single event for a listener.
 		void EventManager::_add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
@@ -221,7 +221,7 @@ namespace athena
 				// Add the event to the listener's event list.
 				listener_iterator->second.push_back(code);
 			}
-		};
+		}
 
 		// A function responsible of removing notification regarding a single event for a listener.
 		void EventManager::_remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
@@ -277,7 +277,7 @@ namespace athena
 			// If the listener's event list is empty, queue the listener for removal.
 			if ( listener_iterator->second.size() == 0 )
 				_queue_listener_removal(listener_iterator->first);
-		};
+		}
 
 		// A function responsible of removing notification regarding all events for a listener.
 		void EventManager::_remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable )
@@ -324,7 +324,7 @@ namespace athena
 			// If the listener should be removed from the listener list, queue the listener for removal.
 			if ( removable )
 				_queue_listener_removal(listener_iterator->first);
-		};
+		}
 
 		// The function that is used to perform any listener operations.
 		void EventManager::_perform_listener_operation( ListenerOperation& operation )
@@ -390,7 +390,7 @@ namespace athena
 
 					break;
 			}
-		};
+		}
 
 		// The function that is used to perform the operation of the event manager.
 		void EventManager::_operate()
@@ -578,7 +578,7 @@ namespace athena
 					usleep(_sleep_time);
 				#endif /* WIN32 */
 			}
-		};
+		}
 
 		// A function responsible of performing cleanup.
 		void EventManager::_cleanup()
@@ -604,7 +604,7 @@ namespace athena
 				// Call the specified callback function that is responsible of performing cleanup for the parameters of the event.
 				event_iterator->cleanup();
 			}
-		};
+		}
 
 
 		// A function responsible of initialising the single instance of the class.
@@ -625,7 +625,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function responsible of deinitialising the single instance of the class.
 		void EventManager::deinitialise()
@@ -640,7 +640,7 @@ namespace athena
 			}
 
 			_instance_lock.unlock();
-		};
+		}
 
 		// A function responsible of returning a single instance of the class.
 		EventManager* EventManager::get()
@@ -654,7 +654,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		
 		// A function responsible of commencing the functionality of the event system.
@@ -685,7 +685,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// A function responsible of terminating the functionality of the event system.
 		void EventManager::terminate()
@@ -707,7 +707,7 @@ namespace athena
 			_event_queue.clear();
 			_periodic_event_list.clear();
 			_initialisation_lock.unlock();
-		};
+		}
 
 		// A function responsible of triggering an event with the given parameters and id code.
 		void EventManager::trigger_event( const Event& event )
@@ -720,7 +720,7 @@ namespace athena
 				_event_queue.push_back(event);
 				_lock.unlock();
 			}
-		};
+		}
 
 		/*
 			A function responsible of registering an event to be triggered periodically.
@@ -797,7 +797,7 @@ namespace athena
 
 				_lock.unlock();
 			}
-		};
+		}
 
 		// A function responsible of unregistering an event from being triggered periodically.
 		void EventManager::stop_triggerring_event_periodically( const EventCode& code )
@@ -828,7 +828,7 @@ namespace athena
 
 				_lock.unlock();
 			}
-		};
+		}
 
 		// A function responsible of registering a listener for notification of the specified event code.
 		void EventManager::register_event( Listener* listener , const EventCode& code )
@@ -851,7 +851,7 @@ namespace athena
 			
 				_lock.unlock();
 			}
-		};
+		}
 
 		/*
 			A function responsible of registering all events for the listener.
@@ -876,7 +876,7 @@ namespace athena
 				_pending_operation_queue.push_back(operation);
 			
 			_lock.unlock();
-		};
+		}
 			
 		// A function responsible of unregistering a listener from notification of the specified event code.
 		void EventManager::unregister_event( Listener* listener , const EventCode& code )
@@ -900,7 +900,7 @@ namespace athena
 
 				_lock.unlock();
 			}
-		};
+		}
 
 		// A function responsible of unregistering a listener from notification of all events.
 		void EventManager::unregister_all_events( Listener* listener )
@@ -920,7 +920,7 @@ namespace athena
 				_pending_operation_queue.push_back(operation);
 
 			_lock.unlock();
-		};
+		}
 
 	} /* core */
 
