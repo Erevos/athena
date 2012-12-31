@@ -1,0 +1,10 @@
+LIBNIMG
+
+Copyright 2012 (c) Papadopoulos Nikos <nikpapas@gmail.com>
+
+The library implements a collection of datatypes and utilities
+useful in image manipulation.
+
+Version history
+===============
+0.1.x.x		HEAD

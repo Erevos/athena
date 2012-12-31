@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cwchar>
 
-
+#ifdef _WIN32
 
 namespace athena
 {
@@ -802,3 +802,5 @@ namespace athena
 	} /* io */
 
 } /* athena */
+
+#endif /* _WIN32 */

@@ -1,0 +1,44 @@
+.TH NCF1 5 "June 2012" UNIX "File Formats Manual" 
+.SH NAME
+NCF - Nemesis Configuration Format
+.SH DESCRIPTION
+
+\&VERSION 1
+
+\&Each script line is treated as a separate entry. Trailing and leading whitespaces as well
+\&as tabs are stripped. Blank lines and strings following the pound-sign (#) are treated 
+\&as comments, and are ignored. Local files can be included at the parsing stage with the 
+\&following command:
+
+\&	%include path_to_file
+
+\&Each entry constitutes an instruction. Variables can be created implicitly by referencing 
+\&them at run-time or explicitly with the following syntax:
+
+\&	name = value
+
+\&Blocks are defined to group together instructions. They can contain other blocks thus creating 
+\&a hierarchy. A stack is used to keep track of the groups at the parsing stage. In order 
+\&to begin a new block, it must be pushed to the stack with the instruction:
+
+\&	name = {
+
+\&Accordingly, in order to end a block, it must be popped with:
+
+\&	}
+
+\&Groups can also be created implicitly, simply by referencing them. Unbalanced group instructions are
+\&reported as script errors, however the parser will still try to execute the script.
+
+\&Each block has its own data stack. The variable scope is local and restricted to the block. 
+\&Bottom-most assignments within the same block preveil. Sub-blocks are only used to create hierarchical 
+\&relationships and parent blocks have no direct access to sub-block variables or vice versa.
+
+\&References can be defined to substitute values in assignments instructions during the parsing stage 
+\&in order to reuse strings that are defined upwards in the hierarchy. A reference is defined as:
+
+\&	<name>
+
+.SH AUTHOR
+."BR bar (1)"
+Written by Nikos Papadopoulos <nikpapas at gmail dot com>

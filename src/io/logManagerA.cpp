@@ -1,4 +1,5 @@
 #include "logManager.hpp"
+#include <cstring>
 #include <iostream>
 #include <cwchar>
 
@@ -19,36 +20,36 @@ namespace athena
 
 
 		// The constructor of the class.
-		LogManagerA::LogManagerA() : 
-			_log(0) , 
-			_lock() , 
-			_auto_dump_filestream() , 
-			_auto_dump_filename("App.log") , 
-			_error_tag("Error:") , 
-			_warning_tag("Warning:") , 
-			_message_tag("Message:") , 
-			_echo_stream(&std::cout) , 
-			_max_log_size(10000) , 
-			_auto_purge_threshold(10000) , 
-			_auto_dump_threshold(10000) , 
-			_auto_dump_count(0) , 
-			_auto_dump_offset(0) , 
-			_auto_dump_file_open_mode(std::ofstream::app) , 
-			_type_separator(" ") ,
-			_message_separator(" ") ,
-			_timestamp_separator(" ") , 
-			_auto_purge(false) , 
-			_auto_dump(false) , 
+		LogManagerA::LogManagerA() :
+			_log(0),
+			_lock(),
+			_auto_dump_filestream(),
+			_auto_dump_filename("App.log"),
+			_error_tag("Error:"),
+			_warning_tag("Warning:"),
+			_message_tag("Message:"),
+			_echo_stream(&std::cout),
+			_max_log_size(10000),
+			_auto_purge_threshold(10000),
+			_auto_dump_threshold(10000),
+			_auto_dump_count(0),
+			_auto_dump_offset(0),
+			_auto_dump_file_open_mode(std::ofstream::app),
+			_type_separator(" "),
+			_message_separator(" "),
+			_timestamp_separator(" "),
+			_auto_purge(false),
+			_auto_dump(false),
 			_echo(false)
 		{
-		};
+		}
 
 		// The destructor of the class.
 		LogManagerA::~LogManagerA()
 		{
 			if ( _auto_dump_filestream.is_open() )
 				_auto_dump_filestream.close();
-		};
+		}
 
 
 		// Function responsible of generating a string with the current timestamp.
@@ -88,7 +89,7 @@ namespace athena
 			return_value_buffer << (date.tm_mon + 1) << '/';
 			// Output the year and the separator.
 			return_value_buffer << (date.tm_year+1900) << _timestamp_separator;
-				
+
 			// Append a zero to the hour if they are less than 10.
 			if ( date.tm_hour < 10 )
 				return_value_buffer << '0';
@@ -113,7 +114,7 @@ namespace athena
 
 			// Output the buffer as a string.
 			return return_value_buffer.str();
-		};
+		}
 
 		// Function responsible of updating the timestamps of the log with the new separator.
 		void LogManagerA::_update_timestamps( const std::string& new_separator )
@@ -145,7 +146,7 @@ namespace athena
 				// Set the timestamp of the entry to the updated timestamp.
 				log_iterator->timestamp(timestamp);
 			}
-		};
+		}
 
 		// Function posting an entry to the given stream.
 		void LogManagerA::_post_entry( std::ostream* stream , const LogEntryA& entry )
@@ -170,11 +171,11 @@ namespace athena
 
 					(*stream) << _message_tag;
 					break;
-			};
+			}
 
 			// Output the message separator and the message of the entry.
 			(*stream) << _message_separator << entry.message() << std::endl;
-		};
+		}
 
 		// Function dumping the contents from the log to the given stream starting from offset.
 		bool LogManagerA::_dump_log( std::ostream* stream , const unsigned int offset )
@@ -196,7 +197,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function responsible of managing the size of the log and performing the auto-dump and auto-purge functionalities.
 		void LogManagerA::_manage_log_size()
@@ -240,7 +241,7 @@ namespace athena
 			// If the size of the log is greater than the maximum log size.
 			if ( _log.size() > _max_log_size )
 				_log.pop_front();	// Remove the first entry to the log in order to keep the size constant.
-		};
+		}
 
 		// Function responsible of handling the auto-dump filestream.
 		void LogManagerA::_manage_dump_filestream()
@@ -251,17 +252,16 @@ namespace athena
 
 			// Open the auto dump file.
 			_auto_dump_filestream.open(_auto_dump_filename.c_str(),_auto_dump_filestream.in|_auto_dump_file_open_mode);
-		};
+		}
 
 		// Function responsible of parsing the parameters that were given to the log functions.
 		std::string LogManagerA::_parse_parameters( const char* input , va_list parameters )
 		{
 			char buffer[_MAX_BUFFER_SIZE+1];
-			
 
 			// Set the buffer to 0.
 			memset(buffer,'\0',_MAX_BUFFER_SIZE+1);
-			
+
 			// Output the formatted string to the buffer.
 			#ifdef _WIN32
 				vsnprintf_s(buffer,_MAX_BUFFER_SIZE,input,parameters);
@@ -271,7 +271,7 @@ namespace athena
 
 
 			return buffer;
-		};
+		}
 
 		// Function responsible of adding a new entry of the given type and with the given message to the log.
 		void LogManagerA::_log_entry( const LogEntryType& type , const std::string& message )
@@ -284,10 +284,10 @@ namespace athena
 			// If echoing is enabled.
 			if ( _echo )
 				_post_entry(_echo_stream,(*_log.rbegin())); // Output the new entry to the echo stream.
-				
+
 			// Manage the size of the log and perform the auto-dump and auto-purge functionality if needed.
 			_manage_log_size();
-		};
+		}
 
 
 		// Function responsible of initialising the instance of the class. Returns true on success.
@@ -308,8 +308,8 @@ namespace athena
 
 
 			return return_value;
-		};
-			
+		}
+
 		// Function responsible of deinitialising the instance of the class.
 		void LogManagerA::deinitialise()
 		{
@@ -322,8 +322,8 @@ namespace athena
 			}
 
 			_instance_lock.unlock();
-		};
-			
+		}
+
 		// Function returning a pointer to the single instance of the class.
 		LogManagerA* LogManagerA::get()
 		{
@@ -336,8 +336,7 @@ namespace athena
 
 
 			return return_value;
-		};
-
+		}
 
 		// Function responsible of setting the maximum size of the log.
 		void LogManagerA::max_log_size( const unsigned int size )
@@ -346,7 +345,7 @@ namespace athena
 			_max_log_size = size;
 			_manage_log_size();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of enabling or disabling the auto purge functionality.
 		void LogManagerA::auto_purge( const bool value )
@@ -355,7 +354,7 @@ namespace athena
 			_auto_purge = value;
 			_manage_log_size();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the threshold of the auto-purge functionality.
 		void LogManagerA::auto_purge_threshold( const unsigned int threshold )
@@ -364,7 +363,7 @@ namespace athena
 			_auto_purge_threshold = threshold;
 			_manage_log_size();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the name of the file that is used for the auto dump filestream.
 		void LogManagerA::auto_dump_filename( const std::string& filename )
@@ -373,7 +372,7 @@ namespace athena
 			_auto_dump_filename = filename;
 			_manage_dump_filestream();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the open mode for the auto dump filestream.
 		void LogManagerA::auto_dump_file_open_mode( const LogFileOpenMode mode )
@@ -387,7 +386,7 @@ namespace athena
 
 			_manage_dump_filestream();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the threshold for the auto dump functionality.
 		void LogManagerA::auto_dump_threshold( const unsigned int threshold )
@@ -396,7 +395,7 @@ namespace athena
 			_auto_dump_threshold = threshold;
 			_manage_dump_filestream();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of enabling or disabling the auto dump functionality.
 		void LogManagerA::auto_dump( const bool value )
@@ -406,7 +405,7 @@ namespace athena
 			_manage_dump_filestream();
 			_manage_log_size();
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the stream that is used for the echo functionality.
 		void LogManagerA::echo_stream( std::ostream* stream )
@@ -415,9 +414,9 @@ namespace athena
 
 			if ( !_echo  ||  stream != INVALID_POINTER )
 				_echo_stream = stream;
-				
+
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of enabling or disabling the echoing the contents of the log.
 		void LogManagerA::echo( const bool value )
@@ -428,7 +427,7 @@ namespace athena
 				_echo = value;
 
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the error tag.
 		void LogManagerA::error_tag( const std::string& tag )
@@ -436,7 +435,7 @@ namespace athena
 			_lock.lock(false);
 			_error_tag = tag;
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the warning tag.
 		void LogManagerA::warning_tag( const std::string& tag )
@@ -444,7 +443,7 @@ namespace athena
 			_lock.lock(false);
 			_warning_tag = tag;
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the message tag.
 		void LogManagerA::message_tag( const std::string& tag )
@@ -452,7 +451,7 @@ namespace athena
 			_lock.lock(false);
 			_message_tag = tag;
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the type separator.
 		void LogManagerA::type_separator( const std::string& separator )
@@ -460,7 +459,7 @@ namespace athena
 			_lock.lock(false);
 			_type_separator = separator;
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the message separator.
 		void LogManagerA::message_separator( const std::string& separator )
@@ -468,7 +467,7 @@ namespace athena
 			_lock.lock(false);
 			_message_separator = separator;
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of setting the timestamp separator.
 		void LogManagerA::timestamp_separator( const std::string& separator )
@@ -476,7 +475,7 @@ namespace athena
 			_lock.lock(false);
 			_update_timestamps(separator);
 			_lock.unlock();
-		};
+		}
 
 		// Function responsible of logging an error formatted as the given string. The format has the same functionality as printf.
 		inline void LogManagerA::logError( const char* format , ... )
@@ -487,7 +486,7 @@ namespace athena
 			va_start(arguments,format);
 			_log_entry(Error,_parse_parameters(format,arguments));
 			va_end(arguments);
-		};
+		}
 
 		// Function responsible of logging a warning formatted as the given string. The format has the same functionality as printf.
 		inline void LogManagerA::logWarning( const char* format , ... )
@@ -498,7 +497,7 @@ namespace athena
 			va_start(arguments,format);
 			_log_entry(Warning,_parse_parameters(format,arguments));
 			va_end(arguments);
-		};
+		}
 
 		// Function responsible of logging a message formatted as the given string. The format has the same functionality as printf.
 		void LogManagerA::logMessage( const char* format , ... )
@@ -509,7 +508,7 @@ namespace athena
 			va_start(arguments,format);
 			_log_entry(Message,_parse_parameters(format,arguments));
 			va_end(arguments);
-		};
+		}
 
 		// Function responsible of dumping the log the file with the given filename.
 		void LogManagerA::dump_log( const std::string& filename , const LogFileOpenMode mode )
@@ -519,8 +518,8 @@ namespace athena
 
 			if ( stream.is_open() )
 				_dump_log(&stream,0);
-		};
-			
+		}
+
 		// Function responsible of purging the log. If the auto dump mode is enabled, the contents of the log are dumped to the auto-dump file.
 		void LogManagerA::purge_log()
 		{
@@ -530,8 +529,7 @@ namespace athena
 			_auto_dump_count = 0;
 			_auto_dump_offset = 0;
 			_lock.unlock();
-		};
-
+		}
 
 		// Function returning the maximum size of the log.
 		unsigned int LogManagerA::max_log_size() const
@@ -545,7 +543,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning whether the auto purge functionality is enabled.
 		bool LogManagerA::auto_purge() const
@@ -573,7 +571,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the name of the file that is used in the auto dump functionality.
 		std::string LogManagerA::auto_dump_filename() const
@@ -587,7 +585,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the open mode of the auto dump file.
 		LogFileOpenMode LogManagerA::auto_dump_file_open_mode() const
@@ -604,7 +602,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the threshold of the auto dump functionality.
 		unsigned int LogManagerA::auto_dump_threshold() const
@@ -618,7 +616,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning whether the auto dump functionality is enabled.
 		bool LogManagerA::auto_dump() const
@@ -632,7 +630,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning a pointer to the stream that is used for echo operations.
 		std::ostream* LogManagerA::echo_stream() const
@@ -646,7 +644,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning whether echoing is enabled.
 		bool LogManagerA::echo() const
@@ -660,7 +658,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the error tag.
 		std::string LogManagerA::error_tag() const
@@ -674,7 +672,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the warning tag.
 		std::string LogManagerA::warning_tag() const
@@ -688,7 +686,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the message tag.
 		std::string LogManagerA::message_tag() const
@@ -702,7 +700,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the type separator.
 		std::string LogManagerA::type_separator() const
@@ -716,7 +714,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the message separator.
 		std::string LogManagerA::message_separator() const
@@ -730,7 +728,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the timestamp separator.
 		std::string LogManagerA::timestamp_separator() const
@@ -744,7 +742,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the size of the log.
 		unsigned int LogManagerA::log_size() const
@@ -758,7 +756,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 		// Function returning the entry at the given index. If the index is greater than the size of the log the last entry is returned.
 		LogEntryA LogManagerA::entry( const unsigned int index ) const
@@ -778,8 +776,8 @@ namespace athena
 
 
 			return return_value;
-		};
-			
+		}
+
 		// Function returning the desired number of entries from the given start.
 		std::deque<LogEntryA> LogManagerA::entries( const unsigned int number, const unsigned int start ) const
 		{
@@ -796,7 +794,7 @@ namespace athena
 
 
 			return return_value;
-		};
+		}
 
 	} /* io */
 

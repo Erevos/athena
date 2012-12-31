@@ -8,7 +8,6 @@
 
 namespace athena
 {
-
 	namespace io
 	{
 
@@ -17,8 +16,8 @@ namespace athena
 		*/
 		enum ATHENA_DLL LogEntryType
 		{
-			Error = 0 , 
-			Warning , 
+			Error = 0 ,
+			Warning ,
 			Message
 		};
 
@@ -52,7 +51,6 @@ namespace athena
 				ATHENA_DLL void message( const std::string& message );
 				// Function responsible of setting the type of the entry.
 				ATHENA_DLL void type( const LogEntryType& type );
-					
 
 				// Function returning the timestamp of the entry.
 				ATHENA_DLL std::string timestamp() const;
@@ -92,7 +90,6 @@ namespace athena
 				ATHENA_DLL void message( const std::wstring& message );
 				// Function responsible of setting the type of the entry.
 				ATHENA_DLL void type( const LogEntryType& type );
-					
 
 				// Function returning the timestamp of the entry.
 				ATHENA_DLL std::wstring timestamp() const;

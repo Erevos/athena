@@ -63,7 +63,6 @@ namespace athena
 			UTF Log Manager definitions.
 		*/
 
-			
 		// Function responsible of logging an error with the given message.
 		inline void LogManagerW::logError( const std::wstring& message )
 		{

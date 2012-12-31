@@ -1,9 +1,16 @@
+#ifdef _WIN32
+	#include <Windows.h>
+#endif /* _WIN32 */
+
 #include "athenaDefinitions.hpp"
-#include <Windows.h>
 
+#ifdef _WIN32
 
+/*
+	The function responsible of handling initialisation and
+	deinitialisation of the DLL library.
+*/
 
-// The function responsible of handling initialisation and deinitialisation of the DLL library.
 BOOLEAN WINAPI DllMain( HINSTANCE handle , DWORD reason , LPVOID )
 {
 	BOOLEAN return_value = TRUE;
@@ -23,3 +30,5 @@ BOOLEAN WINAPI DllMain( HINSTANCE handle , DWORD reason , LPVOID )
 
 	return return_value;
  }
+
+#endif /* _WIN32 */
