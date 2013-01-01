@@ -152,14 +152,11 @@
     <ClCompile Include="..\..\src\utility\timer.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\logManagerA.cpp">
-      <Filter>Source Files\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\logManagerW.cpp">
-      <Filter>Source Files\IO</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\listener.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\logManager.cpp">
+      <Filter>Source Files\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

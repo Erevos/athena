@@ -20,11 +20,11 @@ namespace athena
 			public:
 
 				// The event that is being triggered periodically.
-				Event _event;
+				Event m_event;
 				// The period that is the event is being triggered.
-				utility::TimerValueType _period;
+				utility::TimerValueType m_period;
 				// The time the event was last triggered.
-				utility::TimerValueType _last_trigger;
+				utility::TimerValueType m_last_trigger;
 
 
 			public:

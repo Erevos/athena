@@ -27,9 +27,6 @@
     <ClInclude Include="..\..\src\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\framebuffer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\pixel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -40,6 +37,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\precision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\luminance.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\pixmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -61,13 +64,16 @@
     <ClCompile Include="..\..\src\dllmain.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\framebuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ppm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\xor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\luminance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\pixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

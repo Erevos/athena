@@ -2,7 +2,7 @@
 #define ATHENA_DISPLAY_RENDERMANAGER_HPP
 
 #include "../athenaDefinitions.hpp"
-#include "../utility/readersWriterLock.hpp"
+#include <mutex>
 #include <new>
 
 
@@ -21,9 +21,9 @@ namespace athena
 			private:
 
 				// The single instance of the class.
-				static RenderManager* _instance;
+				static RenderManager* s_instance;
 				// A lock used to handle concurrency issues regarding the instance of the class.
-				static utility::ReadersWriterLock _instance_lock;
+				static std::mutex s_instance_lock;
 
 
 				// The constructor of the class.

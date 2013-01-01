@@ -87,7 +87,7 @@ namespace athena
 		// A function responsible of starting the timer.
 		void Timer::start()
 		{
-			_lock.lock(false);
+			_lock.lock();
 			_current_time = _get_time();
 			_start_time = _current_time;
 			_frequency = _get_frequency();
@@ -99,7 +99,7 @@ namespace athena
 		// A function responsible of pausing the timer.
 		void Timer::pause()
 		{
-			_lock.lock(false);
+			_lock.lock();
 			_paused = true;
 			_lock.unlock();
 		}
@@ -107,7 +107,7 @@ namespace athena
 		// A function responsible of resuming the timer if it is paused.
 		void Timer::resume()
 		{
-			_lock.lock(false);
+			_lock.lock();
 			_paused = false;
 			_lock.unlock();
 		}
@@ -119,7 +119,7 @@ namespace athena
 			TimerValueType return_value = 0;
 
 
-			_lock.lock(false);
+			_lock.lock();
 
 			if ( !_paused )
 				_current_time = _get_time();
@@ -138,7 +138,7 @@ namespace athena
 			unsigned long long current_time = 0;
 
 
-			_lock.lock(false);
+			_lock.lock();
 
 			if ( !_paused )
 				current_time = _get_time();
@@ -159,7 +159,7 @@ namespace athena
 			unsigned long long return_value = 0;
 
 
-			_lock.lock(false);
+			_lock.lock();
 
 			if ( !_paused )
 				_current_time = _get_time();
@@ -177,7 +177,7 @@ namespace athena
 			unsigned long long return_value = 0;
 
 
-			_lock.lock(false);
+			_lock.lock();
 			return_value = _frequency;
 			_lock.unlock();
 
@@ -191,7 +191,7 @@ namespace athena
 			bool return_value = false;
 
 
-			_lock.lock(true);
+			_lock.lock();
 			return_value = _paused;
 			_lock.unlock();
 

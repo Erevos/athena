@@ -7,6 +7,7 @@
 
 #include <ctime>
 #include <sstream>
+#include "../utility/stringUtilities.hpp"
 
 
 
@@ -22,39 +23,118 @@ namespace athena
 
 
 		// Function responsible of logging an error with the given message.
-		inline void LogManagerA::logError( const std::string& message )
+		inline void LogManagerA::log_error( const std::string& message )
 		{
-			_log_entry(Error,message);
+			f_log_entry(Error,message);
+		}
+
+		// Function responsible of logging an error with converted contents of the given message.
+		inline void LogManagerA::log_error( const std::wstring& message )
+		{
+			f_log_entry(Error,utility::wide_string_to_string(message));
 		}
 
 		// Function responsible of logging an error with the contents of the given exception.
-		inline void LogManagerA::logError( const std::exception& exception )
+		inline void LogManagerA::log_error( const std::exception& exception )
 		{
-			_log_entry(Error,exception.what());
+			f_log_entry(Error,exception.what());
 		}
 
 		// Function responsible of logging a warning with the given message.
-		inline void LogManagerA::logWarning( const std::string& message )
+		inline void LogManagerA::log_warning( const std::string& message )
 		{
-			_log_entry(Warning,message);
+			f_log_entry(Warning,message);
+		}
+
+		// Function responsible of logging a warning with the converted contents of the given message.
+		inline void LogManagerA::log_warning( const std::wstring& message )
+		{
+			f_log_entry(Warning,utility::wide_string_to_string(message));
 		}
 
 		// Function responsible of logging a warning with the contents of the given exception.
-		inline void LogManagerA::logWarning( const std::exception& exception )
+		inline void LogManagerA::log_warning( const std::exception& exception )
 		{
-			_log_entry(Warning,exception.what());
+			f_log_entry(Warning,exception.what());
 		}
 
 		// Function responsible of logging a message with the given message.
-		inline void LogManagerA::logMessage( const std::string& message )
+		inline void LogManagerA::log_message( const std::string& message )
 		{
-			_log_entry(Message,message);
+			f_log_entry(Message,message);
+		}
+
+		// Function responsible of logging a message with the converted contents of the given message.
+		inline void LogManagerA::log_message( const std::wstring& message )
+		{
+			f_log_entry(Message,utility::wide_string_to_string(message));
 		}
 
 		// Function responsible of logging a message with the contents of the given exception.
-		inline void LogManagerA::logMessage( const std::exception& exception )
+		inline void LogManagerA::log_message( const std::exception& exception )
 		{
-			_log_entry(Message,exception.what());
+			f_log_entry(Message,exception.what());
+		}
+
+
+
+		/*
+			UTF Log Manager definitions.
+		*/
+
+
+		// Function responsible of logging an error with converted contents of the given message.
+		inline void LogManagerW::log_error( const std::string& message )
+		{
+			f_log_entry(Error,utility::string_to_wide_string(message));
+		}
+
+		// Function responsible of logging an error with the given message.
+		inline void LogManagerW::log_error( const std::wstring& message )
+		{
+			f_log_entry(Error,message);
+		}
+
+		// Function responsible of logging an error with the contents of the given exception.
+		inline void LogManagerW::log_error( const std::exception& exception )
+		{
+			f_log_entry(Error,utility::string_to_wide_string(exception.what()));
+		}
+
+		// Function responsible of logging an error with converted contents of the given message.
+		inline void LogManagerW::log_warning( const std::string& message )
+		{
+			f_log_entry(Warning,utility::string_to_wide_string(message));
+		}
+
+		// Function responsible of logging a warning with the given message.
+		inline void LogManagerW::log_warning( const std::wstring& message )
+		{
+			f_log_entry(Warning,message);
+		}
+
+		// Function responsible of logging a warning with the contents of the given exception.
+		inline void LogManagerW::log_warning( const std::exception& exception )
+		{
+			f_log_entry(Warning,utility::string_to_wide_string(exception.what()));
+		}
+
+		// Function responsible of logging an error with converted contents of the given message.
+		inline void LogManagerW::log_message( const std::string& message )
+		{
+			f_log_entry(Message,utility::string_to_wide_string(message));
+		}
+
+		// Function responsible of logging a message with the given message.
+		inline void LogManagerW::log_message( const std::wstring& message )
+		{
+			f_log_entry(Message,message);
+		}
+
+		// Function responsible of logging a message with the contents of the given exception.
+		inline void LogManagerW::log_message( const std::exception& exception )
+		{
+			f_log_entry(Message,utility::string_to_wide_string(exception.what()));
 		}
 
 	} /* io */

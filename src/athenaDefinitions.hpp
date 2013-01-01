@@ -16,7 +16,7 @@
 	#endif /* WIN32_LEAN_AND_MEAN */
 
 	// Disabling the min and max macros.
-	#ifndef	NOMINMAX
+	#ifndef NOMINMAX
 		#define NOMINMAX
 	#endif /* NOMINMAX */
 
@@ -40,8 +40,8 @@
 	#endif /* DLL_EXPORT */
 
 #else	// Unix definitions.
-		
-	#define	ATHENA_DLL
+
+	#define ATHENA_DLL
 
 #endif /* _WIN32 */
 

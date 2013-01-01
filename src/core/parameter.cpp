@@ -10,8 +10,8 @@ namespace athena
 
 		// The constructor of the class.
 		Parameter::Parameter( const ParameterType& type , void* data ) : 
-			_type(type) , 
-			_data(data)
+			m_type(type) , 
+			m_data(data)
 		{
 		}
 

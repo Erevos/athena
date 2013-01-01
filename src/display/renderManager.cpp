@@ -9,9 +9,9 @@ namespace athena
 	{
 
 		// The single instance of the class.
-		RenderManager* RenderManager::_instance = INVALID_POINTER;
+		RenderManager* RenderManager::s_instance = INVALID_POINTER;
 		// A lock used to handle concurrency issues regarding the instance of the class.
-		utility::ReadersWriterLock RenderManager::_instance_lock;
+		std::mutex RenderManager::s_instance_lock;
 
 
 		// The constructor of the class.
@@ -31,15 +31,15 @@ namespace athena
 			bool return_value = true;
 
 
-			_instance_lock.lock(false);
+			s_instance_lock.lock();
 
-			if ( _instance == INVALID_POINTER )
+			if ( s_instance == INVALID_POINTER )
 			{
-				_instance = new (std::nothrow) RenderManager();
-				return_value = ( _instance != INVALID_POINTER );
+				s_instance = new (std::nothrow) RenderManager();
+				return_value = ( s_instance != INVALID_POINTER );
 			}
 
-			_instance_lock.unlock();
+			s_instance_lock.unlock();
 
 
 			return return_value;
@@ -48,15 +48,15 @@ namespace athena
 		// A function responsible of deinitialising the single instance of the class.
 		void RenderManager::deinitialise()
 		{
-			_instance_lock.lock(false);
+			s_instance_lock.lock();
 
-			if ( _instance != INVALID_POINTER )
+			if ( s_instance != INVALID_POINTER )
 			{
-				delete _instance;
-				_instance = INVALID_POINTER;
+				delete s_instance;
+				s_instance = INVALID_POINTER;
 			}
 
-			_instance_lock.unlock();
+			s_instance_lock.unlock();
 		}
 
 		// A function responsible of returning a single instance of the class.
@@ -65,9 +65,9 @@ namespace athena
 			RenderManager* return_value = INVALID_POINTER;
 
 
-			_instance_lock.lock(true);
-			return_value = _instance;
-			_instance_lock.unlock();
+			s_instance_lock.lock();
+			return_value = s_instance;
+			s_instance_lock.unlock();
 
 
 			return return_value;

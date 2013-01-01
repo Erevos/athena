@@ -3,19 +3,19 @@
 
 #include "../athenaDefinitions.hpp"
 #include "../athenaEventCodes.hpp"
-#include "../utility/criticalSection.hpp"
-#include "../utility/timer.hpp"
-#include "event.hpp"
-#include "listener.hpp"
-#include "periodicEventInfo.hpp"
+#include <mutex>
+#include <chrono>
 	
 #ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
-	#include "../utility/thread.hpp"
+	#include <thread>
 #endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 #include <map>
 #include <vector>
 #include <deque>
+#include "event.hpp"
+#include "listener.hpp"
+#include "periodicEventInfo.hpp"
 
 
 
@@ -34,7 +34,7 @@ namespace athena
 			AddEvent = 0 , 
 			AddAllEvents , 
 			RemoveEvent , 
-			RemoveAllEvents , 
+			RemoveAllEvents
 		};
 
 
@@ -44,9 +44,16 @@ namespace athena
 		*/
 		struct ListenerOperation
 		{
-			AvailableListenerOperations operation;
-			EventCode code;
-			Listener* listener;
+			AvailableListenerOperations m_operation;
+			EventCode m_code;
+			Listener* m_listener;
+
+			ListenerOperation( const AvailableListenerOperations operation , const EventCode code , Listener* listener ) :
+				m_operation(operation) , 
+				m_code(code) , 
+				m_listener(listener)
+			{
+			};
 		};
 
 
@@ -66,58 +73,61 @@ namespace athena
 			private:
 
 				// The single instance of the class.
-				static EventManager* _instance;
+				static EventManager* s_instance;
 				// A lock used to handle concurrency issues regarding the instance of the class.
-				static utility::ReadersWriterLock _instance_lock;
+				static std::mutex s_instance_lock;
 					
 				#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 				#else
 						
 					// The amount of time the spawned thread will sleep if there is nothing to do.
 					#ifdef _WIN32
-						static const unsigned long _sleep_time;
+						static const unsigned long s_sleep_time;
 					#else
-						static const unsigned int _sleep_time;
+						static const unsigned int s_sleep_time;
 					#endif /* _WIN32 */
 
 				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 
 				// The map that holds the registry of events and the entities that are registered for each event.
-				std::map<EventCode,std::vector<Listener*> > _event_list;
+				std::map<EventCode,std::vector<Listener*> > m_event_list;
 				// The map that holds the registry of entities and the events they are registered with.
-				std::map<Listener*,std::vector<EventCode> > _listener_list;
+				std::map<Listener*,std::vector<EventCode> > m_listener_list;
 				// The event queue that is processed by the event manager.
-				std::deque<Event> _event_queue;
+				std::deque<Event*> m_event_queue;
 				// The periodic event list that is triggered every specified interval.
-				std::vector<PeriodicEventInfo> _periodic_event_list;
+				std::vector<PeriodicEventInfo*> m_periodic_event_list;
 				/*
 					The pending listener operation queue that is used to 
 					insert or delete entities or event notifications from the event and listener list
 				*/
-				std::deque<ListenerOperation> _pending_operation_queue;
+				std::deque<ListenerOperation*> m_pending_operation_queue;
 				// An array holding the events to be removed from the event list.
-				std::vector<EventCode> _pending_event_removals;
+				std::vector<EventCode> m_pending_event_removals;
 				// An array  holding the entities to be removed from the listener list.
-				std::vector<Listener*> _pending_listener_removals;
+				std::vector<Listener*> m_pending_listener_removals;
 				// A lock that is used to handle concurrency issues.
-				utility::CriticalSection _lock;
+				std::recursive_mutex m_lock;
 				// A lock that is used to handle initialisation issues.
-				utility::ReadersWriterLock _initialisation_lock;
+				std::recursive_mutex m_initialisation_lock;
 				// A timer that is used for timing the elapsed time for periodic events.
-				utility::Timer _timer;
+				utility::Timer m_timer;
 
-				#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
-				#else
-						
-					utility::Thread _thread;
-
-
-					// The static function that is used by the thread in order to perform the needed functionality.
-					static utility::ThreadExitType _thread_function( void* parameter );
+				#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+					
+					std::thread* m_thread;
+					bool m_running;
 
 				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
+				bool m_initialised;
+
+
+				#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+					// The static function that is used by the thread in order to perform the needed functionality.
+					static void sf_thread_function( void* parameter );
+				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 				// The constructor of the class.
 				EventManager();
@@ -126,23 +136,23 @@ namespace athena
 
 
 				// A function responsible of queuing a listener to be removed.
-				void _queue_listener_removal( Listener* listener );
+				void f_queue_listener_removal( Listener* listener );
 				// A function responsible of queuing an event to be removed.
-				void _queue_event_removal( const EventCode& code );
+				void f_queue_event_removal( const EventCode& code );
 				// A function responsible of performing any queued removals.
-				void _perform_removals();
+				void f_perform_removals();
 				// A function responsible of adding notification regarding a single event for a listener.
-				void _add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				void f_add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
 				// A function responsible of removing notification regarding a single event for a listener.
-				void _remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				void f_remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
 				// A function responsible of removing notification regarding all events for a listener.
-				void _remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable );
+				void f_remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable );
 				// A function responsible of performing any listener operations.
-				void _perform_listener_operation( ListenerOperation& operation );
+				void f_perform_listener_operation( ListenerOperation& operation );
 				// A function responsible of performing the operation of the event manager.
-				void _operate();
+				void f_operate();
 				// A function responsible of performing cleanup.
-				void _cleanup();
+				void f_cleanup();
 
 
 			public:

@@ -28,7 +28,7 @@
 #ifndef NIMG_DECLSPEC_H_INCLUDED
 #define NIMG_DECLSPEC_H_INCLUDED
 
-#ifdef _MSC_VER
+#if defined _MSC_VER && !defined LIBRARY_BUILD_STATIC
 	#include <windows.h>
 
 	#ifdef _WINDLL

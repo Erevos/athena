@@ -2,7 +2,7 @@
 #define ATHENA_UTILITY_TIMER_HPP
 
 #include "../athenaDefinitions.hpp"
-#include "readersWriterLock.hpp"
+#include <mutex>
 
 #ifdef _WIN32
 	#include <Windows.h>
@@ -30,7 +30,7 @@ namespace athena
 			private:
 
 				// A lock that is used to handle concurrency issues.
-				ReadersWriterLock _lock;
+				std::mutex _lock;
 				// A variable holding the reverse frequency of the timer to speedup calculations.
 				TimerValueType _reverse_frequency;
 				// A variable holding the current time value.

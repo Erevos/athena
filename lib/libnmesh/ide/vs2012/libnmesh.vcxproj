@@ -12,28 +12,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\buffer.hpp" />
-    <ClInclude Include="..\..\src\color.hpp" />
+    <ClInclude Include="..\..\src\calcnormals.hpp" />
     <ClInclude Include="..\..\src\declspec.h" />
-    <ClInclude Include="..\..\src\defs.h" />
-    <ClInclude Include="..\..\src\luminance.hpp" />
-    <ClInclude Include="..\..\src\pixel.h" />
-    <ClInclude Include="..\..\src\pixmap.hpp" />
-    <ClInclude Include="..\..\src\ppm.hpp" />
+    <ClInclude Include="..\..\src\flipfaces.hpp" />
+    <ClInclude Include="..\..\src\mesh.hpp" />
+    <ClInclude Include="..\..\src\obj.hpp" />
     <ClInclude Include="..\..\src\precision.h" />
-    <ClInclude Include="..\..\src\xor.hpp" />
+    <ClInclude Include="..\..\src\vector.hpp" />
+    <ClInclude Include="..\..\src\vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\buffer.tml" />
-    <None Include="..\..\src\color.inl" />
-    <None Include="..\..\src\pixel.inl" />
+    <None Include="..\..\src\vector.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\color.cpp" />
+    <ClCompile Include="..\..\src\calcnormals.cpp" />
     <ClCompile Include="..\..\src\dllmain.c" />
-    <ClCompile Include="..\..\src\luminance.cpp" />
-    <ClCompile Include="..\..\src\pixmap.cpp" />
-    <ClCompile Include="..\..\src\ppm.cpp" />
-    <ClCompile Include="..\..\src\xor.cpp" />
+    <ClCompile Include="..\..\src\flipfaces.cpp" />
+    <ClCompile Include="..\..\src\mesh.cpp" />
+    <ClCompile Include="..\..\src\obj.cpp" />
+    <ClCompile Include="..\..\src\vector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{16A804CC-2EC0-41B3-9DBC-231EFB3C2DF7}</ProjectGuid>
@@ -81,7 +79,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>LIBRARY_BUILD_STATIC;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBNIMG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LIBRARY_BUILD_STATIC;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBNMESH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,7 +94,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>LIBRARY_BUILD_STATIC;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBNIMG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LIBRARY_BUILD_STATIC;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBNMESH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

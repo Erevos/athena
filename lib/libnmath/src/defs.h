@@ -29,11 +29,11 @@
 #define NMATH_DEFS_H_INCLUDED
 
 #if (__STDC_VERSION__ < 199999)
-    #if defined(__GNUC__) || defined(_MSC_VER)
+    #if defined(__GNUC__)// || defined(_MSC_VER)
         #define inline __inline
     #else
         /* Inline functions not supported. Performance will suffer */
-        #define inline
+       // #define inline
 	#endif
 #endif /* __STDC_VERSION__ */
 

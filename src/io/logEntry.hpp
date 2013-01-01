@@ -30,11 +30,11 @@ namespace athena
 			private:
 
 				// A string holding the timestamp of the entry.
-				std::string _timestamp;
+				std::string m_timestamp;
 				// A string holding the message of the entry.
-				std::string _message;
+				std::string m_message;
 				// A variable holding the type of the entry.
-				LogEntryType _type;
+				LogEntryType m_type;
 
 
 			public:
@@ -69,11 +69,11 @@ namespace athena
 			private:
 
 				// A string holding the timestamp of the entry.
-				std::wstring _timestamp;
+				std::wstring m_timestamp;
 				// A string holding the message of the entry.
-				std::wstring _message;
+				std::wstring m_message;
 				// A variable holding the type of the entry.
-				LogEntryType _type;
+				LogEntryType m_type;
 
 
 			public:

@@ -10,9 +10,9 @@ namespace athena
 
 		// The constructor of the class.
 		Event::Event( const EventCode& code , const unsigned long& parameters ) : 
-			_parameters(parameters,Parameter(Null,INVALID_POINTER)) , 
-			_code(code) , 
-			_cleanup_function(INVALID_POINTER)
+			m_parameters(parameters,Parameter(Null,INVALID_POINTER)) , 
+			m_code(code) , 
+			m_cleanup_function(INVALID_POINTER)
 		{
 		}
 
@@ -25,20 +25,20 @@ namespace athena
 		// Function responsible of setting the parameter at the given index or adding a new parameter to the list.
 		void Event::parameter( const unsigned int& index , const ParameterType type , void* data )
 		{
-			if ( index < _parameters.size() )
+			if ( index < m_parameters.size() )
 			{
-				_parameters[index]._type =type;
-				_parameters[index]._data = data;
+				m_parameters[index].m_type = type;
+				m_parameters[index].m_data = data;
 			}
 			else
-				_parameters.push_back(Parameter(type,data));
+				m_parameters.push_back(Parameter(type,data));
 		}
 
 		// Function responsible of performing cleanup.
 		void Event::cleanup()
 		{
-			if ( _cleanup_function != INVALID_POINTER )
-				(*_cleanup_function)(*this);
+			if ( m_cleanup_function != INVALID_POINTER )
+				(*m_cleanup_function)(*this);
 
 			clear();
 		}
@@ -47,8 +47,8 @@ namespace athena
 		// Function returning the parameter at the given index.
 		Parameter Event::parameter( const unsigned int& index ) const
 		{
-			if ( index < _parameters.size() ) 
-				return _parameters[index];
+			if ( index < m_parameters.size() ) 
+				return m_parameters[index];
 			else
 				return Parameter(Null,INVALID_POINTER);
 		}

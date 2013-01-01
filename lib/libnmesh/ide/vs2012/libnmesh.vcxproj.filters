@@ -18,39 +18,33 @@
     <ClInclude Include="..\..\src\buffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\color.hpp">
+    <ClInclude Include="..\..\src\calcnormals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\declspec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\defs.h">
+    <ClInclude Include="..\..\src\flipfaces.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\pixel.h">
+    <ClInclude Include="..\..\src\mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ppm.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\xor.hpp">
+    <ClInclude Include="..\..\src\obj.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\precision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\luminance.hpp">
+    <ClInclude Include="..\..\src\vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\pixmap.hpp">
+    <ClInclude Include="..\..\src\vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\color.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\..\src\pixel.inl">
+    <None Include="..\..\src\vector.inl">
       <Filter>Header Files</Filter>
     </None>
     <None Include="..\..\src\buffer.tml">
@@ -58,22 +52,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\color.cpp">
+    <ClCompile Include="..\..\src\calcnormals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flipfaces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\obj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\dllmain.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ppm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\xor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\luminance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\pixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

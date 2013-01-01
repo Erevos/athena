@@ -138,8 +138,7 @@
     <ClCompile Include="..\..\src\dllMain.cpp" />
     <ClCompile Include="..\..\src\io\inputManager.cpp" />
     <ClCompile Include="..\..\src\io\logEntry.cpp" />
-    <ClCompile Include="..\..\src\io\logManagerA.cpp" />
-    <ClCompile Include="..\..\src\io\logManagerW.cpp" />
+    <ClCompile Include="..\..\src\io\logManager.cpp" />
     <ClCompile Include="..\..\src\utility\conditionVariable.cpp" />
     <ClCompile Include="..\..\src\utility\criticalSection.cpp" />
     <ClCompile Include="..\..\src\utility\lock.cpp" />

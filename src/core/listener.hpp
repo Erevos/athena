@@ -22,7 +22,7 @@ namespace athena
 			private:
 
 				// A variable holding the id of the listener.
-				unsigned int _id;
+				unsigned int m_id;
 
 
 			public:

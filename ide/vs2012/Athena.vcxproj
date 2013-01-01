@@ -45,7 +45,7 @@
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
     <IntDir>$(ProjectDir)..\..\bin\$(Configuration)\</IntDir>
     <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <LibraryPath>..\..\lib;..\..\lib\libncf\bin;.\..\lib\libnimg\bin;.\..\lib\libnmath\bin;.\..\lib\libnmesh\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -53,7 +53,7 @@
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
     <IntDir>$(ProjectDir)..\..\bin\$(Configuration)\</IntDir>
     <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <LibraryPath>..\..\lib;..\..\lib\libncf\bin;.\..\lib\libnimg\bin;.\..\lib\libnmath\bin;.\..\lib\libnmesh\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -125,11 +125,7 @@
     <ClInclude Include="..\..\src\io\inputManager.hpp" />
     <ClInclude Include="..\..\src\io\logEntry.hpp" />
     <ClInclude Include="..\..\src\io\logManager.hpp" />
-    <ClInclude Include="..\..\src\utility\conditionVariable.hpp" />
-    <ClInclude Include="..\..\src\utility\criticalSection.hpp" />
-    <ClInclude Include="..\..\src\utility\lock.hpp" />
-    <ClInclude Include="..\..\src\utility\readersWriterLock.hpp" />
-    <ClInclude Include="..\..\src\utility\thread.hpp" />
+    <ClInclude Include="..\..\src\utility\stringUtilities.hpp" />
     <ClInclude Include="..\..\src\utility\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,13 +138,9 @@
     <ClCompile Include="..\..\src\dllMain.cpp" />
     <ClCompile Include="..\..\src\io\inputManager.cpp" />
     <ClCompile Include="..\..\src\io\logEntry.cpp" />
+    <ClCompile Include="..\..\src\utility\stringUtilities.cpp" />
     <ClCompile Include="..\..\src\utility\timer.cpp" />
     <None Include="..\..\src\io\logManager.inl" />
-    <ClCompile Include="..\..\src\utility\conditionVariable.cpp" />
-    <ClCompile Include="..\..\src\utility\criticalSection.cpp" />
-    <ClCompile Include="..\..\src\utility\lock.cpp" />
-    <ClCompile Include="..\..\src\utility\readersWriterLock.cpp" />
-    <ClCompile Include="..\..\src\utility\thread.cpp" />
     <None Include="..\..\src\utility\timer.inl" />
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +154,6 @@
     <ClCompile Include="..\..\src\io\logManager.cpp">
       <FileType>Document</FileType>
     </ClCompile>
-    <None Include="..\..\src\utility\criticalSection.inl" />
-    <None Include="..\..\src\utility\readersWriterLock.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

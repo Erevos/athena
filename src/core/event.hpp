@@ -2,8 +2,8 @@
 #define ATHENA_CORE_EVENT_HPP
 
 #include "../athenaDefinitions.hpp"
-#include "parameter.hpp"
 #include <vector>
+#include "parameter.hpp"
 
 
 
@@ -31,11 +31,11 @@ namespace athena
 			private:
 
 				// The list of the parameters.
-				std::vector<Parameter> _parameters;
+				std::vector<Parameter> m_parameters;
 				// The id code of the event. A valid code id is greater than 0. 0 is reserved for the ALL_EVENTS virtual event.
-				EventCode _code;
+				EventCode m_code;
 				// The function to be called in order to perform cleanup.
-				EventCleanupFunction _cleanup_function;
+				EventCleanupFunction m_cleanup_function;
 
 
 			public:

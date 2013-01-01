@@ -46,9 +46,9 @@ namespace athena
 					However set/get functions are provided if the "typical" OO model is preferred.
 				*/
 				// A variable holding the type of the parameter.
-				ParameterType _type;
+				ParameterType m_type;
 				// A variable pointing to the data of the parameter.
-				void* _data;
+				void* m_data;
 
 
 			public:

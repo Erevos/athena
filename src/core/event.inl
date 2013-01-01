@@ -17,38 +17,38 @@ namespace athena
 		// Function responsible of setting the id code of the event.
 		inline void Event::code( const EventCode& value )
 		{
-			_code = value;
+			m_code = value;
 		}
 
 		// Function responsible of setting the cleanup function.
 		inline void Event::cleanup_function( EventCleanupFunction function )
 		{
-			_cleanup_function = function;
+			m_cleanup_function = function;
 		}
 
 		// Function responsible of clearing the parameter list.
 		inline void Event::clear()
 		{
-			_parameters.clear();
+			m_parameters.clear();
 		}
 
 
 		// Function returning the id code of the event.
 		inline EventCode Event::code() const
 		{
-			return _code;
+			return m_code;
 		}
 
 		// Function returning the cleanup function.
 		inline EventCleanupFunction Event::cleanup_function() const
 		{
-			return _cleanup_function;
+			return m_cleanup_function;
 		}
 
 		// Function returning the size of the parameter list.
 		inline unsigned int Event::parameter_count() const
 		{
-			return _parameters.size();
+			return m_parameters.size();
 		}
 
 	} /* core */
