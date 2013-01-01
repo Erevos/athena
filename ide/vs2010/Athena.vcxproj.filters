@@ -66,21 +66,6 @@
     <ClInclude Include="..\..\src\athenaDefinitions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utility\conditionVariable.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\criticalSection.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\lock.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\readersWriterLock.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\thread.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\io\logEntry.hpp">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
@@ -108,6 +93,9 @@
     <ClInclude Include="..\..\src\athenaEventCodes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\utility\stringUtilities.hpp">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\eventManager.cpp">
@@ -116,23 +104,8 @@
     <ClCompile Include="..\..\src\dllMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\utility\conditionVariable.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\criticalSection.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\lock.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\readersWriterLock.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\event.cpp">
       <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\thread.cpp">
-      <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\io\logEntry.cpp">
       <Filter>Source Files\IO</Filter>
@@ -158,6 +131,9 @@
     <ClCompile Include="..\..\src\io\logManager.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\utility\stringUtilities.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\event.inl">
@@ -165,12 +141,6 @@
     </None>
     <None Include="..\..\src\core\eventManager.inl">
       <Filter>Header Files\Core</Filter>
-    </None>
-    <None Include="..\..\src\utility\criticalSection.inl">
-      <Filter>Header Files\Utility</Filter>
-    </None>
-    <None Include="..\..\src\utility\readersWriterLock.inl">
-      <Filter>Header Files\Utility</Filter>
     </None>
     <None Include="..\..\src\io\logEntry.inl">
       <Filter>Header Files\IO</Filter>
