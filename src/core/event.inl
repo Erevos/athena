@@ -26,12 +26,6 @@ namespace athena
 			m_cleanup_function = function;
 		}
 
-		// Function responsible of clearing the parameter list.
-		inline void Event::clear()
-		{
-			m_parameters.clear();
-		}
-
 
 		// Function returning the id code of the event.
 		inline EventCode Event::code() const

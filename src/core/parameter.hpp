@@ -2,6 +2,7 @@
 #define ATHENA_CORE_PARAMETER_HPP
 
 #include "../athenaDefinitions.hpp"
+#include <cstddef>
 
 
 
@@ -54,7 +55,7 @@ namespace athena
 			public:
 
 				// The constructor of the class.
-				explicit ATHENA_DLL Parameter( const ParameterType& type = Null , void* data = INVALID_POINTER );
+				explicit ATHENA_DLL Parameter( const ParameterType& type = Null , void* data = NULL );
 				// The destructor of the class.
 				ATHENA_DLL ~Parameter();
 

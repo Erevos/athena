@@ -30,23 +30,34 @@ namespace athena
 			private:
 
 				// A lock that is used to handle concurrency issues.
-				std::mutex _lock;
-				// A variable holding the reverse frequency of the timer to speedup calculations.
-				TimerValueType _reverse_frequency;
+				std::mutex m_lock;
+
+				#ifdef _WIN32
+					// A variable holding the reverse frequency of the timer to speedup calculations.
+					TimerValueType m_reverse_frequency;
+				#endif /* _WIN32 */
+
 				// A variable holding the current time value.
-				unsigned long long _start_time;
+				unsigned long long m_start_time;
 				// A variable holding the current time value.
-				unsigned long long _current_time;
-				// A variable holding the frequency of the timer.
-				unsigned long long _frequency;
+				unsigned long long m_current_time;
+
+				#ifdef _WIN32
+					// A variable holding the frequency of the timer.
+					unsigned long long m_frequency;
+				#endif /* _WIN32 */
+
 				// A variable holding the pause state of the timer.
-				bool _paused;
+				bool m_paused;
 					
 
 				// A function responsible of getting the current time.
-				static unsigned long long _get_time();
-				// A function responsible of getting the frequency.
-				static unsigned long long _get_frequency();
+				static unsigned long long get_time();
+
+				#ifdef _WIN32
+					// A function responsible of getting the frequency.
+					static unsigned long long get_frequency();
+				#endif /* _WIN32 */
 
 
 			public:

@@ -126,7 +126,7 @@ namespace athena
 
 				#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
 					// The static function that is used by the thread in order to perform the needed functionality.
-					static void sf_thread_function( void* parameter );
+					static void thread_function( void* parameter );
 				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 				// The constructor of the class.
@@ -136,23 +136,23 @@ namespace athena
 
 
 				// A function responsible of queuing a listener to be removed.
-				void f_queue_listener_removal( Listener* listener );
+				void queue_listener_removal( Listener* listener );
 				// A function responsible of queuing an event to be removed.
-				void f_queue_event_removal( const EventCode& code );
+				void queue_event_removal( const EventCode& code );
 				// A function responsible of performing any queued removals.
-				void f_perform_removals();
+				void perform_removals();
 				// A function responsible of adding notification regarding a single event for a listener.
-				void f_add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				void add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
 				// A function responsible of removing notification regarding a single event for a listener.
-				void f_remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
+				void remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code );
 				// A function responsible of removing notification regarding all events for a listener.
-				void f_remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable );
+				void remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable );
 				// A function responsible of performing any listener operations.
-				void f_perform_listener_operation( ListenerOperation& operation );
+				void perform_listener_operation( ListenerOperation& operation );
 				// A function responsible of performing the operation of the event manager.
-				void f_operate();
+				void actual_operate();
 				// A function responsible of performing cleanup.
-				void f_cleanup();
+				void cleanup();
 
 
 			public:

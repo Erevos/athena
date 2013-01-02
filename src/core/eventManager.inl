@@ -18,7 +18,7 @@ namespace athena
 			// A function responsible of performing the operation of the manager if single-threaded mode is enabled.
 			inline void EventManager::operate()
 			{
-				f_operate();
+				actual_operate();
 			}
 
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */

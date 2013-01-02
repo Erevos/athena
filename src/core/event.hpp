@@ -31,8 +31,8 @@ namespace athena
 			private:
 
 				// The list of the parameters.
-				std::vector<Parameter> m_parameters;
-				// The id code of the event. A valid code id is greater than 0. 0 is reserved for the ALL_EVENTS virtual event.
+				std::vector<Parameter*> m_parameters;
+				// The id code of the event. A valid code id is greater than 0. 0 is reserved for the EVENT_ALL virtual event.
 				EventCode m_code;
 				// The function to be called in order to perform cleanup.
 				EventCleanupFunction m_cleanup_function;
@@ -41,9 +41,14 @@ namespace athena
 			public:
 
 				// The constructor of the class.
-				ATHENA_DLL Event( const EventCode& id = 0 , const unsigned long& parameters = 0 );
+				ATHENA_DLL explicit Event( const EventCode& id = 0 );
+				// The copy constructor of the class.
+				ATHENA_DLL Event( const Event& event );
 				// The destructor of the class.
 				ATHENA_DLL ~Event();
+
+				// The assignment operator.
+				ATHENA_DLL Event& operator=( const Event& event );
 
 
 				// Function responsible of setting the parameter at the given index or adding a new parameter to the list.
@@ -59,7 +64,7 @@ namespace athena
 
 
 				// Function returning the parameter at the given index.
-				ATHENA_DLL Parameter parameter( const unsigned int& index ) const;
+				ATHENA_DLL const Parameter* parameter( const unsigned int& index ) const;
 				// Function returning the id code of the event.
 				ATHENA_DLL EventCode code() const;
 				// Function returning the cleanup function.

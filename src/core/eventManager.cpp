@@ -15,7 +15,7 @@ namespace athena
 	{
 
 		// The single instance of the class.
-		EventManager* EventManager::s_instance = INVALID_POINTER;
+		EventManager* EventManager::s_instance = NULL;
 		// A lock used to handle concurrency issues regarding the instance of the class.
 		std::mutex EventManager::s_instance_lock;
 
@@ -35,12 +35,12 @@ namespace athena
 		// The static function that is used by the thread in order to perform the needed functionality.
 		#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
 				
-			void EventManager::sf_thread_function( void* parameter )
+			void EventManager::thread_function( void* parameter )
 			{
 				EventManager* manager = static_cast<EventManager*>(parameter);
 				
 				
-				if ( manager != INVALID_POINTER )
+				if ( manager != NULL )
 				{
 					try
 					{
@@ -54,32 +54,24 @@ namespace athena
 							manager->m_initialisation_lock.unlock();
 
 							if ( run )
-								manager->f_operate();
+								manager->actual_operate();
 						}
 					}
 					catch ( std::exception& e )
 					{
-						io::LogManagerA* manager_a = io::LogManagerA::get();
-						io::LogManagerW* manager_w = io::LogManagerW::get();
+						io::LogManager* manager_a = io::LogManager::get();
 
 
 						if ( manager_a != NULL )
 							manager_a->log_error(e);
-
-						if ( manager_w != NULL )
-							manager_w->log_error(e);
 					}
 					catch ( ... )
 					{
-						io::LogManagerA* manager_a = io::LogManagerA::get();
-						io::LogManagerW* manager_w = io::LogManagerW::get();
+						io::LogManager* manager_a = io::LogManager::get();
 
 
 						if ( manager_a != NULL )
 							manager_a->log_error("An exception has occurred at the event manager.");
-
-						if ( manager_w != NULL )
-							manager_w->log_error(L"An exception has occurred at the event manager.");
 					}
 				}
 			}
@@ -115,12 +107,12 @@ namespace athena
 		EventManager::~EventManager()
 		{
 			// Perform cleanup if it has not been done already.
-			f_cleanup();
+			cleanup();
 		}
 
 
 		// A function responsible of queuing an event to be removed.
-		void EventManager::f_queue_listener_removal( Listener* listener )
+		void EventManager::queue_listener_removal( Listener* listener )
 		{
 			std::vector<Listener*>::iterator listener_iterator(m_pending_listener_removals.begin());
 
@@ -141,7 +133,7 @@ namespace athena
 		}
 
 		// A function responsible of queuing an event to be removed.
-		void EventManager::f_queue_event_removal( const EventCode& code )
+		void EventManager::queue_event_removal( const EventCode& code )
 		{
 			std::vector<EventCode>::iterator event_iterator(m_pending_event_removals.begin());
 
@@ -162,7 +154,7 @@ namespace athena
 		}
 
 		// A function responsible of performing any queued removals.
-		void EventManager::f_perform_removals()
+		void EventManager::perform_removals()
 		{
 			// For every listener in the listener removal queue.
 			for (
@@ -202,7 +194,7 @@ namespace athena
 		}
 
 		// A function responsible of adding notification regarding a single event for a listener.
-		void EventManager::f_add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
+		void EventManager::add_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
 		{
 			std::vector<EventCode>::iterator event_iterator(listener_iterator->second.begin());
 
@@ -253,7 +245,7 @@ namespace athena
 		}
 
 		// A function responsible of removing notification regarding a single event for a listener.
-		void EventManager::f_remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
+		void EventManager::remove_event( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const EventCode& code )
 		{
 			std::vector<EventCode>::iterator event_iterator(listener_iterator->second.begin());
 
@@ -285,7 +277,7 @@ namespace athena
 
 								// If the event's listener list is empty, queue the event for removal.
 								if ( event_list_iterator->second.size() == 0 )
-									f_queue_event_removal(code);
+									queue_event_removal(code);
 
 								// Exit the loop.
 								break;
@@ -305,11 +297,11 @@ namespace athena
 
 			// If the listener's event list is empty, queue the listener for removal.
 			if ( listener_iterator->second.size() == 0 )
-				f_queue_listener_removal(listener_iterator->first);
+				queue_listener_removal(listener_iterator->first);
 		}
 
 		// A function responsible of removing notification regarding all events for a listener.
-		void EventManager::f_remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable )
+		void EventManager::remove_all_events( std::map<Listener*,std::vector<EventCode> >::iterator& listener_iterator , const bool removable )
 		{
 			// For all the events in the listener's event list.
 			for (
@@ -339,7 +331,7 @@ namespace athena
 
 							// If the event's listener list is empty, queue the event for removal.
 							if ( event_list_iterator->second.size() == 0 )
-								f_queue_event_removal((*event_iterator));
+								queue_event_removal((*event_iterator));
 
 							// Exit the loop.
 							break;
@@ -352,11 +344,11 @@ namespace athena
 
 			// If the listener should be removed from the listener list, queue the listener for removal.
 			if ( removable )
-				f_queue_listener_removal(listener_iterator->first);
+				queue_listener_removal(listener_iterator->first);
 		}
 
 		// The function that is used to perform any listener operations.
-		void EventManager::f_perform_listener_operation( ListenerOperation& operation )
+		void EventManager::perform_listener_operation( ListenerOperation& operation )
 		{
 			// Locate the listener in the listener list.
 			std::map<Listener*,std::vector<EventCode> >::iterator listener_iterator(m_listener_list.find(operation.m_listener));
@@ -378,7 +370,7 @@ namespace athena
 
 					// If the listener is in the listener list, register the listener for notification of the specified event.
 					if ( listener_iterator != m_listener_list.end() )
-						f_add_event(listener_iterator,operation.m_code);
+						add_event(listener_iterator,operation.m_code);
 					
 					break;
 
@@ -393,11 +385,11 @@ namespace athena
 						listener_iterator = m_listener_list.find(operation.m_listener);
 					}
 					else // If the listener is in the listener list.
-						f_remove_all_events(listener_iterator,false);	// Unregister all events associated with the listener since we will be notifying for all events anyway.
+						remove_all_events(listener_iterator,false);	// Unregister all events associated with the listener since we will be notifying for all events anyway.
 
-					// If the listener is in the listener list, register the listener for notification of the virtual ALL_EVENTS event.
+					// If the listener is in the listener list, register the listener for notification of the virtual EVENT_ALL event.
 					if ( listener_iterator != m_listener_list.end() )
-						f_add_event(listener_iterator,operation.m_code);
+						add_event(listener_iterator,operation.m_code);
 
 					break;
 
@@ -406,7 +398,7 @@ namespace athena
 
 					// Remove the event from the listener's list.
 					if ( listener_iterator != m_listener_list.end() )
-						f_remove_event(listener_iterator,operation.m_code);
+						remove_event(listener_iterator,operation.m_code);
 
 					break;
 
@@ -415,14 +407,14 @@ namespace athena
 
 					// Remove all events and the listeners from the lists.
 					if ( listener_iterator != m_listener_list.end() )
-						f_remove_all_events(listener_iterator,true);
+						remove_all_events(listener_iterator,true);
 
 					break;
 			}
 		}
 
 		// The function that is used to perform the operation of the event manager.
-		void EventManager::f_operate()
+		void EventManager::actual_operate()
 		{
 			/*
 				A queue that is used to "buffer" the pending event list.
@@ -467,7 +459,7 @@ namespace athena
 					)
 				{
 					// Perform any pending listener operation.
-					f_perform_listener_operation((*(*operation_iterator)));
+					perform_listener_operation((*(*operation_iterator)));
 					delete (*operation_iterator);
 				}
 
@@ -476,8 +468,8 @@ namespace athena
 				m_lock.unlock();
 
 
-				// Find the virtual event ALL_EVENTS in the event list that is used to notify the listeners that want to be notified for all events.
-				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(m_event_list.find(ALL_EVENTS));
+				// Find the virtual event EVENT_ALL in the event list that is used to notify the listeners that want to be notified for all events.
+				std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(m_event_list.find(EVENT_ALL));
 				
 				
 				// If there is an ALL_EVENT entry in the event list.
@@ -534,14 +526,14 @@ namespace athena
 				// If the time difference is greater than the period of the event, trigger the event.
 				if ( difference >= (*event_iterator)->m_period )
 				{
-					// Find the virtual event ALL_EVENTS in the event list that is used to notify the listeners that want to be notified for all events.
-					std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(m_event_list.find(ALL_EVENTS));
+					// Find the virtual event EVENT_ALL in the event list that is used to notify the listeners that want to be notified for all events.
+					std::map<EventCode,std::vector<Listener*> >::iterator event_list_iterator(m_event_list.find(EVENT_ALL));
 					// Get the first parameter of the event.
-					Parameter parameter((*event_iterator)->m_event.parameter(0));
+					const Parameter* parameter = (*event_iterator)->m_event.parameter(0);
 				
 					
 					// Set the value of the first parameter of the event to the time that has passed since the last call.
-					*(static_cast<utility::TimerValueType*>(parameter.data())) = difference;
+					*(static_cast<utility::TimerValueType*>(parameter->data())) = difference;
 
 					// For all listeners in the pending operation queue.
 					for (
@@ -551,7 +543,7 @@ namespace athena
 						)
 					{
 						// Perform any pending listener operation.
-						f_perform_listener_operation((*(*operation_iterator)));
+						perform_listener_operation((*(*operation_iterator)));
 						delete (*operation_iterator);
 					}
 					
@@ -607,7 +599,7 @@ namespace athena
 
 
 			// Perform any event and listener removals.
-			f_perform_removals();
+			perform_removals();
 			m_lock.unlock();
 
 
@@ -630,7 +622,7 @@ namespace athena
 		}
 
 		// A function responsible of performing cleanup.
-		void EventManager::f_cleanup()
+		void EventManager::cleanup()
 		{
 			// For every periodic event.
 			for (
@@ -682,10 +674,10 @@ namespace athena
 
 			s_instance_lock.lock();
 
-			if ( s_instance == INVALID_POINTER )
+			if ( s_instance == NULL )
 			{
 				s_instance = new (std::nothrow) EventManager();
-				return_value = ( s_instance != INVALID_POINTER );
+				return_value = ( s_instance != NULL );
 			}
 
 			s_instance_lock.unlock();
@@ -699,11 +691,11 @@ namespace athena
 		{
 			s_instance_lock.lock();
 
-			if ( s_instance != INVALID_POINTER )
+			if ( s_instance != NULL )
 			{
 				s_instance->terminate();
 				delete s_instance;
-				s_instance = INVALID_POINTER;
+				s_instance = NULL;
 			}
 
 			s_instance_lock.unlock();
@@ -712,7 +704,7 @@ namespace athena
 		// A function responsible of returning a single instance of the class.
 		EventManager* EventManager::get()
 		{
-			EventManager* return_value = INVALID_POINTER;
+			EventManager* return_value = NULL;
 
 
 			s_instance_lock.lock();
@@ -737,7 +729,7 @@ namespace athena
 					
 				m_running = true;
 				// Specify the functionality of the thread that is spawned.
-				m_thread = new (std::nothrow) std::thread(sf_thread_function,static_cast<void*>(this));
+				m_thread = new (std::nothrow) std::thread(thread_function,static_cast<void*>(this));
 					
 				// Startup the thread.
 				if ( m_thread != NULL )
@@ -784,7 +776,7 @@ namespace athena
 
 			m_lock.lock();
 			// Perform cleanup.
-			f_cleanup();
+			cleanup();
 			// Clear the lists and the queues.
 			m_event_list.clear();
 			m_listener_list.clear();
@@ -796,8 +788,8 @@ namespace athena
 		// A function responsible of triggering an event with the given parameters and id code.
 		void EventManager::trigger_event( const Event& event )
 		{
-			// If the event is not the virtual ALL_EVENTS event.
-			if ( event.code() != ALL_EVENTS )
+			// If the event is not the virtual EVENT_ALL event.
+			if ( event.code() != EVENT_ALL )
 			{
 				bool initialised = false;
 
@@ -830,8 +822,8 @@ namespace athena
 		*/
 		void EventManager::triger_event_periodically( Event& event , const double& period )
 		{
-			// If the event is not the virtual ALL_EVENTS event.
-			if ( event.code() != ALL_EVENTS )
+			// If the event is not the virtual EVENT_ALL event.
+			if ( event.code() != EVENT_ALL )
 			{
 				bool initialised = false;
 
@@ -873,12 +865,15 @@ namespace athena
 						if ( event.parameter_count() > 0 )
 						{
 							// Ger the first parameter.
-							Parameter parameter(event.parameter(0));
+							const Parameter* parameter = event.parameter(0);
 
 
-							// If the parameter is properly allocated and of valid type, we can add the event to the periodic event list.
-							if ( parameter.type() == DoubleReal  &&  parameter.data() != INVALID_POINTER )
-								done = true;
+							if ( parameter != NULL )
+							{
+								// If the parameter is properly allocated and of valid type, we can add the event to the periodic event list.
+								if ( parameter->type() == DoubleReal  &&  parameter->data() != NULL )
+									done = true;
+							}
 						}
 						else // If the event does not have any parameters.
 						{
@@ -887,13 +882,15 @@ namespace athena
 
 
 							// If the allocation was successful.
-							if ( value != INVALID_POINTER )
+							if ( value != NULL )
 							{
 								// Set the value to 0.
 								(*value) = 0;
 								// Add the parameter to the event.
 								event.parameter(0,DoubleReal,value);
-								done = true;
+
+								if ( event.parameter_count() > 0 )
+									done = true;
 							}
 						}
 
@@ -920,8 +917,8 @@ namespace athena
 		// A function responsible of unregistering an event from being triggered periodically.
 		void EventManager::stop_triggerring_event_periodically( const EventCode& code )
 		{
-			// If the event is not the virtual ALL_EVENTS event.
-			if ( code != ALL_EVENTS )
+			// If the event is not the virtual EVENT_ALL event.
+			if ( code != EVENT_ALL )
 			{
 				bool initialised = false;
 
@@ -962,8 +959,8 @@ namespace athena
 		// A function responsible of registering a listener for notification of the specified event code.
 		void EventManager::register_event( Listener* listener , const EventCode& code )
 		{
-			// If the event is not the virtual ALL_EVENTS event.
-			if ( code != ALL_EVENTS )
+			// If the event is not the virtual EVENT_ALL event.
+			if ( code != EVENT_ALL )
 			{
 				bool initialised = false;
 
@@ -1006,8 +1003,8 @@ namespace athena
 
 			if ( initialised )
 			{
-				// Create the operation to be performed. Notice the virtual ALL_EVENTS event that is being used.
-				ListenerOperation* operation = new (std::nothrow) ListenerOperation(AddAllEvents,ALL_EVENTS,listener);
+				// Create the operation to be performed. Notice the virtual EVENT_ALL event that is being used.
+				ListenerOperation* operation = new (std::nothrow) ListenerOperation(AddAllEvents,EVENT_ALL,listener);
 
 
 				if ( operation != NULL )
@@ -1032,8 +1029,8 @@ namespace athena
 
 			if ( initialised )
 			{
-				// If the event is not the virtual ALL_EVENTS event.
-				if ( code != ALL_EVENTS )
+				// If the event is not the virtual EVENT_ALL event.
+				if ( code != EVENT_ALL )
 				{
 					// Create the operation to be performed.
 					ListenerOperation* operation = new (std::nothrow) ListenerOperation(RemoveEvent,code,listener);
@@ -1063,7 +1060,7 @@ namespace athena
 			if ( initialised )
 			{
 				// Create the operation to be performed.
-				ListenerOperation* operation = new (std::nothrow) ListenerOperation(RemoveAllEvents,ALL_EVENTS,listener);
+				ListenerOperation* operation = new (std::nothrow) ListenerOperation(RemoveAllEvents,EVENT_ALL,listener);
 
 
 				if ( operation != NULL )

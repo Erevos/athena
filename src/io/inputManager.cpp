@@ -9,7 +9,7 @@ namespace athena
 	{
 
 		// The single instance of the class.
-		InputManager* InputManager::s_instance = INVALID_POINTER;
+		InputManager* InputManager::s_instance = NULL;
 		// A lock used to handle concurrency issues regarding the instance of the class.
 		std::mutex InputManager::s_instance_lock;
 
@@ -33,10 +33,10 @@ namespace athena
 
 			s_instance_lock.lock();
 
-			if ( s_instance == INVALID_POINTER )
+			if ( s_instance == NULL )
 			{
 				s_instance = new (std::nothrow) InputManager();
-				return_value = ( s_instance != INVALID_POINTER );
+				return_value = ( s_instance != NULL );
 			}
 
 			s_instance_lock.unlock();
@@ -50,10 +50,10 @@ namespace athena
 		{
 			s_instance_lock.lock();
 
-			if ( s_instance != INVALID_POINTER )
+			if ( s_instance != NULL )
 			{
 				delete s_instance;
-				s_instance = INVALID_POINTER;
+				s_instance = NULL;
 			}
 
 			s_instance_lock.unlock();
@@ -62,7 +62,7 @@ namespace athena
 		// A function responsible of returning a single instance of the class.
 		InputManager* InputManager::get()
 		{
-			InputManager* return_value = INVALID_POINTER;
+			InputManager* return_value = NULL;
 
 
 			s_instance_lock.lock();

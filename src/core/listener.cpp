@@ -42,7 +42,7 @@ namespace athena
 			EventManager* manager = EventManager::get();
 
 
-			if ( manager != INVALID_POINTER )
+			if ( manager != NULL )
 				manager->register_event(this,code);
 		}
 
@@ -57,7 +57,7 @@ namespace athena
 			EventManager* manager = EventManager::get();
 
 
-			if ( manager != INVALID_POINTER )
+			if ( manager != NULL )
 				manager->register_all_events(this);
 		}
 
@@ -67,7 +67,7 @@ namespace athena
 			EventManager* manager = EventManager::get();
 
 
-			if ( manager != INVALID_POINTER )
+			if ( manager != NULL )
 				manager->unregister_event(this,code);
 		}
 
@@ -77,7 +77,7 @@ namespace athena
 			EventManager* manager = EventManager::get();
 
 
-			if ( manager != INVALID_POINTER )
+			if ( manager != NULL )
 				manager->unregister_all_events(this);
 		}
 

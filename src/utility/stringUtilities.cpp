@@ -34,12 +34,11 @@ namespace athena
 				#endif /* _WIN32 */
 
 				return_value = resulting_string;
-				delete resulting_string;
+				delete[] resulting_string;
 			}
 
 
 			return return_value;
-			//return std::wstring(value.begin(),value.end());
 		}
 
 		// A function that converts a wide string to it's ascii character equivalent.
@@ -68,7 +67,7 @@ namespace athena
 				#endif /* _WIN32 */
 
 				return_value = resulting_string;
-				delete resulting_string;
+				delete[] resulting_string;
 			}
 
 

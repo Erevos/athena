@@ -1,10 +1,6 @@
 #ifndef ATHENA_HPP
 #define ATHENA_HPP
 
-	
-
-// A definition of a value to be used for invalid pointers.
-#define INVALID_POINTER 0
 
 
 // Windows definitions.
