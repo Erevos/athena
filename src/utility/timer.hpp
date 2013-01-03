@@ -80,10 +80,18 @@ namespace athena
 				ATHENA_DLL TimerValueType seconds();
 				// A function returning the current time in milliseconds.
 				ATHENA_DLL TimerValueType milliseconds();
+				// A function returning the current time in milliseconds.
+				ATHENA_DLL TimerValueType microseconds();
+				// A function returning the current time in milliseconds.
+				ATHENA_DLL TimerValueType nanoseconds();
 				// A function returning the difference since the last call in seconds.
 				ATHENA_DLL TimerValueType difference_in_seconds();
 				// A function returning the difference since the last call in milliseconds.
 				ATHENA_DLL TimerValueType difference_in_milliseconds();
+				// A function returning the difference since the last call in milliseconds.
+				ATHENA_DLL TimerValueType difference_in_microseconds();
+				// A function returning the difference since the last call in milliseconds.
+				ATHENA_DLL TimerValueType difference_in_nanoseconds();
 				// A function returning the current time of the timer.
 				ATHENA_DLL unsigned long long time();
 				// A function returning the frequency of the timer.

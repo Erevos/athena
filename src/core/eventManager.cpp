@@ -1,8 +1,7 @@
 #include "eventManager.hpp"
-#include "../io/logManager.hpp"
+#include "threadPool.hpp"
 
 #ifdef __unix
-	#include <cstdlib>
 	#include <unistd.h>
 #endif /* __UNIX */
 
@@ -32,48 +31,42 @@ namespace athena
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 
-		// The static function that is used by the thread in order to perform the needed functionality.
 		#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
-				
-			void EventManager::thread_function( void* parameter )
+
+			// The static function that is used by the thread in order to perform the needed functionality.
+			int EventManager::thread_function( void* parameter )
 			{
 				EventManager* manager = static_cast<EventManager*>(parameter);
 				
 				
 				if ( manager != NULL )
 				{
-					try
+					bool run = true;
+
+
+					while ( run )
 					{
-						bool run = true;
+						manager->m_initialisation_lock.lock();
+						run = manager->m_running;
+						manager->m_initialisation_lock.unlock();
 
-
-						while ( run )
-						{
-							manager->m_initialisation_lock.lock();
-							run = manager->m_running;
-							manager->m_initialisation_lock.unlock();
-
-							if ( run )
-								manager->actual_operate();
-						}
-					}
-					catch ( std::exception& e )
-					{
-						io::LogManager* manager_a = io::LogManager::get();
-
-
-						if ( manager_a != NULL )
-							manager_a->log_error(e);
-					}
-					catch ( ... )
-					{
-						io::LogManager* manager_a = io::LogManager::get();
-
-
-						if ( manager_a != NULL )
-							manager_a->log_error("An exception has occurred at the event manager.");
+						if ( run )
+							manager->actual_operate();
 					}
 				}
+
+
+				return 0;
+			}
+
+			// The static function that is used to perform the callback functionality for the spawned thread.
+			void EventManager::thread_callback_function( const int , void* parameter )
+			{
+				EventManager* manager = static_cast<EventManager*>(parameter);
+				
+				
+				if ( manager != NULL )
+					manager->m_thread_condition_variable.notify_all();
 			}
 
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
@@ -94,7 +87,8 @@ namespace athena
 
 			#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
 
-				m_thread(NULL) ,
+				m_thread_condition_variable() ,
+				m_thread_mutex() ,
 				m_running(false) ,
 
 			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
@@ -677,7 +671,17 @@ namespace athena
 			if ( s_instance == NULL )
 			{
 				s_instance = new (std::nothrow) EventManager();
-				return_value = ( s_instance != NULL );
+
+				if ( s_instance != NULL )
+				{
+					if ( !s_instance->startup() )
+					{
+						delete s_instance;
+						return_value = false;
+					}
+				}
+				else
+					return_value = false;
 			}
 
 			s_instance_lock.unlock();
@@ -725,21 +729,32 @@ namespace athena
 			m_initialisation_lock.lock();
 
 			#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+				// (Re)Start the timer.
+				m_timer.start();
+				m_initialised = true;
+				return_value = true;
+
 			#else
-					
-				m_running = true;
-				// Specify the functionality of the thread that is spawned.
-				m_thread = new (std::nothrow) std::thread(thread_function,static_cast<void*>(this));
-					
-				// Startup the thread.
-				if ( m_thread != NULL )
-					return_value = true;
+				
+				ThreadPool* thread_pool = ThreadPool::get();
+
+
+				if ( thread_pool != NULL )
+				{
+					// Startup the thread.
+					if ( thread_pool->add_task(thread_function,static_cast<void*>(this),thread_callback_function,static_cast<void*>(this)) )
+					{
+						// (Re)Start the timer.
+						m_timer.start();
+						m_running = true;
+						m_initialised = true;
+						return_value = true;
+					}
+				}
 
 			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
-			// (Re)Start the timer.
-			m_timer.start();
-			m_initialised = true;
 			m_initialisation_lock.unlock();
 
 
@@ -751,37 +766,31 @@ namespace athena
 		{
 			m_initialisation_lock.lock();
 
-			#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
-			#else
+			if ( m_initialised )
+			{
+				#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+				#else
 
-				if ( m_thread != NULL )
-				{
 					m_running = false;
 					m_initialisation_lock.unlock();
 
-					#ifdef _WIN32 
-						Sleep(1000);
-					#else
-						sleep(1);
-					#endif /* _WIN32 */
-
+					m_thread_mutex.lock();
+					m_thread_condition_variable.wait(m_thread_mutex);
+					m_thread_mutex.unlock();
 					m_initialisation_lock.lock();
-					// Destroy the thread.
-					m_thread->join();
-					delete m_thread;
-					m_thread = NULL;
-				}
 
-			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
-			m_lock.lock();
-			// Perform cleanup.
-			cleanup();
-			// Clear the lists and the queues.
-			m_event_list.clear();
-			m_listener_list.clear();
-			m_initialised = false;
-			m_lock.unlock();
+				m_lock.lock();
+				// Perform cleanup.
+				cleanup();
+				// Clear the lists and the queues.
+				m_event_list.clear();
+				m_listener_list.clear();
+				m_initialised = false;
+				m_lock.unlock();
+			}
+
 			m_initialisation_lock.unlock();
 		}
 

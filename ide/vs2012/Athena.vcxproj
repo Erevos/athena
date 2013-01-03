@@ -121,6 +121,7 @@
     <ClInclude Include="..\..\src\core\listener.hpp" />
     <ClInclude Include="..\..\src\core\parameter.hpp" />
     <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
+    <ClInclude Include="..\..\src\core\threadPool.hpp" />
     <ClInclude Include="..\..\src\display\renderManager.hpp" />
     <ClInclude Include="..\..\src\io\inputManager.hpp" />
     <ClInclude Include="..\..\src\io\logEntry.hpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="..\..\src\core\listener.cpp" />
     <ClCompile Include="..\..\src\core\parameter.cpp" />
     <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
+    <ClCompile Include="..\..\src\core\threadPool.cpp" />
     <ClCompile Include="..\..\src\display\renderManager.cpp" />
     <ClCompile Include="..\..\src\dllMain.cpp" />
     <ClCompile Include="..\..\src\io\inputManager.cpp" />

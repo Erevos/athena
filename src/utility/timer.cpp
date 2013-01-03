@@ -1,5 +1,4 @@
 #include "timer.hpp"
-#include <iostream>
 
 
 
@@ -29,7 +28,7 @@ namespace athena
 
 
 				clock_gettime(CLOCK_REALTIME,&temp);
-				return_value = temp.tv_sec;
+				return_value = temp.tv_sec*1000000000 + temp.tv_nsec;
 
 			#endif /* _WIN32 */
 
@@ -116,55 +115,92 @@ namespace athena
 		}
 
 
-		// A function returning the current time in seconds.
-		TimerValueType Timer::seconds()
-		{
-			TimerValueType return_value = 0;
+		#ifdef _WIN32
+
+			// A function returning the current time in seconds.
+			TimerValueType Timer::seconds()
+			{
+				TimerValueType return_value = 0;
 
 
-			m_lock.lock();
+				m_lock.lock();
 
-			if ( !m_paused )
-				m_current_time = get_time();
+				if ( !m_paused )
+					m_current_time = get_time();
 
-			#ifdef _WIN32
 				return_value = static_cast<TimerValueType>(m_current_time - m_start_time)*m_reverse_frequency;
-			#else
-				return_value = static_cast<TimerValueType>(m_current_time - m_start_time);
-			#endif /* _WIN32 */
-
-			m_lock.unlock();
+				m_lock.unlock();
 
 
-			return return_value;
-		}
+				return return_value;
+			}
 
-		// A function returning the difference since the last call in seconds.
-		TimerValueType Timer::difference_in_seconds()
-		{
-			TimerValueType return_value = 0;
-			unsigned long long current_time = 0;
+			// A function returning the difference since the last call in seconds.
+			TimerValueType Timer::difference_in_seconds()
+			{
+				TimerValueType return_value = 0;
+				unsigned long long current_time = 0;
 
 
-			m_lock.lock();
+				m_lock.lock();
 
-			if ( !m_paused )
-				current_time = get_time();
-			else
-				current_time = m_current_time;
+				if ( !m_paused )
+					current_time = get_time();
+				else
+					current_time = m_current_time;
 
-			#ifdef _WIN32
 				return_value = static_cast<TimerValueType>(current_time - m_current_time)*m_reverse_frequency;
-			#else
+				m_current_time = current_time;
+				m_lock.unlock();
+
+
+				return return_value;
+			}
+
+		#else
+
+			// A function returning the current time in seconds.
+			TimerValueType Timer::nanoseconds()
+			{
+				TimerValueType return_value = 0;
+
+
+				m_lock.lock();
+
+				if ( !m_paused )
+					m_current_time = get_time();
+
+			
+				return_value = static_cast<TimerValueType>(m_current_time - m_start_time);
+				m_lock.unlock();
+
+
+				return return_value;
+			}
+
+			// A function returning the difference since the last call in seconds.
+			TimerValueType Timer::difference_in_nanoseconds()
+			{
+				TimerValueType return_value = 0;
+				unsigned long long current_time = 0;
+
+
+				m_lock.lock();
+
+				if ( !m_paused )
+					current_time = get_time();
+				else
+					current_time = m_current_time;
+
 				return_value = static_cast<TimerValueType>(current_time - m_current_time);
-			#endif /* _WIN32 */
-
-			m_current_time = current_time;
-			m_lock.unlock();
+				m_current_time = current_time;
+				m_lock.unlock();
 
 
-			return return_value;
-		}
+				return return_value;
+			}
+
+		#endif /* _WIN32 */
 
 		// A function returning the current time of the timer.
 		unsigned long long Timer::time()

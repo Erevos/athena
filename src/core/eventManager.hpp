@@ -7,7 +7,10 @@
 #include <chrono>
 	
 #ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+	#include <condition_variable>
 	#include <thread>
+
 #endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 #include <map>
@@ -115,18 +118,31 @@ namespace athena
 				utility::Timer m_timer;
 
 				#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
-					
-					std::thread* m_thread;
+
+					/*
+						The condition variable that is used to syncronise the
+						functionality thread with the main thread when the 
+						terminate function is called.
+					*/
+					std::condition_variable_any m_thread_condition_variable;
+					// The mutes that is used with the condition variable.
+					std::mutex m_thread_mutex;
+					// A variable containing whether the thread should run or not.
 					bool m_running;
 
 				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
+				// A variable holding whether the class has been initialised.
 				bool m_initialised;
 
 
 				#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+					
 					// The static function that is used by the thread in order to perform the needed functionality.
-					static void thread_function( void* parameter );
+					static int thread_function( void* parameter );
+					// The static function that is used to perform the callback functionality for the spawned thread.
+					static void thread_callback_function( const int exit_code , void* parameter );
+
 				#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 				// The constructor of the class.
