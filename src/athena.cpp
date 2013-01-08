@@ -29,17 +29,24 @@ namespace athena
 
 		status_lock.lock();
 
-		if ( ( managers & THREAD_POOL ) != 0  ||  ( managers & EVENT_MANAGER ) != 0 )
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+		if ( ( managers & THREAD_POOL ) != 0  ) )
 		{
+
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
 			return_value &= core::ThreadPool::init();
 			athena_manager_initialisation[0] = true;
 
-			if ( ( managers & EVENT_MANAGER ) != 0 )
-			{
-				return_value &= core::EventManager::init();
-				athena_manager_initialisation[1] = true;
-			}
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 		}
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
+
+		return_value &= core::EventManager::init();
+		athena_manager_initialisation[1] = true;
+
 
 		if ( ( managers & RENDER_MANAGER ) != 0 )
 		{
@@ -117,33 +124,33 @@ namespace athena
 
 		status_lock.lock();
 
-		if ( ( managers & THREAD_POOL ) != 0  ||  ( managers & EVENT_MANAGER ) != 0 )
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+		if ( ( managers & THREAD_POOL ) != 0 )
 		{
+
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
 			if ( athena_manager_initialisation[0] )
 			{
 				core::ThreadPool* pool = core::ThreadPool::get();
 
 
 				if ( pool != NULL )
-				{
 					return_value &= pool->startup();
-
-					if ( return_value )
-					{
-						if ( ( managers & EVENT_MANAGER ) != 0 )
-						{
-							if ( athena_manager_initialisation[1] )
-							{
-								core::EventManager*  event_manager = core::EventManager::get();
-
-
-								if ( event_manager != NULL )
-									return_value &= event_manager->startup();
-							}
-						}
-					}
-				}
 			}
+
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+		}
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
+		if ( athena_manager_initialisation[1] )
+		{
+			core::EventManager*  event_manager = core::EventManager::get();
+
+
+			if ( event_manager != NULL )
+				return_value &= event_manager->startup();
 		}
 
 		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[2] )
@@ -184,36 +191,6 @@ namespace athena
 	{
 		status_lock.lock();
 
-		if ( ( managers & THREAD_POOL ) != 0  ||  ( managers & EVENT_MANAGER ) != 0 )
-		{
-			if ( ( managers & EVENT_MANAGER ) != 0 )
-			{
-				if ( athena_manager_initialisation[1] )
-				{
-					core::EventManager*  event_manager = core::EventManager::get();
-
-
-					if ( event_manager != NULL )
-						event_manager->terminate();
-
-					core::EventManager::deinit();
-					athena_manager_initialisation[1] = false;
-				}
-			}
-
-			if ( athena_manager_initialisation[0] )
-			{
-				core::ThreadPool* pool = core::ThreadPool::get();
-
-
-				if ( pool != NULL )
-					pool->terminate();
-
-				core::ThreadPool::deinit();
-				athena_manager_initialisation[0] = false;
-			}
-		}
-
 		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[2] )
 		{
 			display::RenderManager* render_manager = display::RenderManager::get();
@@ -249,6 +226,41 @@ namespace athena
 			io::LogManager::deinit();
 			athena_manager_initialisation[4] = false;
 		}
+
+		if ( athena_manager_initialisation[1] )
+		{
+			core::EventManager*  event_manager = core::EventManager::get();
+
+
+			if ( event_manager != NULL )
+				event_manager->terminate();
+
+			core::EventManager::deinit();
+			athena_manager_initialisation[1] = false;
+		}
+
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+		if ( ( managers & THREAD_POOL ) != 0 )
+		{
+
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
+			if ( athena_manager_initialisation[0] )
+			{
+				core::ThreadPool* pool = core::ThreadPool::get();
+
+
+				if ( pool != NULL )
+					pool->terminate();
+
+				core::ThreadPool::deinit();
+				athena_manager_initialisation[0] = false;
+			}
+
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+		}
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 		status_lock.unlock();
 	}
