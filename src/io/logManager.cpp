@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <cwchar>
+#include "../eventCodes.hpp"
 
 
 
@@ -26,6 +27,7 @@ namespace athena
 
 		// The constructor of the class.
 		LogManager::LogManager() :
+			Listener(athena::LogManagerID) ,
 			m_log(0),
 			m_lock(),
 			m_auto_dump_filestream(),
@@ -338,8 +340,20 @@ namespace athena
 		}
 
 
+		// Function responsible of performing any actions needed on startup.
+		bool LogManager::startup()
+		{
+			return true;
+		}
+
+		// Function responsible of perfoming any actions needed on termination.
+		void LogManager::terminate()
+		{
+		}
+
+
 		// Function responsible of initialising the instance of the class. Returns true on success.
-		bool LogManager::initialise()
+		bool LogManager::init()
 		{
 			bool return_value = false;
 
@@ -359,7 +373,7 @@ namespace athena
 		}
 
 		// Function responsible of deinitialising the instance of the class.
-		void LogManager::deinitialise()
+		void LogManager::deinit()
 		{
 			s_instance_lock.lock();
 
@@ -385,6 +399,7 @@ namespace athena
 
 			return return_value;
 		}
+
 
 		// Function responsible of setting the maximum size of the log.
 		void LogManager::max_log_size( const unsigned int size )

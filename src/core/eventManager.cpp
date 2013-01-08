@@ -1,5 +1,6 @@
 #include "eventManager.hpp"
 #include "threadPool.hpp"
+#include "../eventCodes.hpp"
 
 #ifdef __unix
 	#include <unistd.h>
@@ -660,66 +661,6 @@ namespace athena
 		}
 
 
-		// A function responsible of initialising the single instance of the class.
-		bool EventManager::initialise()
-		{
-			bool return_value = true;
-
-
-			s_instance_lock.lock();
-
-			if ( s_instance == NULL )
-			{
-				s_instance = new (std::nothrow) EventManager();
-
-				if ( s_instance != NULL )
-				{
-					if ( !s_instance->startup() )
-					{
-						delete s_instance;
-						return_value = false;
-					}
-				}
-				else
-					return_value = false;
-			}
-
-			s_instance_lock.unlock();
-
-
-			return return_value;
-		}
-
-		// A function responsible of deinitialising the single instance of the class.
-		void EventManager::deinitialise()
-		{
-			s_instance_lock.lock();
-
-			if ( s_instance != NULL )
-			{
-				s_instance->terminate();
-				delete s_instance;
-				s_instance = NULL;
-			}
-
-			s_instance_lock.unlock();
-		}
-
-		// A function responsible of returning a single instance of the class.
-		EventManager* EventManager::get()
-		{
-			EventManager* return_value = NULL;
-
-
-			s_instance_lock.lock();
-			return_value = s_instance;
-			s_instance_lock.unlock();
-
-
-			return return_value;
-		}
-
-		
 		// A function responsible of commencing the functionality of the event system.
 		bool EventManager::startup()
 		{
@@ -794,6 +735,57 @@ namespace athena
 			m_initialisation_lock.unlock();
 		}
 
+
+		// A function responsible of initialising the single instance of the class.
+		bool EventManager::init()
+		{
+			bool return_value = true;
+
+
+			s_instance_lock.lock();
+
+			if ( s_instance == NULL )
+			{
+				s_instance = new (std::nothrow) EventManager();
+				return_value = ( s_instance != NULL );
+			}
+
+			s_instance_lock.unlock();
+
+
+			return return_value;
+		}
+
+		// A function responsible of deinitialising the single instance of the class.
+		void EventManager::deinit()
+		{
+			s_instance_lock.lock();
+
+			if ( s_instance != NULL )
+			{
+				s_instance->terminate();
+				delete s_instance;
+				s_instance = NULL;
+			}
+
+			s_instance_lock.unlock();
+		}
+
+		// A function responsible of returning a single instance of the class.
+		EventManager* EventManager::get()
+		{
+			EventManager* return_value = NULL;
+
+
+			s_instance_lock.lock();
+			return_value = s_instance;
+			s_instance_lock.unlock();
+
+
+			return return_value;
+		}
+
+
 		// A function responsible of triggering an event with the given parameters and id code.
 		void EventManager::trigger_event( const Event& event )
 		{
@@ -829,7 +821,7 @@ namespace athena
 			If the parameter is not the proper type or if there are no parameter the event manager will 
 			add the needed parameter.
 		*/
-		void EventManager::triger_event_periodically( Event& event , const double& period )
+		void EventManager::triger_event_periodically( Event& event , const utility::TimerValueType& period )
 		{
 			// If the event is not the virtual EVENT_ALL event.
 			if ( event.code() != EVENT_ALL )

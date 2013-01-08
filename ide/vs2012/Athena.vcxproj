@@ -114,8 +114,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\athenaDefinitions.hpp" />
-    <ClInclude Include="..\..\src\athenaEventCodes.hpp" />
+    <ClInclude Include="..\..\src\athena.hpp" />
+    <ClInclude Include="..\..\src\definitions.hpp" />
+    <ClInclude Include="..\..\src\eventCodes.hpp" />
     <ClInclude Include="..\..\src\core\event.hpp" />
     <ClInclude Include="..\..\src\core\eventManager.hpp" />
     <ClInclude Include="..\..\src\core\listener.hpp" />
@@ -128,8 +129,10 @@
     <ClInclude Include="..\..\src\io\logManager.hpp" />
     <ClInclude Include="..\..\src\utility\stringUtilities.hpp" />
     <ClInclude Include="..\..\src\utility\timer.hpp" />
+    <ClInclude Include="..\..\src\windowsDefinitions.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\athena.cpp" />
     <ClCompile Include="..\..\src\core\event.cpp" />
     <ClCompile Include="..\..\src\core\eventManager.cpp" />
     <ClCompile Include="..\..\src\core\listener.cpp" />

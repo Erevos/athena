@@ -20,6 +20,12 @@ namespace athena
 			m_code = value;
 		}
 
+		// Function responsible of setting the id code of the triggering entity.
+		inline void Event::initiator_id( const ListenerIDType& value )
+		{
+			m_initiator_id = value;
+		}
+
 		// Function responsible of setting the cleanup function.
 		inline void Event::cleanup_function( EventCleanupFunction function )
 		{
@@ -31,6 +37,12 @@ namespace athena
 		inline EventCode Event::code() const
 		{
 			return m_code;
+		}
+
+		// Function returning the id of the triggering entity.
+		inline ListenerIDType Event::initiator_id() const
+		{
+			return m_initiator_id;
 		}
 
 		// Function returning the cleanup function.

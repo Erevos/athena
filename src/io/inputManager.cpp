@@ -1,4 +1,5 @@
 #include "inputManager.hpp"
+#include "../eventCodes.hpp"
 
 
 
@@ -15,7 +16,8 @@ namespace athena
 
 
 		// The constructor of the class.
-		InputManager::InputManager()
+		InputManager::InputManager() :
+			Listener(athena::InputManagerID)
 		{
 		}
 
@@ -23,10 +25,25 @@ namespace athena
 		InputManager::~InputManager()
 		{
 		}
+		
+
+		// A function responsible of commencing the functionality of the input system.
+		bool InputManager::startup()
+		{
+			bool return_value = true;
+
+
+			return return_value;
+		}
+
+		// A function responsible of terminating the functionality of the input system.
+		void InputManager::terminate()
+		{
+		}
 
 
 		// A function responsible of initialising the single instance of the class.
-		bool InputManager::initialise()
+		bool InputManager::init()
 		{
 			bool return_value = true;
 
@@ -46,12 +63,13 @@ namespace athena
 		}
 
 		// A function responsible of deinitialising the single instance of the class.
-		void InputManager::deinitialise()
+		void InputManager::deinit()
 		{
 			s_instance_lock.lock();
 
 			if ( s_instance != NULL )
 			{
+				s_instance->terminate();
 				delete s_instance;
 				s_instance = NULL;
 			}

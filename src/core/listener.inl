@@ -14,14 +14,14 @@ namespace athena
 	{
 
 		// A function responsible of setting the id of the listener.
-		inline void Listener::id( const unsigned int value )
+		inline void Listener::id( const ListenerIDType& value )
 		{
 			m_id = value;
 		}
 
 
 		// A function returning the id of the listener.
-		inline unsigned int Listener::id() const
+		inline ListenerIDType Listener::id() const
 		{
 			return m_id;
 		}

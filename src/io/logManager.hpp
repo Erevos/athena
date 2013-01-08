@@ -1,13 +1,16 @@
 #ifndef ATHENA_IO_LOGMANAGER_HPP
 #define ATHENA_IO_LOGMANAGER_HPP
 
-#include "../athenaDefinitions.hpp"
+#include "../definitions.hpp"
 #include <mutex>
 #include <deque>
 #include <exception>
 #include <fstream>
 #include <cstdarg>
 #include "logEntry.hpp"
+#include "../athena.hpp"
+#include "../core/listener.hpp"
+
 
 
 namespace athena
@@ -29,7 +32,7 @@ namespace athena
 		/*
 			A singleton class responsible of handling an ASCII log for the application.
 		*/
-		class LogManager
+		class LogManager : public core::Listener
 		{
 			private:
 
@@ -111,12 +114,25 @@ namespace athena
 				void log_entry( const LogEntryType& type , const std::string& message );
 
 
+			protected:
+
+				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::startup( const AthenaManagers& managers );
+				friend void athena::deinit( const AthenaManagers& managers );
+
+
+				// A function responsible of commencing the functionality of the event system.
+				ATHENA_DLL bool startup();
+				// A function responsible of terminating the functionality of the event system.
+				ATHENA_DLL void terminate();
+
+
 			public:
 
 				// Function responsible of initialising the instance of the class. Returns true on success.
-				ATHENA_DLL static bool initialise();
+				ATHENA_DLL static bool init();
 				// Function responsible of deinitialising the instance of the class.
-				ATHENA_DLL static void deinitialise();
+				ATHENA_DLL static void deinit();
 				// Function returning a pointer to the single instance of the class.
 				ATHENA_DLL static LogManager* get();
 

@@ -10,7 +10,7 @@ namespace athena
 	{
 
 		// The constructor of the class.
-		Listener::Listener( const unsigned int id ) :
+		Listener::Listener( const ListenerIDType& id ) :
 			m_id(id)
 		{
 		}

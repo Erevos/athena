@@ -1,7 +1,7 @@
 #ifndef ATHENA_IO_LOGENTRY_HPP
 #define ATHENA_IO_LOGENTRY_HPP
 
-#include "../athenaDefinitions.hpp"
+#include "../definitions.hpp"
 #include <string>
 
 

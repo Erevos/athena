@@ -9,9 +9,10 @@ namespace athena
 	{
 
 		// The constructor of the class.
-		Event::Event( const EventCode& code ) :
+		Event::Event( const EventCode& code , const ListenerIDType& initiator_id ) :
 			m_parameters(0,NULL) ,
 			m_code(code) ,
+			m_initiator_id(initiator_id) ,
 			m_cleanup_function(NULL)
 		{
 		}
@@ -20,6 +21,7 @@ namespace athena
 		Event::Event( const Event& event ) :
 			m_parameters(0,NULL) ,
 			m_code(event.code()) ,
+			m_initiator_id(event.initiator_id()) ,
 			m_cleanup_function(event.cleanup_function())
 		{
 			for ( unsigned int i = 0;  i < event.parameter_count();  ++i )
@@ -45,6 +47,7 @@ namespace athena
 			{
 				clear();
 				m_code = event.code();
+				m_initiator_id = event.initiator_id();
 				m_cleanup_function = event.cleanup_function();
 
 				for ( unsigned int i = 0;  i < event.parameter_count();  ++i )

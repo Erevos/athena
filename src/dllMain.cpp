@@ -1,8 +1,11 @@
-#include "athenaDefinitions.hpp"
+#include "definitions.hpp"
 
 #ifdef _WIN32
 
+#include "windowsDefinitions.hpp"
 #include <Windows.h>
+
+
 
 /*
 	The function responsible of handling initialisation and

@@ -1,7 +1,7 @@
 #ifndef ATHENA_CORE_LISTENER_HPP
 #define ATHENA_CORE_LISTENER_HPP
 
-#include "../athenaDefinitions.hpp"
+#include "../definitions.hpp"
 #include "event.hpp"
 
 
@@ -11,7 +11,6 @@ namespace athena
 
 	namespace core
 	{
-
 		/* 
 			A class representing the base listener upon which
 			other engine entities can be constructed in order to 
@@ -22,23 +21,23 @@ namespace athena
 			private:
 
 				// A variable holding the id of the listener.
-				unsigned int m_id;
+				ListenerIDType m_id;
 
 
 			public:
 
 				// The constructor of the class.
-				ATHENA_DLL explicit Listener( const unsigned int id = 0 );
+				ATHENA_DLL explicit Listener( const ListenerIDType& id = 0 );
 				// The destructor of the class.
 				ATHENA_DLL virtual ~Listener();
 
 
 				// A function responsible of setting the id of the listener.
-				ATHENA_DLL void id( const unsigned int value );
+				ATHENA_DLL void id( const ListenerIDType& value );
 					
 
 				// A function returning the id of the listener.
-				ATHENA_DLL unsigned int id() const;
+				ATHENA_DLL ListenerIDType id() const;
 
 
 				// A function to be called when the listener is created.

@@ -1,11 +1,14 @@
 #ifndef ATHENA_UTILITY_TIMER_HPP
 #define ATHENA_UTILITY_TIMER_HPP
 
-#include "../athenaDefinitions.hpp"
+#include "../definitions.hpp"
 #include <mutex>
 
 #ifdef _WIN32
+
+	#include "../windowsDefinitions.hpp"
 	#include <Windows.h>
+
 #else
 	#include <ctime>
 #endif /* _WIN32 */

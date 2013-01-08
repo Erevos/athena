@@ -1,8 +1,7 @@
 #ifndef ATHENA_CORE_EVENTMANAGER_HPP
 #define ATHENA_CORE_EVENTMANAGER_HPP
 
-#include "../athenaDefinitions.hpp"
-#include "../athenaEventCodes.hpp"
+#include "../definitions.hpp"
 #include <mutex>
 #include <chrono>
 	
@@ -16,6 +15,7 @@
 #include <map>
 #include <vector>
 #include <deque>
+#include "../athena.hpp"
 #include "event.hpp"
 #include "listener.hpp"
 #include "periodicEventInfo.hpp"
@@ -171,20 +171,29 @@ namespace athena
 				void cleanup();
 
 
-			public:
+			protected:
 
-				// A function responsible of initialising the single instance of the class.
-				ATHENA_DLL static bool initialise();
-				// A function responsible of deinitialising the single instance of the class.
-				ATHENA_DLL static void deinitialise();
-				// A function responsible of returning a single instance of the class.
-				ATHENA_DLL static EventManager* get();
+				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::startup( const AthenaManagers& managers );
+				friend void athena::deinit( const AthenaManagers& managers );
 
 
 				// A function responsible of commencing the functionality of the event system.
 				ATHENA_DLL bool startup();
 				// A function responsible of terminating the functionality of the event system.
 				ATHENA_DLL void terminate();
+
+
+			public:
+
+				// A function responsible of initialising the single instance of the class.
+				ATHENA_DLL static bool init();
+				// A function responsible of deinitialising the single instance of the class.
+				ATHENA_DLL static void deinit();
+				// A function responsible of returning a single instance of the class.
+				ATHENA_DLL static EventManager* get();
+
+
 				// A function responsible of triggering an event with the given parameters and id code.
 				ATHENA_DLL void trigger_event( const Event& event );
 				/*
@@ -193,7 +202,7 @@ namespace athena
 					If the parameter is not the proper type or if there are no parameter the event manager will 
 					add the needed parameter.
 				*/
-				ATHENA_DLL void triger_event_periodically( Event& event , const double& period );
+				ATHENA_DLL void triger_event_periodically( Event& event , const utility::TimerValueType& period );
 				// A function responsible of unregistering an event from being triggered periodically.
 				ATHENA_DLL void stop_triggerring_event_periodically( const EventCode& code );
 				// A function responsible of registering a listener for notification of the specified event code.

@@ -1,12 +1,13 @@
 #ifndef ATHENA_CORE_THREADPOOL_HPP
 #define ATHENA_CORE_THREADPOOL_HPP
 
-#include "../athenaDefinitions.hpp"
+#include "../definitions.hpp"
 #include <vector>
 #include <deque>
 #include <mutex>
 #include <condition_variable>
 #include <thread>
+#include "../athena.hpp"
 
 
 
@@ -102,20 +103,29 @@ namespace athena
 				void cleanup();
 
 
+			protected:
+
+				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::startup( const AthenaManagers& managers );
+				friend void athena::deinit( const AthenaManagers& managers );
+
+
+				// A function responsible of commencing the functionality of the event system.
+				ATHENA_DLL bool startup();
+				// A function responsible of terminating the functionality of the event system.
+				ATHENA_DLL void terminate();
+
+
 			public:
 
 				// A function responsible of initialising the single instance of the class.
-				ATHENA_DLL static bool initialise();
+				ATHENA_DLL static bool init();
 				// A function responsible of deinitialising the single instance of the class.
-				ATHENA_DLL static void deinitialise();
+				ATHENA_DLL static void deinit();
 				// A function responsible of returning a single instance of the class.
 				ATHENA_DLL static ThreadPool* get();
 
 
-				// A function responsible of commencing the functionality of the thread pool.
-				ATHENA_DLL bool startup();
-				// A function responsible of terminating the functionality of the thread pool.
-				ATHENA_DLL void terminate();
 				// A function responsible of queuing a task.
 				ATHENA_DLL bool add_task( TaskFunction task , void* parameter , TaskCallbackFunction callback , void* callback_parameter );
 		};
