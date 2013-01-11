@@ -105,7 +105,7 @@ namespace athena
 
 			protected:
 
-				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::init( const AthenaManagers& managers , int& argc , char**& argv );
 				friend bool athena::startup( const AthenaManagers& managers );
 				friend void athena::deinit( const AthenaManagers& managers );
 

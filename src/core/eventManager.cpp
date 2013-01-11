@@ -821,7 +821,7 @@ namespace athena
 			If the parameter is not the proper type or if there are no parameter the event manager will 
 			add the needed parameter.
 		*/
-		void EventManager::triger_event_periodically( Event& event , const utility::TimerValueType& period )
+		void EventManager::trigger_event_periodically( Event& event , const utility::TimerValueType& period )
 		{
 			// If the event is not the virtual EVENT_ALL event.
 			if ( event.code() != EVENT_ALL )

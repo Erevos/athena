@@ -1,18 +1,30 @@
 #include "athena.hpp"
 #include <mutex>
+#include <condition_variable>
+#include <GL/freeglut.h>
 #include "core/threadPool.hpp"
 #include "core/eventManager.hpp"
 #include "display/renderManager.hpp"
 #include "io/logManager.hpp"
 #include "io/inputManager.hpp"
 
+#ifdef _WIN32
+	#pragma warning(disable:4505)
+#endif /* _WIN32 */
+
 
 
 namespace athena
 {
-	static const unsigned int manager_count = 5;
-	static std::mutex status_lock;
-	static bool athena_manager_initialisation[manager_count] = {
+	const unsigned int manager_count = 5;
+	std::mutex status_lock;
+
+	#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+		std::condition_variable_any exit_condition;
+	#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
+	bool glut_initialised = false;
+	bool athena_manager_initialisation[manager_count] = {
 																	false,
 																	false,
 																	false,
@@ -21,13 +33,29 @@ namespace athena
 																};
 
 
+	#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+		void exit_cleanup( const core::Event& )
+		{
+			exit_condition.notify_all();
+		}
+
+	#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+
+
 	// Function responsible of initialising the specified managers.
-	bool init( const AthenaManagers& managers )
+	bool init( const AthenaManagers& managers , int& argc , char**& argv )
 	{
 		bool return_value = true;
 
 
 		status_lock.lock();
+
+		if ( !glut_initialised )
+		{
+			glutInit(&argc,argv);
+			glut_initialised = true;
+		}
 
 		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 
@@ -266,13 +294,25 @@ namespace athena
 	}
 
 
-	// The main loop of the engine.
-	void mainLoop()
+	// A function responsible of performing any update operations.
+	void operate()
 	{
+		glutMainLoopEvent();
 
+		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+			
+			// Get a pointer to the event manager.
+			core::EventManager* manager = core::EventManager::get();
+
+
+			// If the manager is initialised.
+			if ( manager != NULL )
+				manager->operate();
+
+		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 	}
 
-	// A function that triggers the terminating sequence of the engine.
+	// A function that triggers the terminating sequence of the engine and deinitialising any managers.
 	void terminate()
 	{
 		// Get a pointer to the event manager.
@@ -281,12 +321,31 @@ namespace athena
 
 		// If the manager is initialised.
 		if ( manager != NULL )
-			manager->trigger_event(core::Event(EVENT_EXIT)); // Trigger the exit event.
+		{
+			core::Event event(EVENT_EXIT);
+
+			#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
+
+				manager->trigger_event(event); // Trigger the exit event.
+				manager->operate();
+				deinit(ALL);
+
+			#else
+				
+				event.cleanup_function(exit_cleanup);
+				status_lock.lock();
+				manager->trigger_event(event); // Trigger the exit event.
+				exit_condition.wait(status_lock);
+				status_lock.unlock();
+				deinit(ALL);
+
+			#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
+		}
 	}
 
 
 	// A function that triggers an event. Allias for the direct call from the manager.
-	void triger_event( const core::Event& event )
+	void trigger_event( const core::Event& event )
 	{
 		// Get a pointer to the event manager.
 		core::EventManager* manager = core::EventManager::get();
@@ -306,7 +365,7 @@ namespace athena
 
 		// If the manager is initialised.
 		if ( manager != NULL )
-			manager->triger_event_periodically(event,period); // Register the periodic triggering.
+			manager->trigger_event_periodically(event,period); // Register the periodic triggering.
 	}
 
 	// A function that unregisters an event from periodic triggering. Allias for the direct call from the manager.

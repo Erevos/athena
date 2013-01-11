@@ -173,7 +173,7 @@ namespace athena
 
 			protected:
 
-				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::init( const AthenaManagers& managers , int& argc , char**& argv );
 				friend bool athena::startup( const AthenaManagers& managers );
 				friend void athena::deinit( const AthenaManagers& managers );
 
@@ -202,7 +202,7 @@ namespace athena
 					If the parameter is not the proper type or if there are no parameter the event manager will 
 					add the needed parameter.
 				*/
-				ATHENA_DLL void triger_event_periodically( Event& event , const utility::TimerValueType& period );
+				ATHENA_DLL void trigger_event_periodically( Event& event , const utility::TimerValueType& period );
 				// A function responsible of unregistering an event from being triggered periodically.
 				ATHENA_DLL void stop_triggerring_event_periodically( const EventCode& code );
 				// A function responsible of registering a listener for notification of the specified event code.

@@ -1,5 +1,11 @@
 #include "renderManager.hpp"
+#include <GL/freeglut.h>
 #include "../eventCodes.hpp"
+#include "../athena.hpp"
+
+#ifdef _WIN32
+	#pragma warning(disable:4505)
+#endif /* _WIN32 */
 
 
 
@@ -17,13 +23,17 @@ namespace athena
 
 		// The constructor of the class.
 		RenderManager::RenderManager() :
-			Listener(athena::RenderManagerID)
+			Listener(athena::RenderManagerID) ,
+			m_lock() ,
+			m_window_id(0) ,
+			m_initialised(false)
 		{
 		}
 
 		// The destructor of the class.
 		RenderManager::~RenderManager()
 		{
+			terminate();
 		}
 		
 
@@ -33,12 +43,41 @@ namespace athena
 			bool return_value = true;
 
 
+			m_lock.lock();
+
+			if ( !m_initialised )
+			{
+				register_event(EVENT_EXIT);
+				glutInitDisplayMode(GLUT_RGBA|GLUT_ALPHA|GLUT_DOUBLE|GLUT_DEPTH|GLUT_STENCIL|GLUT_MULTISAMPLE);
+				m_window_id = glutCreateWindow("Athena");
+
+				if ( m_window_id > 0 )
+				{
+					glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+					glutCloseFunc(athena::terminate);
+					m_initialised = true;
+				}
+			}
+
+			m_lock.unlock();
+
+
 			return return_value;
 		}
 
 		// A function responsible of terminating the functionality of the input system.
 		void RenderManager::terminate()
 		{
+			m_lock.lock();
+
+			if ( m_initialised )
+			{
+				unregister_all_events();
+				glutDestroyWindow(m_window_id);
+				m_initialised = false;
+			}
+
+			m_lock.unlock();
 		}
 
 
@@ -89,6 +128,17 @@ namespace athena
 
 
 			return return_value;
+		}
+
+
+		// Function responsible of responding to a triggered event.
+		void RenderManager::on_event( const core::Event& event )
+		{
+			core::EventCode code = event.code();
+
+
+			if ( code == EVENT_EXIT )
+				terminate();
 		}
 
 	} /* display */

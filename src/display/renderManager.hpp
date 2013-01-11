@@ -28,6 +28,11 @@ namespace athena
 				static std::mutex s_instance_lock;
 
 
+				std::mutex m_lock;
+				int m_window_id;
+				bool m_initialised;
+
+
 				// The constructor of the class.
 				RenderManager();
 				// The destructor of the class.
@@ -36,7 +41,7 @@ namespace athena
 
 			protected:
 
-				friend bool athena::init( const AthenaManagers& managers );
+				friend bool athena::init( const AthenaManagers& managers , int& argc , char**& argv );
 				friend bool athena::startup( const AthenaManagers& managers );
 				friend void athena::deinit( const AthenaManagers& managers );
 
@@ -55,6 +60,10 @@ namespace athena
 				ATHENA_DLL static void deinit();
 				// A function responsible of returning a single instance of the class.
 				ATHENA_DLL static RenderManager* get();
+
+
+				// Function responsible of responding to a triggered event.
+				ATHENA_DLL void on_event( const core::Event& event );
 		};
 
 	} /* display */
