@@ -117,6 +117,12 @@
     <ClInclude Include="..\..\src\io\mouse.hpp">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\io\luaReducedDefaultLibraries.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\io\luaState.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\eventManager.cpp">
@@ -170,6 +176,12 @@
     <ClCompile Include="..\..\src\io\mouse.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\io\luaReducedDefaultLibraries.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\luaState.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\eventManager.inl">
@@ -189,6 +201,9 @@
     </None>
     <None Include="..\..\src\core\listener.inl">
       <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\src\io\luaState.inl">
+      <Filter>Header Files\IO</Filter>
     </None>
   </ItemGroup>
 </Project>

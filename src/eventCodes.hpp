@@ -21,13 +21,16 @@ namespace athena
 		FirstAvailableID
 	};
 
-
-	const core::EventCode EVENT_ALL = 0x0000;
-	const core::EventCode EVENT_EXIT = 0x0001;
-	const core::EventCode EVENT_UPDATE = 0x0002;
-	const core::EventCode EVENT_UPDATE_SLOW = 0x0003;
-	const core::EventCode EVENT_UPDATE_MEDIUM = 0x0004;
-	const core::EventCode EVENT_UPDATE_FAST = 0x0005;
+	enum CoreEventCodes
+	{
+		EVENT_ALL = 0x0000 ,
+		EVENT_EXIT ,
+		EVENT_UPDATE ,
+		EVENT_UPDATE_SLOW ,
+		EVENT_UPDATE_MEDIUM ,
+		EVENT_UPDATE_FAST ,
+		EVENT_CORE_MAX_VALUE
+	};
 
 	enum InputCodes
 	{
@@ -253,9 +256,16 @@ namespace athena
 		EVENT_INPUT_MOUSE_LEFT_UP ,
 		EVENT_INPUT_MOUSE_MIDDLE_UP ,
 		EVENT_INPUT_MOUSE_RIGHT_UP ,
-		EVENT_INPUT_MOUSE_WHEEL_UP
+		EVENT_INPUT_MOUSE_WHEEL_UP ,
+		EVENT_INPUT_MAX_VALUE
 	};
 
+
+	enum LogCodes
+	{
+		EVENT_LOG_NEW_ENTRY = 0x4000 ,
+		EVENT_LOG_MAX_VALUE
+	};
 
 } /* athena */
 

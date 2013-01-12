@@ -239,6 +239,10 @@ namespace athena
 				ATHENA_DLL bool entry( const unsigned int index , LogEntryA& value ) const;
 				// Function returning the desired number of entries from the given start. Returns true on success.
 				ATHENA_DLL bool entries( const unsigned int number, const unsigned int start , std::deque<LogEntryA>& values ) const;
+
+
+				// Function responsible of responding to a triggered event.
+				ATHENA_DLL void on_event( const core::Event& event );
 		};
 
 	} /* io */

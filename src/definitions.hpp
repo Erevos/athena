@@ -6,6 +6,9 @@
 // Windows definitions.
 #ifdef _WIN32
 
+	// Macro tha specifies the type of library that Lua is built as.
+	#define LUA_BUILD_AS_DLL
+
 	// Macro that is used when the library is exported or imported.
 	#ifdef ATHENA_EXPORTS
 		#define ATHENA_DLL __declspec(dllexport)

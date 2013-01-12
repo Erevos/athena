@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <cwchar>
+#include "../athena.hpp"
 #include "../eventCodes.hpp"
 
 
@@ -325,6 +326,10 @@ namespace athena
 
 			if ( entry != NULL )
 			{
+				// Create the event that will be fired when a new entry is inserted.
+				core::Event event(EVENT_LOG_NEW_ENTRY);
+
+
 				// Insert the new entry to the log.
 				m_log.push_back(entry);
 				// Increase the auto dump counter.
@@ -336,6 +341,11 @@ namespace athena
 
 				// Manage the size of the log and perform the auto-dump and auto-purge functionality if needed.
 				manage_log_size();
+
+				// Set the first parameter of the event to the new entry.
+				event.parameter(0,core::ParameterType::Pointer,static_cast<void*>(entry));
+				// Trigger the event.
+				athena::trigger_event(event);
 			}
 		}
 
@@ -349,6 +359,7 @@ namespace athena
 		// Function responsible of perfoming any actions needed on termination.
 		void LogManager::terminate()
 		{
+			unregister_all_events();
 		}
 
 
@@ -905,6 +916,12 @@ namespace athena
 
 
 			return return_value;
+		}
+
+
+		// Function responsible of responding to a triggered event.
+		void LogManager::on_event( const core::Event& )
+		{
 		}
 
 	} /* io */

@@ -41,18 +41,18 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)d</TargetName>
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
-    <IntDir>$(ProjectDir)..\..\bin\$(Configuration)\</IntDir>
-    <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <LibraryPath>..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
-    <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
+    <IntDir>$(ProjectDir)..\..\bin\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>..\..\src;..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <LibraryPath>..\..\bin;..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
+    <SourcePath>..\..\src;..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
-    <IntDir>$(ProjectDir)..\..\bin\$(Configuration)\</IntDir>
-    <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <LibraryPath>..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
-    <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
+    <IntDir>$(ProjectDir)..\..\bin\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>..\..\src;..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <LibraryPath>..\..\bin;..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
+    <SourcePath>..\..\src;..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -68,6 +68,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;luad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <WarningLevel>4</WarningLevel>
@@ -97,6 +98,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>freeglut.lib;lua.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <WarningLevel>4</WarningLevel>
@@ -125,6 +127,8 @@
     <ClInclude Include="..\..\src\io\keyboard.hpp" />
     <ClInclude Include="..\..\src\io\logEntry.hpp" />
     <ClInclude Include="..\..\src\io\logManager.hpp" />
+    <ClInclude Include="..\..\src\io\luaReducedDefaultLibraries.hpp" />
+    <ClInclude Include="..\..\src\io\luaState.hpp" />
     <ClInclude Include="..\..\src\io\mouse.hpp" />
     <ClInclude Include="..\..\src\utility\stringUtilities.hpp" />
     <ClInclude Include="..\..\src\utility\timer.hpp" />
@@ -145,6 +149,8 @@
     <ClCompile Include="..\..\src\io\keyboard.cpp" />
     <ClCompile Include="..\..\src\io\logEntry.cpp" />
     <ClCompile Include="..\..\src\io\logManager.cpp" />
+    <ClCompile Include="..\..\src\io\luaReducedDefaultLibraries.cpp" />
+    <ClCompile Include="..\..\src\io\luaState.cpp" />
     <ClCompile Include="..\..\src\io\mouse.cpp" />
     <ClCompile Include="..\..\src\utility\stringUtilities.cpp" />
     <ClCompile Include="..\..\src\utility\timer.cpp" />
@@ -156,6 +162,7 @@
     <None Include="..\..\src\core\parameter.inl" />
     <None Include="..\..\src\io\logEntry.inl" />
     <None Include="..\..\src\io\logManager.inl" />
+    <None Include="..\..\src\io\luaState.inl" />
     <None Include="..\..\src\utility\timer.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
