@@ -2,7 +2,7 @@
 
 #=============== CUSTOMIZATION ==================
 
-SW_TITLE="libathena"
+SW_TITLE="athena"
 SW_PACKAGE="libathena"
 SW_DESCRIPTION="Athena 3d engine"
 
