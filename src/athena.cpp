@@ -1,10 +1,12 @@
 #include "athena.hpp"
 #include <mutex>
 #include <condition_variable>
+#include "windowsDefinitions.hpp"
 #include <GL/freeglut.h>
 #include "core/threadPool.hpp"
 #include "core/eventManager.hpp"
 #include "display/renderManager.hpp"
+#include "display/audioManager.hpp"
 #include "io/logManager.hpp"
 #include "io/inputManager.hpp"
 
@@ -16,7 +18,6 @@
 
 namespace athena
 {
-	const unsigned int manager_count = 5;
 	std::mutex status_lock;
 
 	#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
@@ -24,13 +25,13 @@ namespace athena
 	#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 	bool glut_initialised = false;
-	bool athena_manager_initialisation[manager_count] = {
-																	false,
-																	false,
-																	false,
-																	false,
-																	false
-																};
+	bool athena_manager_initialisation[ManagerIDs::FirstAvailableID] = {
+		false,
+		false,
+		false,
+		false,
+		false
+	};
 
 
 	#ifndef ATHENA_EVENTMANAGER_SINGLETHREADED
@@ -65,7 +66,7 @@ namespace athena
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
 			return_value &= core::ThreadPool::init();
-			athena_manager_initialisation[0] = true;
+			athena_manager_initialisation[ManagerIDs::ThreadPool] = true;
 
 		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 		}
@@ -73,57 +74,68 @@ namespace athena
 
 
 		return_value &= core::EventManager::init();
-		athena_manager_initialisation[1] = true;
+		athena_manager_initialisation[ManagerIDs::EventManagerID] = true;
 
 
 		if ( ( managers & RENDER_MANAGER ) != 0 )
 		{
 			return_value &= display::RenderManager::init();
-			athena_manager_initialisation[2] = true;
+			athena_manager_initialisation[ManagerIDs::RenderManagerID] = true;
+		}
+
+		if ( ( managers & AUDIO_MANAGER ) != 0 )
+		{
+			return_value &= display::AudioManager::init();
+			athena_manager_initialisation[ManagerIDs::AudioManagerID] = true;
 		}
 
 		if (  ( managers & INPUT_MANAGER ) != 0 )
 		{
 			return_value &= io::InputManager::init();
-			athena_manager_initialisation[3] = true;
+			athena_manager_initialisation[ManagerIDs::InputManagerID] = true;
 		}
 
 		if ( ( managers & LOG_MANAGER ) != 0 )
 		{
 			return_value &= io::LogManager::init();
-			athena_manager_initialisation[4] = true;
+			athena_manager_initialisation[ManagerIDs::LogManagerID] = true;
 		}
 
 
 		if ( !return_value )
 		{
-			for ( unsigned int i = manager_count-1;  i < manager_count;  --i )
+			for ( unsigned int i = ManagerIDs::FirstAvailableID-1;  i < ManagerIDs::FirstAvailableID;  --i )
 			{
 				if ( athena_manager_initialisation[i] )
 				{
 					switch ( i )
 					{
-						case 0:
+						case ManagerIDs::ThreadPool:
 							
 							core::ThreadPool::deinit();
 							break;
 
-						case 1:
+						case ManagerIDs::EventManagerID:
 							
 							core::EventManager::deinit();
 							break;
 
-						case 2:
+						case ManagerIDs::RenderManagerID:
 							
 							display::RenderManager::deinit();
 							break;
 
-						case 3:
+						case ManagerIDs::AudioManagerID:
+
+							display::AudioManager::deinit();
+							break;
+
+						case ManagerIDs::InputManagerID:
 							
 							io::InputManager::deinit();
 							break;
 
-						case 4:
+						case ManagerIDs::LogManagerID:
 							
 							io::LogManager::deinit();
 							break;
@@ -159,7 +171,7 @@ namespace athena
 
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
-			if ( athena_manager_initialisation[0] )
+			if ( athena_manager_initialisation[ManagerIDs::ThreadPool] )
 			{
 				core::ThreadPool* pool = core::ThreadPool::get();
 
@@ -172,7 +184,7 @@ namespace athena
 		}
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
-		if ( athena_manager_initialisation[1] )
+		if ( athena_manager_initialisation[ManagerIDs::EventManagerID] )
 		{
 			core::EventManager*  event_manager = core::EventManager::get();
 
@@ -181,7 +193,7 @@ namespace athena
 				return_value &= event_manager->startup();
 		}
 
-		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[2] )
+		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::RenderManagerID] )
 		{
 			display::RenderManager* render_manager = display::RenderManager::get();
 
@@ -190,7 +202,16 @@ namespace athena
 				return_value &= render_manager->startup();
 		}
 
-		if (  ( managers & INPUT_MANAGER ) != 0  &&  athena_manager_initialisation[3] )
+		if ( ( managers & AUDIO_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::AudioManagerID] )
+		{
+			display::AudioManager* audio_manager = display::AudioManager::get();
+
+
+			if ( audio_manager != NULL )
+				return_value &= audio_manager->startup();
+		}
+
+		if (  ( managers & INPUT_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::InputManagerID] )
 		{
 			io::InputManager* input_manager = io::InputManager::get();
 
@@ -199,7 +220,7 @@ namespace athena
 				return_value &= input_manager->startup();
 		}
 
-		if ( ( managers & LOG_MANAGER ) != 0  &&  athena_manager_initialisation[4] )
+		if ( ( managers & LOG_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::LogManagerID] )
 		{
 			io::LogManager* log_manager = io::LogManager::get();
 
@@ -219,7 +240,7 @@ namespace athena
 	{
 		status_lock.lock();
 
-		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[2] )
+		if ( ( managers & RENDER_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::RenderManagerID] )
 		{
 			display::RenderManager* render_manager = display::RenderManager::get();
 
@@ -228,10 +249,22 @@ namespace athena
 				render_manager->terminate();
 
 			display::RenderManager::deinit();
-			athena_manager_initialisation[2] = false;
+			athena_manager_initialisation[ManagerIDs::RenderManagerID] = false;
 		}
 
-		if (  ( managers & INPUT_MANAGER ) != 0  &&  athena_manager_initialisation[3] )
+		if ( ( managers & AUDIO_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::AudioManagerID] )
+		{
+			display::AudioManager* audio_manager = display::AudioManager::get();
+
+
+			if ( audio_manager != NULL )
+				audio_manager->terminate();
+
+			display::AudioManager::deinit();
+			athena_manager_initialisation[ManagerIDs::AudioManagerID] = false;
+		}
+
+		if (  ( managers & INPUT_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::InputManagerID] )
 		{
 			io::InputManager* input_manager = io::InputManager::get();
 
@@ -240,10 +273,10 @@ namespace athena
 				input_manager->terminate();
 
 			io::InputManager::deinit();
-			athena_manager_initialisation[3] = false;
+			athena_manager_initialisation[ManagerIDs::InputManagerID] = false;
 		}
 
-		if ( ( managers & LOG_MANAGER ) != 0  &&  athena_manager_initialisation[4] )
+		if ( ( managers & LOG_MANAGER ) != 0  &&  athena_manager_initialisation[ManagerIDs::LogManagerID] )
 		{
 			io::LogManager* log_manager = io::LogManager::get();
 
@@ -252,10 +285,10 @@ namespace athena
 				log_manager->terminate();
 
 			io::LogManager::deinit();
-			athena_manager_initialisation[4] = false;
+			athena_manager_initialisation[ManagerIDs::LogManagerID] = false;
 		}
 
-		if ( athena_manager_initialisation[1] )
+		if ( athena_manager_initialisation[ManagerIDs::EventManagerID] )
 		{
 			core::EventManager*  event_manager = core::EventManager::get();
 
@@ -264,7 +297,7 @@ namespace athena
 				event_manager->terminate();
 
 			core::EventManager::deinit();
-			athena_manager_initialisation[1] = false;
+			athena_manager_initialisation[ManagerIDs::EventManagerID] = false;
 		}
 
 		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
@@ -274,7 +307,7 @@ namespace athena
 
 		#endif /* ATHENA_EVENTMANAGER_SINGLETHREADED */
 
-			if ( athena_manager_initialisation[0] )
+			if ( athena_manager_initialisation[ManagerIDs::ThreadPool] )
 			{
 				core::ThreadPool* pool = core::ThreadPool::get();
 
@@ -283,7 +316,7 @@ namespace athena
 					pool->terminate();
 
 				core::ThreadPool::deinit();
-				athena_manager_initialisation[0] = false;
+				athena_manager_initialisation[ManagerIDs::ThreadPool] = false;
 			}
 
 		#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED

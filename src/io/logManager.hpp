@@ -121,6 +121,12 @@ namespace athena
 				friend void athena::deinit( const AthenaManagers& managers );
 
 
+				// Function responsible of initialising the instance of the class. Returns true on success.
+				ATHENA_DLL static bool init();
+				// Function responsible of deinitialising the instance of the class.
+				ATHENA_DLL static void deinit();
+
+
 				// A function responsible of commencing the functionality of the event system.
 				ATHENA_DLL bool startup();
 				// A function responsible of terminating the functionality of the event system.
@@ -129,10 +135,6 @@ namespace athena
 
 			public:
 
-				// Function responsible of initialising the instance of the class. Returns true on success.
-				ATHENA_DLL static bool init();
-				// Function responsible of deinitialising the instance of the class.
-				ATHENA_DLL static void deinit();
 				// Function returning a pointer to the single instance of the class.
 				ATHENA_DLL static LogManager* get();
 

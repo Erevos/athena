@@ -16,6 +16,7 @@ namespace athena
 		ThreadPool = 0 ,
 		EventManagerID ,
 		RenderManagerID ,
+		AudioManagerID ,
 		InputManagerID ,
 		LogManagerID ,
 		FirstAvailableID
@@ -34,7 +35,7 @@ namespace athena
 
 	enum InputCodes
 	{
-		EVENT_INPUT_UPDATE_RATE = 0x3000 ,
+		EVENT_INPUT_UPDATE_RATE = ManagerIDs::InputManagerID*0x1000 ,
 		EVENT_INPUT_INIT_KEYBOARD ,
 		EVENT_INPUT_INIT_MOUSE ,
 		// -----------------------------
@@ -263,7 +264,7 @@ namespace athena
 
 	enum LogCodes
 	{
-		EVENT_LOG_NEW_ENTRY = 0x4000 ,
+		EVENT_LOG_NEW_ENTRY = ManagerIDs::LogManagerID*0x1000 ,
 		EVENT_LOG_MAX_VALUE
 	};
 

@@ -350,19 +350,6 @@ namespace athena
 		}
 
 
-		// Function responsible of performing any actions needed on startup.
-		bool LogManager::startup()
-		{
-			return true;
-		}
-
-		// Function responsible of perfoming any actions needed on termination.
-		void LogManager::terminate()
-		{
-			unregister_all_events();
-		}
-
-
 		// Function responsible of initialising the instance of the class. Returns true on success.
 		bool LogManager::init()
 		{
@@ -396,6 +383,20 @@ namespace athena
 
 			s_instance_lock.unlock();
 		}
+
+
+		// Function responsible of performing any actions needed on startup.
+		bool LogManager::startup()
+		{
+			return true;
+		}
+
+		// Function responsible of perfoming any actions needed on termination.
+		void LogManager::terminate()
+		{
+			unregister_all_events();
+		}
+
 
 		// Function returning a pointer to the single instance of the class.
 		LogManager* LogManager::get()

@@ -3,7 +3,6 @@
 
 #include "../definitions.hpp"
 #include <mutex>
-#include <new>
 #include "../athena.hpp"
 #include "../core/listener.hpp"
 
@@ -46,6 +45,12 @@ namespace athena
 				friend void athena::deinit( const AthenaManagers& managers );
 
 
+				// A function responsible of initialising the single instance of the class.
+				ATHENA_DLL static bool init();
+				// A function responsible of deinitialising the single instance of the class.
+				ATHENA_DLL static void deinit();
+
+
 				// A function responsible of commencing the functionality of the event system.
 				ATHENA_DLL bool startup();
 				// A function responsible of terminating the functionality of the event system.
@@ -54,10 +59,6 @@ namespace athena
 
 			public:
 
-				// A function responsible of initialising the single instance of the class.
-				ATHENA_DLL static bool init();
-				// A function responsible of deinitialising the single instance of the class.
-				ATHENA_DLL static void deinit();
 				// A function responsible of returning a single instance of the class.
 				ATHENA_DLL static RenderManager* get();
 

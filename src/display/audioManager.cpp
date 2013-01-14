@@ -1,11 +1,7 @@
-#include "renderManager.hpp"
-#include <GL/freeglut.h>
-#include "../eventCodes.hpp"
-
-#ifdef _WIN32
-	#pragma warning(disable:4505)
-#endif /* _WIN32 */
-
+#include "audioManager.hpp"
+#include "../windowsDefinitions.hpp"
+#include <AL/al.h>
+#include <AL/alc.h>
 
 
 namespace athena
@@ -15,29 +11,28 @@ namespace athena
 	{
 
 		// The single instance of the class.
-		RenderManager* RenderManager::s_instance = NULL;
+		AudioManager* AudioManager::s_instance = NULL;
 		// A lock used to handle concurrency issues regarding the instance of the class.
-		std::mutex RenderManager::s_instance_lock;
+		std::mutex AudioManager::s_instance_lock;
 
 
 		// The constructor of the class.
-		RenderManager::RenderManager() :
-			Listener(athena::RenderManagerID) ,
+		AudioManager::AudioManager() :
+			Listener(athena::AudioManagerID) ,
 			m_lock() ,
-			m_window_id(0) ,
 			m_initialised(false)
 		{
 		}
 
 		// The destructor of the class.
-		RenderManager::~RenderManager()
+		AudioManager::~AudioManager()
 		{
 			terminate();
 		}
 		
 
 		// A function responsible of initialising the single instance of the class.
-		bool RenderManager::init()
+		bool AudioManager::init()
 		{
 			bool return_value = true;
 
@@ -46,7 +41,7 @@ namespace athena
 
 			if ( s_instance == NULL )
 			{
-				s_instance = new (std::nothrow) RenderManager();
+				s_instance = new (std::nothrow) AudioManager();
 				return_value = ( s_instance != NULL );
 			}
 
@@ -57,7 +52,7 @@ namespace athena
 		}
 
 		// A function responsible of deinitialising the single instance of the class.
-		void RenderManager::deinit()
+		void AudioManager::deinit()
 		{
 			s_instance_lock.lock();
 
@@ -73,7 +68,7 @@ namespace athena
 
 
 		// A function responsible of commencing the functionality of the input system.
-		bool RenderManager::startup()
+		bool AudioManager::startup()
 		{
 			bool return_value = true;
 
@@ -83,15 +78,8 @@ namespace athena
 			if ( !m_initialised )
 			{
 				register_event(EVENT_EXIT);
-				glutInitDisplayMode(GLUT_RGBA|GLUT_ALPHA|GLUT_DOUBLE|GLUT_DEPTH|GLUT_STENCIL|GLUT_MULTISAMPLE);
-				m_window_id = glutCreateWindow("Athena");
-
-				if ( m_window_id > 0 )
-				{
-					glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-					glutCloseFunc(athena::terminate);
-					m_initialised = true;
-				}
+				alGetError();
+				m_initialised = true;
 			}
 
 			m_lock.unlock();
@@ -101,14 +89,13 @@ namespace athena
 		}
 
 		// A function responsible of terminating the functionality of the input system.
-		void RenderManager::terminate()
+		void AudioManager::terminate()
 		{
 			m_lock.lock();
 
 			if ( m_initialised )
 			{
 				unregister_all_events();
-				glutDestroyWindow(m_window_id);
 				m_initialised = false;
 			}
 
@@ -117,9 +104,9 @@ namespace athena
 
 
 		// A function responsible of returning a single instance of the class.
-		RenderManager* RenderManager::get()
+		AudioManager* AudioManager::get()
 		{
-			RenderManager* return_value = NULL;
+			AudioManager* return_value = NULL;
 
 
 			s_instance_lock.lock();
@@ -132,7 +119,7 @@ namespace athena
 
 
 		// Function responsible of responding to a triggered event.
-		void RenderManager::on_event( const core::Event& event )
+		void AudioManager::on_event( const core::Event& event )
 		{
 			core::EventCode code = event.code();
 

@@ -148,6 +148,42 @@ namespace athena
 		}
 
 
+		// A function responsible of initialising the single instance of the class.
+		bool ThreadPool::init()
+		{
+			bool return_value = true;
+
+
+			s_instance_lock.lock();
+
+			if ( s_instance == NULL )
+			{
+				s_instance = new (std::nothrow) ThreadPool();
+				return_value = ( s_instance != NULL );
+			}
+
+			s_instance_lock.unlock();
+
+
+			return return_value;
+		}
+
+		// A function responsible of deinitialising the single instance of the class.
+		void ThreadPool::deinit()
+		{
+			s_instance_lock.lock();
+
+			if ( s_instance != NULL )
+			{
+				s_instance->terminate();
+				delete s_instance;
+				s_instance = NULL;
+			}
+
+			s_instance_lock.unlock();
+		}
+
+
 		// A function responsible of commencing the functionality of the thread pool.
 		bool ThreadPool::startup()
 		{
@@ -227,41 +263,6 @@ namespace athena
 			m_lock.unlock();
 		}
 
-
-		// A function responsible of initialising the single instance of the class.
-		bool ThreadPool::init()
-		{
-			bool return_value = true;
-
-
-			s_instance_lock.lock();
-
-			if ( s_instance == NULL )
-			{
-				s_instance = new (std::nothrow) ThreadPool();
-				return_value = ( s_instance != NULL );
-			}
-
-			s_instance_lock.unlock();
-
-
-			return return_value;
-		}
-
-		// A function responsible of deinitialising the single instance of the class.
-		void ThreadPool::deinit()
-		{
-			s_instance_lock.lock();
-
-			if ( s_instance != NULL )
-			{
-				s_instance->terminate();
-				delete s_instance;
-				s_instance = NULL;
-			}
-
-			s_instance_lock.unlock();
-		}
 
 		// A function responsible of returning a single instance of the class.
 		ThreadPool* ThreadPool::get()
