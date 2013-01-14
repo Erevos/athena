@@ -12,6 +12,19 @@ namespace athena
 	namespace utility
 	{
 
+		// A function responsible of pausing the timer.
+		inline void Timer::pause()
+		{
+			m_paused = true;
+		}
+
+		// A function responsible of resuming the timer if it is paused.
+		inline void Timer::resume()
+		{
+			m_paused = false;
+		}
+
+
 		#ifndef _WIN32
 
 			// A function returning the current time in milliseconds.
@@ -91,6 +104,12 @@ namespace athena
 			}
 
 		#endif /* _WIN32 */
+
+		// A function returning whether the timer is paused or not.
+		inline bool Timer::is_paused()
+		{
+			return m_paused;
+		}
 
 	} /* utility */
 

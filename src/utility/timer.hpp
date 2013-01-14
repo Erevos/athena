@@ -10,7 +10,7 @@
 	#include <Windows.h>
 
 #else
-	#include <ctime>
+	#include <sys/time.h>
 #endif /* _WIN32 */
 
 
@@ -31,9 +31,6 @@ namespace athena
 		class Timer
 		{
 			private:
-
-				// A lock that is used to handle concurrency issues.
-				std::mutex m_lock;
 
 				#ifdef _WIN32
 					// A variable holding the reverse frequency of the timer to speedup calculations.
@@ -93,10 +90,6 @@ namespace athena
 				ATHENA_DLL TimerValueType difference_in_microseconds();
 				// A function returning the difference since the last call in milliseconds.
 				ATHENA_DLL TimerValueType difference_in_nanoseconds();
-				// A function returning the current time of the timer.
-				ATHENA_DLL unsigned long long time();
-				// A function returning the frequency of the timer.
-				ATHENA_DLL unsigned long long frequency();
 				// A function returning whether the timer is paused or not.
 				ATHENA_DLL bool is_paused();
 		};

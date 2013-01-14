@@ -47,8 +47,8 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
-    <OutDir>$(SolutionDir)..\..\..\..\bin\</OutDir>
-    <IntDir>$(OutDir)\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\bin\</OutDir>
+    <IntDir>$(OutDir)\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>luacd</TargetName>
     <LibraryPath>..\..\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
   </PropertyGroup>
@@ -56,8 +56,8 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\..\src;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <SourcePath>..\..\src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
-    <OutDir>$(SolutionDir)..\..\..\..\bin\</OutDir>
-    <IntDir>$(OutDir)\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\bin\</OutDir>
+    <IntDir>$(OutDir)\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>luac</TargetName>
     <LibraryPath>..\..\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
   </PropertyGroup>

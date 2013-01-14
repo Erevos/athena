@@ -10,6 +10,62 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\athena.cpp" />
+    <ClCompile Include="..\..\..\src\core\event.cpp" />
+    <ClCompile Include="..\..\..\src\core\eventManager.cpp" />
+    <ClCompile Include="..\..\..\src\core\listener.cpp" />
+    <ClCompile Include="..\..\..\src\core\parameter.cpp" />
+    <ClCompile Include="..\..\..\src\core\periodicEventInfo.cpp" />
+    <ClCompile Include="..\..\..\src\core\threadPool.cpp" />
+    <ClCompile Include="..\..\..\src\display\audioManager.cpp" />
+    <ClCompile Include="..\..\..\src\display\renderManager.cpp" />
+    <ClCompile Include="..\..\..\src\dllMain.cpp" />
+    <ClCompile Include="..\..\..\src\io\inputDevice.cpp" />
+    <ClCompile Include="..\..\..\src\io\inputManager.cpp" />
+    <ClCompile Include="..\..\..\src\io\keyboard.cpp" />
+    <ClCompile Include="..\..\..\src\io\logEntry.cpp" />
+    <ClCompile Include="..\..\..\src\io\logManager.cpp" />
+    <ClCompile Include="..\..\..\src\io\luaReducedDefaultLibraries.cpp" />
+    <ClCompile Include="..\..\..\src\io\luaState.cpp" />
+    <ClCompile Include="..\..\..\src\io\mouse.cpp" />
+    <ClCompile Include="..\..\..\src\utility\stringUtilities.cpp" />
+    <ClCompile Include="..\..\..\src\utility\timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\athena.hpp" />
+    <ClInclude Include="..\..\..\src\core\event.hpp" />
+    <ClInclude Include="..\..\..\src\core\eventManager.hpp" />
+    <ClInclude Include="..\..\..\src\core\listener.hpp" />
+    <ClInclude Include="..\..\..\src\core\parameter.hpp" />
+    <ClInclude Include="..\..\..\src\core\periodicEventInfo.hpp" />
+    <ClInclude Include="..\..\..\src\core\threadPool.hpp" />
+    <ClInclude Include="..\..\..\src\definitions.hpp" />
+    <ClInclude Include="..\..\..\src\display\audioManager.hpp" />
+    <ClInclude Include="..\..\..\src\display\renderManager.hpp" />
+    <ClInclude Include="..\..\..\src\eventCodes.hpp" />
+    <ClInclude Include="..\..\..\src\io\inputDevice.hpp" />
+    <ClInclude Include="..\..\..\src\io\inputManager.hpp" />
+    <ClInclude Include="..\..\..\src\io\keyboard.hpp" />
+    <ClInclude Include="..\..\..\src\io\logEntry.hpp" />
+    <ClInclude Include="..\..\..\src\io\logManager.hpp" />
+    <ClInclude Include="..\..\..\src\io\luaReducedDefaultLibraries.hpp" />
+    <ClInclude Include="..\..\..\src\io\luaState.hpp" />
+    <ClInclude Include="..\..\..\src\io\mouse.hpp" />
+    <ClInclude Include="..\..\..\src\utility\stringUtilities.hpp" />
+    <ClInclude Include="..\..\..\src\utility\timer.hpp" />
+    <ClInclude Include="..\..\..\src\windowsDefinitions.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\core\event.inl" />
+    <None Include="..\..\..\src\core\eventManager.inl" />
+    <None Include="..\..\..\src\core\listener.inl" />
+    <None Include="..\..\..\src\core\parameter.inl" />
+    <None Include="..\..\..\src\io\logEntry.inl" />
+    <None Include="..\..\..\src\io\logManager.inl" />
+    <None Include="..\..\..\src\io\luaState.inl" />
+    <None Include="..\..\..\src\utility\timer.inl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7111A8C-7115-4DF8-AB08-0A465DA406EE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -42,19 +98,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)d</TargetName>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
-    <IntDir>$(ProjectDir)..\..\bin\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>..\..\src;..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\..\bin;..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
-    <SourcePath>..\..\src;..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
+    <OutDir>$(ProjectDir)..\..\..\bin\</OutDir>
+    <IntDir>$(OutDir)\$(Configuration)\</IntDir>
+    <IncludePath>..\..\..\src;..\..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>..\..\..\bin;..\..\..\lib;..\..\..\lib\lua\bin;..\..\..\lib\libncf\bin;..\..\..\lib\libnimg\bin;..\..\..\lib\libnmath\bin;..\..\..\lib\libnmesh\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <SourcePath>..\..\..\src;..\..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
-    <IntDir>$(ProjectDir)..\..\bin\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>..\..\src;..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\..\bin;..\..\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
-    <SourcePath>..\..\src;..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
+    <OutDir>$(ProjectDir)..\..\..\bin\</OutDir>
+    <IntDir>$(OutDir)\$(Configuration)\</IntDir>
+    <IncludePath>..\..\..\src;..\..\..\lib;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>..\..\..\bin;..\..\..\lib;..\..\..\lib\lua\bin;..\..\..\lib\libncf\bin;..\..\..\lib\libnimg\bin;..\..\..\lib\libnmath\bin;..\..\..\lib\libnmesh\bin;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <SourcePath>..\..\..\src;..\..\..\lib;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,66 +171,6 @@
       <TreatWarningAsError>true</TreatWarningAsError>
     </FxCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\athena.hpp" />
-    <ClInclude Include="..\..\src\definitions.hpp" />
-    <ClInclude Include="..\..\src\display\audioManager.hpp" />
-    <ClInclude Include="..\..\src\eventCodes.hpp" />
-    <ClInclude Include="..\..\src\core\event.hpp" />
-    <ClInclude Include="..\..\src\core\eventManager.hpp" />
-    <ClInclude Include="..\..\src\core\listener.hpp" />
-    <ClInclude Include="..\..\src\core\parameter.hpp" />
-    <ClInclude Include="..\..\src\core\periodicEventInfo.hpp" />
-    <ClInclude Include="..\..\src\core\threadPool.hpp" />
-    <ClInclude Include="..\..\src\display\renderManager.hpp" />
-    <ClInclude Include="..\..\src\io\inputDevice.hpp" />
-    <ClInclude Include="..\..\src\io\inputManager.hpp" />
-    <ClInclude Include="..\..\src\io\keyboard.hpp" />
-    <ClInclude Include="..\..\src\io\logEntry.hpp" />
-    <ClInclude Include="..\..\src\io\logManager.hpp" />
-    <ClInclude Include="..\..\src\io\luaReducedDefaultLibraries.hpp" />
-    <ClInclude Include="..\..\src\io\luaState.hpp" />
-    <ClInclude Include="..\..\src\io\mouse.hpp" />
-    <ClInclude Include="..\..\src\utility\stringUtilities.hpp" />
-    <ClInclude Include="..\..\src\utility\timer.hpp" />
-    <ClInclude Include="..\..\src\windowsDefinitions.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\athena.cpp" />
-    <ClCompile Include="..\..\src\core\event.cpp" />
-    <ClCompile Include="..\..\src\core\eventManager.cpp" />
-    <ClCompile Include="..\..\src\core\listener.cpp" />
-    <ClCompile Include="..\..\src\core\parameter.cpp" />
-    <ClCompile Include="..\..\src\core\periodicEventInfo.cpp" />
-    <ClCompile Include="..\..\src\core\threadPool.cpp" />
-    <ClCompile Include="..\..\src\display\audioManager.cpp" />
-    <ClCompile Include="..\..\src\display\renderManager.cpp" />
-    <ClCompile Include="..\..\src\dllMain.cpp" />
-    <ClCompile Include="..\..\src\io\inputDevice.cpp" />
-    <ClCompile Include="..\..\src\io\inputManager.cpp" />
-    <ClCompile Include="..\..\src\io\logEntry.cpp" />
-    <ClCompile Include="..\..\src\io\keyboard.cpp" />
-    <ClCompile Include="..\..\src\io\luaReducedDefaultLibraries.cpp" />
-    <ClCompile Include="..\..\src\io\luaState.cpp" />
-    <ClCompile Include="..\..\src\io\mouse.cpp" />
-    <ClCompile Include="..\..\src\utility\stringUtilities.cpp" />
-    <ClCompile Include="..\..\src\utility\timer.cpp" />
-    <None Include="..\..\src\io\logManager.inl" />
-    <None Include="..\..\src\io\luaState.inl" />
-    <None Include="..\..\src\utility\timer.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\src\core\event.inl" />
-    <None Include="..\..\src\core\eventManager.inl" />
-    <ClInclude Include="..\..\src\io\logEntry.inl">
-      <FileType>Document</FileType>
-    </ClInclude>
-    <None Include="..\..\src\core\listener.inl" />
-    <None Include="..\..\src\core\parameter.inl" />
-    <ClCompile Include="..\..\src\io\logManager.cpp">
-      <FileType>Document</FileType>
-    </ClCompile>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
