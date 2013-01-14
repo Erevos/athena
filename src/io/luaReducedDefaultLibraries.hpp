@@ -1,8 +1,8 @@
 #ifndef ATHENA_IO_LUAREDUCEDDEFAULTLIBRARIES_HPP
 #define ATHENA_IO_LUAREDUCEDDEFAULTLIBRARIES_HPP
 
-#include "../definitions.hpp"
 #include "luaState.hpp"
+#include "../definitions.hpp"
 #include "../utility/timer.hpp"
 
 

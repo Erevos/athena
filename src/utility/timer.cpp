@@ -21,7 +21,7 @@ namespace athena
 
 				QueryPerformanceCounter(&temp);
 				return_value = temp.QuadPart;
-				
+
 			#else
 
 				timespec temp = { 0 , 0 };
@@ -44,7 +44,7 @@ namespace athena
 				unsigned long long return_value = 1;
 				LARGE_INTEGER temp = { 1 };
 
-				
+
 				QueryPerformanceFrequency(&temp);
 
 				if ( temp.QuadPart != 0 )
@@ -60,11 +60,11 @@ namespace athena
 		// The constructor of the class.
 		Timer::Timer() :
 			m_lock() ,
-			
+
 			#ifdef _WIN32
 				m_reverse_frequency(1) ,
 			#endif /* _WIN32 */
-			
+
 			m_start_time(0) ,
 			m_current_time(0) ,
 
@@ -170,7 +170,7 @@ namespace athena
 				if ( !m_paused )
 					m_current_time = get_time();
 
-			
+
 				return_value = static_cast<TimerValueType>(m_current_time - m_start_time);
 				m_lock.unlock();
 

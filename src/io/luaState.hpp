@@ -15,8 +15,8 @@
 
 #else
 
-	#include <luaconf.h>
-	#include <lua.hpp>
+	#include <lua5.2/luaconf.h>
+	#include <lua5.2/lua.hpp>
 
 #endif /* _WIN32 */
 

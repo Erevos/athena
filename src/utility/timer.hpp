@@ -52,7 +52,6 @@ namespace athena
 
 				// A variable holding the pause state of the timer.
 				bool m_paused;
-					
 
 				// A function responsible of getting the current time.
 				static unsigned long long get_time();
@@ -61,7 +60,6 @@ namespace athena
 					// A function responsible of getting the frequency.
 					static unsigned long long get_frequency();
 				#endif /* _WIN32 */
-
 
 			public:
 
