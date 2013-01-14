@@ -57,159 +57,159 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\core\eventManager.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\event.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\logEntry.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\logManager.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\parameter.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\periodicEventInfo.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\display\renderManager.hpp">
-      <Filter>Header Files\Display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\inputManager.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\timer.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\listener.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\utility\stringUtilities.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\threadPool.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\definitions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\windowsDefinitions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\athena.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\eventCodes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\mouse.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\keyboard.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\inputDevice.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\luaReducedDefaultLibraries.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\io\luaState.hpp">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\display\audioManager.hpp">
-      <Filter>Header Files\Display</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\core\eventManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\dllMain.cpp">
+    <ClCompile Include="..\..\..\src\athena.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\core\event.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\logEntry.cpp">
-      <Filter>Source Files\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\core\parameter.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\core\periodicEventInfo.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\display\renderManager.cpp">
-      <Filter>Source Files\Display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\inputManager.cpp">
-      <Filter>Source Files\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\timer.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\core\listener.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\logManager.cpp">
-      <Filter>Source Files\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\utility\stringUtilities.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\core\threadPool.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\athena.cpp">
+    <ClCompile Include="..\..\..\src\dllMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\inputDevice.cpp">
-      <Filter>Source Files\IO</Filter>
+    <ClCompile Include="..\..\..\src\core\listener.cpp">
+      <Filter>Header Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\keyboard.cpp">
-      <Filter>Source Files\IO</Filter>
+    <ClCompile Include="..\..\..\src\core\event.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\mouse.cpp">
-      <Filter>Source Files\IO</Filter>
+    <ClCompile Include="..\..\..\src\core\eventManager.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\luaReducedDefaultLibraries.cpp">
-      <Filter>Source Files\IO</Filter>
+    <ClCompile Include="..\..\..\src\core\parameter.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\io\luaState.cpp">
-      <Filter>Source Files\IO</Filter>
+    <ClCompile Include="..\..\..\src\core\periodicEventInfo.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\display\audioManager.cpp">
+    <ClCompile Include="..\..\..\src\core\threadPool.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\display\audioManager.cpp">
       <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\display\renderManager.cpp">
+      <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\inputDevice.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\inputManager.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\keyboard.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\logEntry.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\logManager.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\luaReducedDefaultLibraries.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\luaState.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\io\mouse.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utility\stringUtilities.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utility\timer.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\core\event.inl">
+    <ClInclude Include="..\..\..\src\athena.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\definitions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\eventCodes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\windowsDefinitions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\event.hpp">
       <Filter>Header Files\Core</Filter>
-    </None>
-    <None Include="..\..\src\core\eventManager.inl">
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\eventManager.hpp">
       <Filter>Header Files\Core</Filter>
-    </None>
-    <None Include="..\..\src\io\logEntry.inl">
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\listener.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\parameter.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\periodicEventInfo.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\threadPool.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\display\audioManager.hpp">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\display\renderManager.hpp">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\inputDevice.hpp">
       <Filter>Header Files\IO</Filter>
-    </None>
-    <None Include="..\..\src\core\parameter.inl">
-      <Filter>Header Files\Core</Filter>
-    </None>
-    <None Include="..\..\src\io\logManager.inl">
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\inputManager.hpp">
       <Filter>Header Files\IO</Filter>
-    </None>
-    <None Include="..\..\src\utility\timer.inl">
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\keyboard.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\logEntry.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\logManager.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\luaReducedDefaultLibraries.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\luaState.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\io\mouse.hpp">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utility\stringUtilities.hpp">
       <Filter>Header Files\Utility</Filter>
-    </None>
-    <None Include="..\..\src\core\listener.inl">
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utility\timer.hpp">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\core\event.inl">
       <Filter>Header Files\Core</Filter>
     </None>
-    <None Include="..\..\src\io\luaState.inl">
+    <None Include="..\..\..\src\core\eventManager.inl">
+      <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\..\src\core\listener.inl">
+      <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\..\src\core\parameter.inl">
+      <Filter>Header Files\Core</Filter>
+    </None>
+    <None Include="..\..\..\src\io\logEntry.inl">
       <Filter>Header Files\IO</Filter>
+    </None>
+    <None Include="..\..\..\src\io\logManager.inl">
+      <Filter>Header Files\IO</Filter>
+    </None>
+    <None Include="..\..\..\src\io\luaState.inl">
+      <Filter>Header Files\IO</Filter>
+    </None>
+    <None Include="..\..\..\src\utility\timer.inl">
+      <Filter>Header Files\Utility</Filter>
     </None>
   </ItemGroup>
 </Project>
