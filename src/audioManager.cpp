@@ -1,5 +1,5 @@
 #include "audioManager.hpp"
-#include "../windowsDefinitions.hpp"
+#include "windowsDefinitions.hpp"
 #include <AL/al.h>
 #include <AL/alc.h>
 

@@ -3,12 +3,12 @@
 #include <condition_variable>
 #include "windowsDefinitions.hpp"
 #include <GL/freeglut.h>
-#include "core/threadPool.hpp"
-#include "core/eventManager.hpp"
-#include "display/renderManager.hpp"
-#include "display/audioManager.hpp"
-#include "io/logManager.hpp"
-#include "io/inputManager.hpp"
+#include "threadPool.hpp"
+#include "eventManager.hpp"
+#include "renderManager.hpp"
+#include "audioManager.hpp"
+#include "logManager.hpp"
+#include "inputManager.hpp"
 
 #ifdef _WIN32
 	#pragma warning(disable:4505)

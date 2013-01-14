@@ -7,7 +7,7 @@
 
 #include <ctime>
 #include <sstream>
-#include "../utility/stringUtilities.hpp"
+#include "stringUtilities.hpp"
 
 
 

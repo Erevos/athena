@@ -1,7 +1,7 @@
 #ifndef ATHENA_CORE_PARAMETER_HPP
 #define ATHENA_CORE_PARAMETER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <cstddef>
 
 

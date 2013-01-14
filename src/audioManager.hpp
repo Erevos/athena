@@ -1,54 +1,40 @@
-#ifndef ATHENA_IO_INPUTMANAGER_HPP
-#define ATHENA_IO_INPUTMANAGER_HPP
+#ifndef ATHENA_DISPLAY_AUDIOMANAGER_HPP
+#define ATHENA_DISPLAY_AUDIOMANAGER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <mutex>
-#include "../athena.hpp"
-#include "../core/listener.hpp"
-#include "inputDevice.hpp"
+#include "athena.hpp"
+#include "listener.hpp"
 
 
 
 namespace athena
 {
 
-	namespace io
+	namespace display
 	{
 
 		/*
-			A class responsible of handling any user input.
+			A class handling any necessary audio operations.
 		*/
-		class InputManager : public core::Listener
+		class AudioManager : public core::Listener
 		{
 			private:
 
 				// The single instance of the class.
-				static InputManager* s_instance;
+				static AudioManager* s_instance;
 				// A lock used to handle concurrency issues regarding the instance of the class.
 				static std::mutex s_instance_lock;
 
 
-				// The list of devices that are currently active.
-				std::vector<InputDevice*> m_devices;
 				std::mutex m_lock;
-				core::EventCode m_update_rate;
 				bool m_initialised;
 
 
 				// The constructor of the class.
-				InputManager();
+				AudioManager();
 				// The destructor of the class.
-				~InputManager();
-
-
-				// Function responsible of changing the update rate of the input.
-				void change_update_rate( const core::EventCode& code );
-				// Function responsible of initialising a new device.
-				void initialise_device( const core::Event& event );
-				// Function responsible of updating the active devices.
-				void update();
-				// Function responsible of performing cleanup.
-				void cleanup();
+				~AudioManager();
 
 
 			protected:
@@ -73,17 +59,17 @@ namespace athena
 			public:
 
 				// A function responsible of returning a single instance of the class.
-				ATHENA_DLL static InputManager* get();
+				ATHENA_DLL static AudioManager* get();
 
 
 				// Function responsible of responding to a triggered event.
 				ATHENA_DLL void on_event( const core::Event& event );
 		};
 
-	} /* io */
+	} /* display */
 
 } /* athena */
 
 
 
-#endif /* ATHENA_IO_INPUTMANAGER_HPP */
+#endif /* ATHENA_DISPLAY_AUDIOMANAGER_HPP */

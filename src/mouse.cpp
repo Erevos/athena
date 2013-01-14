@@ -1,8 +1,9 @@
 #include "mouse.hpp"
 #include <GL/freeglut.h>
 #include <cstring>
+#include <cmath>
 #include <limits>
-#include "../athena.hpp"
+#include "athena.hpp"
 
 #ifdef _WIN32
 	#pragma warning(disable:4505)
@@ -26,10 +27,19 @@ namespace athena
 		};
 
 
+		// The deadzone that is used to determine whether an update is parsed.
+		unsigned int Mouse::s_deadzone = 0;
 		// The last position of the mouse.
 		int Mouse::s_position[s_coordinates];
 		// The state of the buttons.
 		bool Mouse::s_status[s_buttons];
+
+
+		// Function responsible of setting the deadzone.
+		void Mouse::deadzone( const unsigned int value )
+		{
+			s_deadzone = value;
+		}
 
 
 		// Function responsible of handling any mouse button input.
@@ -72,55 +82,58 @@ namespace athena
 		// Function responsible of handling the mouse position
 		void Mouse::mouse_movement_function( int x , int y )
 		{
-			int* new_x = new (std::nothrow) int(x);
-
-
-			if ( new_x != NULL )
+			if ( static_cast<unsigned int>(abs(x) + abs(y)) >= s_deadzone )
 			{
-				int* new_y = new (std::nothrow) int(y);
+				int* new_x = new (std::nothrow) int(x);
 
-				if ( new_y != NULL )
+
+				if ( new_x != NULL )
 				{
-					int* diff_x = new (std::nothrow) int(x - s_position[0]);
+					int* new_y = new (std::nothrow) int(y);
+
+					if ( new_y != NULL )
+					{
+						int* diff_x = new (std::nothrow) int(x - s_position[0]);
 					
 
-					if ( diff_x != NULL )
-					{
-						int* diff_y = new (std::nothrow) int(y - s_position[1]);
-
-
-						if ( diff_y != NULL )
+						if ( diff_x != NULL )
 						{
-							core::Event event(EVENT_INPUT_MOUSE_POSITION);
+							int* diff_y = new (std::nothrow) int(y - s_position[1]);
 
 
-							s_position[0] = x;
-							s_position[1] = y;
-							event.cleanup_function(cleanup);
-							event.parameter(0,core::ParameterType::Integer,new_x);
-							event.parameter(1,core::ParameterType::Integer,new_y);
-							athena::trigger_event(event);
+							if ( diff_y != NULL )
+							{
+								core::Event event(EVENT_INPUT_MOUSE_POSITION);
 
-							event.code(EVENT_INPUT_MOUSE_POSITION_DIFFERENCE);
-							event.parameter(0,core::ParameterType::Integer,diff_x);
-							event.parameter(1,core::ParameterType::Integer,diff_y);
-							athena::trigger_event(event);
+
+								s_position[0] = x;
+								s_position[1] = y;
+								event.cleanup_function(cleanup);
+								event.parameter(0,core::ParameterType::Integer,new_x);
+								event.parameter(1,core::ParameterType::Integer,new_y);
+								athena::trigger_event(event);
+
+								event.code(EVENT_INPUT_MOUSE_POSITION_DIFFERENCE);
+								event.parameter(0,core::ParameterType::Integer,diff_x);
+								event.parameter(1,core::ParameterType::Integer,diff_y);
+								athena::trigger_event(event);
+							}
+							else
+							{
+								delete diff_x;
+								delete new_y;
+								delete new_x;
+							}
 						}
 						else
 						{
-							delete diff_x;
 							delete new_y;
 							delete new_x;
 						}
 					}
 					else
-					{
-						delete new_y;
 						delete new_x;
-					}
 				}
-				else
-					delete new_x;
 			}
 		}
 
@@ -175,6 +188,13 @@ namespace athena
 		// Function responsible of performing update operations.
 		void Mouse::update()
 		{
+		}
+
+
+		// Function returning the type of the device.
+		DeviceType Mouse::type() const
+		{
+			return DeviceType::IsMouse;
 		}
 
 	} /* io */

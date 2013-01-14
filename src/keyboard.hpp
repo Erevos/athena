@@ -1,7 +1,7 @@
 #ifndef ATHENA_IO_KEYBOARD_HPP
 #define ATHENA_IO_KEYBOARD_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include "inputDevice.hpp"
 
 
@@ -53,6 +53,10 @@ namespace athena
 				void terminate();
 				// Function responsible of performing update operations.
 				void update();
+
+
+				// Function returning the type of the device.
+				DeviceType type() const;
 		};
 
 	} /* io */

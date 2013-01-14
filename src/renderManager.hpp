@@ -1,10 +1,10 @@
 #ifndef ATHENA_DISPLAY_RENDERMANAGER_HPP
 #define ATHENA_DISPLAY_RENDERMANAGER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <mutex>
-#include "../athena.hpp"
-#include "../core/listener.hpp"
+#include "athena.hpp"
+#include "listener.hpp"
 
 
 

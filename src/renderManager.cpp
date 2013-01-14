@@ -1,6 +1,6 @@
 #include "renderManager.hpp"
 #include <GL/freeglut.h>
-#include "../eventCodes.hpp"
+#include "eventCodes.hpp"
 
 #ifdef _WIN32
 	#pragma warning(disable:4505)

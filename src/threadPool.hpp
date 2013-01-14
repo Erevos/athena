@@ -1,13 +1,13 @@
 #ifndef ATHENA_CORE_THREADPOOL_HPP
 #define ATHENA_CORE_THREADPOOL_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <vector>
 #include <deque>
 #include <mutex>
 #include <condition_variable>
 #include <thread>
-#include "../athena.hpp"
+#include "athena.hpp"
 
 
 

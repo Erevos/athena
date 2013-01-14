@@ -1,12 +1,12 @@
 #ifndef ATHENA_UTILITY_TIMER_HPP
 #define ATHENA_UTILITY_TIMER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <mutex>
 
 #ifdef _WIN32
 
-	#include "../windowsDefinitions.hpp"
+	#include "windowsDefinitions.hpp"
 	#include <Windows.h>
 
 #else
@@ -41,12 +41,6 @@ namespace athena
 				unsigned long long m_start_time;
 				// A variable holding the current time value.
 				unsigned long long m_current_time;
-
-				#ifdef _WIN32
-					// A variable holding the frequency of the timer.
-					unsigned long long m_frequency;
-				#endif /* _WIN32 */
-
 				// A variable holding the pause state of the timer.
 				bool m_paused;
 

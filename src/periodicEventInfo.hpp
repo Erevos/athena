@@ -2,7 +2,7 @@
 #define ATHENA_CORE_PERIODICEVENTINFO_HPP
 
 #include "event.hpp"
-#include "../utility/timer.hpp"
+#include "timer.hpp"
 
 
 

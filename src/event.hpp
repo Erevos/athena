@@ -1,7 +1,7 @@
 #ifndef ATHENA_CORE_EVENT_HPP
 #define ATHENA_CORE_EVENT_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <vector>
 #include "parameter.hpp"
 

@@ -2,8 +2,8 @@
 #include <cstring>
 #include <iostream>
 #include <cwchar>
-#include "../athena.hpp"
-#include "../eventCodes.hpp"
+#include "athena.hpp"
+#include "eventCodes.hpp"
 
 
 

@@ -1,15 +1,15 @@
 #ifndef ATHENA_IO_LOGMANAGER_HPP
 #define ATHENA_IO_LOGMANAGER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <mutex>
 #include <deque>
 #include <exception>
 #include <fstream>
 #include <cstdarg>
 #include "logEntry.hpp"
-#include "../athena.hpp"
-#include "../core/listener.hpp"
+#include "athena.hpp"
+#include "listener.hpp"
 
 
 

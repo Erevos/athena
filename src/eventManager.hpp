@@ -1,7 +1,7 @@
 #ifndef ATHENA_CORE_EVENTMANAGER_HPP
 #define ATHENA_CORE_EVENTMANAGER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <mutex>
 #include <chrono>
 	
@@ -15,7 +15,7 @@
 #include <map>
 #include <vector>
 #include <deque>
-#include "../athena.hpp"
+#include "athena.hpp"
 #include "event.hpp"
 #include "listener.hpp"
 #include "periodicEventInfo.hpp"

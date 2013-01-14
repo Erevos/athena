@@ -3,8 +3,8 @@
 
 #include "definitions.hpp"
 #include "eventCodes.hpp"
-#include "core/event.hpp"
-#include "utility/timer.hpp"
+#include "event.hpp"
+#include "timer.hpp"
 
 
 

@@ -2,23 +2,13 @@
 #include <GL/freeglut.h>
 #include <limits>
 #include <cstring>
-#include "../athena.hpp"
+#include "athena.hpp"
 
 #ifdef _WIN32
 	#pragma warning(disable:4505)
 #endif /* _WIN32 */
 
-/*
- * GLUT API macro definitions -- additional keyboard and joystick definitions
- */
-//#define  GLUT_KEY_REPEAT_OFF                0x0000
-//#define  GLUT_KEY_REPEAT_ON                 0x0001
-//#define  GLUT_KEY_REPEAT_DEFAULT            0x0002
-//
-//#define  GLUT_JOYSTICK_BUTTON_A             0x0001
-//#define  GLUT_JOYSTICK_BUTTON_B             0x0002
-//#define  GLUT_JOYSTICK_BUTTON_C             0x0004
-//#define  GLUT_JOYSTICK_BUTTON_D             0x0008
+
 
 namespace athena
 {
@@ -358,6 +348,13 @@ namespace athena
 		// Function responsible of performing update operations.
 		void Keyboard::update()
 		{
+		}
+
+
+		// Function returning the type of the device.
+		DeviceType Keyboard::type() const
+		{
+			return DeviceType::IsKeyboard;
 		}
 
 	} /* io */

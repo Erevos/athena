@@ -1,6 +1,6 @@
 #include "eventManager.hpp"
 #include "threadPool.hpp"
-#include "../eventCodes.hpp"
+#include "eventCodes.hpp"
 
 #ifdef __unix
 	#include <unistd.h>

@@ -66,11 +66,6 @@ namespace athena
 
 			m_start_time(0) ,
 			m_current_time(0) ,
-
-			#ifdef _WIN32
-				m_frequency(1) ,
-			#endif /* _WIN32 */
-
 			m_paused(false)
 		{
 		}

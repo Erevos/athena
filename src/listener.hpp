@@ -1,7 +1,7 @@
 #ifndef ATHENA_CORE_LISTENER_HPP
 #define ATHENA_CORE_LISTENER_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include "event.hpp"
 
 

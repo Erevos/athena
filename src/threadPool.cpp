@@ -3,7 +3,7 @@
 
 #ifdef _WIN32
 	
-	#include "../windowsDefinitions.hpp"
+	#include "windowsDefinitions.hpp"
 	#include <Windows.h>
 
 #else

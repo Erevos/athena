@@ -1,7 +1,7 @@
 #ifndef ATHENA_EVENTCODES_HPP
 #define ATHENA_EVENTCODES_HPP
 
-#include "core/event.hpp"
+#include "event.hpp"
 
 
 
@@ -247,8 +247,9 @@ namespace athena
 		EVENT_INPUT_KEYBOARD_MACKEY_UP ,
 		// ------------------------------
 		// ------------------------------
+		EVENT_INPUT_MOUSE_THRESHOLD ,
 		EVENT_INPUT_MOUSE_POSITION ,
-		EVENT_INPUT_MOUSE_POSITION_DIFFERENCE , 
+		EVENT_INPUT_MOUSE_POSITION_DIFFERENCE ,
 		EVENT_INPUT_MOUSE_LEFT_DOWN ,
 		EVENT_INPUT_MOUSE_MIDDLE_DOWN ,
 		EVENT_INPUT_MOUSE_RIGHT_DOWN ,

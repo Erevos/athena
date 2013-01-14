@@ -1,12 +1,12 @@
 #ifndef ATHENA_IO_LUASTATE_HPP
 #define ATHENA_IO_LUASTATE_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include <string>
 #include <cstdarg>
 #include <vector>
 #include <cmath>
-#include "../windowsDefinitions.hpp"
+#include "windowsDefinitions.hpp"
 
 #ifdef _WIN32
 

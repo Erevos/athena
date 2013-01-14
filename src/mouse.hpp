@@ -1,9 +1,9 @@
 #ifndef ATHENA_IO_MOUSE_HPP
 #define ATHENA_IO_MOUSE_HPP
 
-#include "../definitions.hpp"
+#include "definitions.hpp"
 #include "inputDevice.hpp"
-#include "../core/event.hpp"
+#include "event.hpp"
 
 
 
@@ -24,6 +24,8 @@ namespace athena
 				static const unsigned int s_buttons = 3;
 				// The number of mouse coordinates.
 				static const unsigned int s_coordinates = 2;
+				// The deadzone that is used to determine whether an update is parsed.
+				static unsigned int s_deadzone;
 				// The last position of the mouse.
 				static int s_position[s_coordinates];
 				// The state of the buttons.
@@ -40,6 +42,10 @@ namespace athena
 
 			public:
 
+				// Function responsible of setting the deadzone.
+				static void deadzone( const unsigned int value );
+
+
 				// The constructor of the class.
 				Mouse();
 				// The destructor of the class
@@ -52,6 +58,10 @@ namespace athena
 				void terminate();
 				// Function responsible of performing update operations.
 				void update();
+
+
+				// Function returning the type of the device.
+				DeviceType type() const;
 		};
 
 	} /* io */

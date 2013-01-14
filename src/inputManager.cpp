@@ -1,5 +1,5 @@
 #include "inputManager.hpp"
-#include "../eventCodes.hpp"
+#include "eventCodes.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
 
@@ -49,10 +49,11 @@ namespace athena
 		}
 		
 		// Function responsible of initialising a new device.
-		void InputManager::initialise_device( const core::Event& event )
+		bool InputManager::initialise_device( const core::Event& event )
 		{
 			core::EventCode code = event.code();
 			InputDevice* new_device = NULL;
+			bool return_value = true;
 
 
 			if ( code == EVENT_INPUT_INIT_KEYBOARD )
@@ -66,6 +67,11 @@ namespace athena
 				new_device->startup();
 				m_devices.push_back(new_device);
 			}
+			else
+				return_value = false;
+
+
+			return return_value;
 		}
 		
 		// Function responsible of updating the active devices.
@@ -147,6 +153,7 @@ namespace athena
 				register_event(EVENT_INPUT_UPDATE_RATE);
 				register_event(EVENT_INPUT_INIT_KEYBOARD);
 				register_event(EVENT_INPUT_INIT_MOUSE);
+				register_event(EVENT_INPUT_MOUSE_THRESHOLD);
 				register_event(m_update_rate);
 				register_event(EVENT_EXIT);
 				m_initialised = true;
@@ -209,8 +216,16 @@ namespace athena
 						code == EVENT_INPUT_INIT_MOUSE
 					)
 			{
-				initialise_device(event);
-				unregister_event(code);
+				if ( initialise_device(event) )
+					unregister_event(code);
+			}
+			else if ( code == EVENT_INPUT_MOUSE_THRESHOLD )
+			{
+				const core::Parameter* parameter(event.parameter(0));
+
+
+				if ( parameter != NULL  &&  parameter->type() == core::ParameterType::UnsignedInteger )
+					Mouse::deadzone(*(static_cast<unsigned int*>(parameter->data())));
 			}
 			else if ( code == EVENT_EXIT )
 				terminate();
