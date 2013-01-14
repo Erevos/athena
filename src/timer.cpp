@@ -28,7 +28,7 @@ namespace athena
 
 
 				gettimeofday(&temp,NULL);
-				return_value = temp.tv_sec*1000000000 + temp.tv_nsec;
+				return_value = temp.tv_sec*1000000 + temp.tv_usec;
 
 			#endif /* _WIN32 */
 
@@ -124,7 +124,7 @@ namespace athena
 		#else
 
 			// A function returning the current time in seconds.
-			TimerValueType Timer::nanoseconds()
+			TimerValueType Timer::microseconds()
 			{
 				if ( !m_paused )
 					m_current_time = get_time();
@@ -134,7 +134,7 @@ namespace athena
 			}
 
 			// A function returning the difference since the last call in seconds.
-			TimerValueType Timer::difference_in_nanoseconds()
+			TimerValueType Timer::difference_in_microseconds()
 			{
 				TimerValueType return_value = 0;
 				unsigned long long current_time = 0;

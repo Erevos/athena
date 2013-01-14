@@ -708,7 +708,7 @@ namespace athena
 			#ifdef ATHENA_EVENTMANAGER_SINGLETHREADED
 
 				// (Re)Start the timer.
-				m_timer.reset();
+				//m_timer.reset();
 				m_timer.start();
 				m_initialised = true;
 				return_value = true;
@@ -724,7 +724,7 @@ namespace athena
 					if ( thread_pool->add_task(thread_function,static_cast<void*>(this),thread_callback_function,static_cast<void*>(this)) )
 					{
 						// (Re)Start the timer.
-						m_timer.reset();
+						//m_timer.reset();
 						m_timer.start();
 						m_running = true;
 						m_initialised = true;

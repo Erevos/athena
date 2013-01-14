@@ -30,7 +30,7 @@ namespace athena
 			// A function returning the current time in milliseconds.
 			inline TimerValueType Timer::seconds()
 			{
-				return nanoseconds()*0.000000001;
+				return microseconds()*0.000001;
 			}
 
 		#endif /* _WIN32 */
@@ -41,36 +41,36 @@ namespace athena
 			#ifdef _WIN32
 				return seconds()*1000.0;
 			#else
-				return nanoseconds()*0.000001;
-			#endif /* _WIN32 */
-		}
-
-		// A function returning the current time in milliseconds.
-		inline TimerValueType Timer::microseconds()
-		{
-			#ifdef _WIN32
-				return seconds()*1000000.0;
-			#else
-				return nanoseconds()*0.001;
+				return microseconds()*0.001;
 			#endif /* _WIN32 */
 		}
 
 		#ifdef _WIN32
 
 			// A function returning the current time in milliseconds.
-			inline TimerValueType Timer::nanoseconds()
+			inline TimerValueType Timer::microseconds()
 			{
-				return seconds()*1000000000.0;
+				return seconds()*1000000.0;
 			}
 
 		#endif /* _WIN32 */
+
+		// A function returning the current time in milliseconds.
+		inline TimerValueType Timer::nanoseconds()
+		{
+			#ifdef _WIN32
+				return seconds()*1000000000.0;
+			#else
+				return microseconds()*1000.0f;
+			#endif /* _WIN32 */
+		}
 
 		#ifndef _WIN32
 
 			// A function returning the difference since the last call in milliseconds.
 			inline TimerValueType Timer::difference_in_seconds()
 			{
-				return difference_in_nanoseconds()*0.000000001;
+				return difference_in_microseconds()*0.0000001;
 			}
 
 		#endif /* _WIN32 */
@@ -81,29 +81,29 @@ namespace athena
 			#ifdef _WIN32
 				return difference_in_seconds()*1000.0;
 			#else
-				return difference_in_nanoseconds()*0.000001;
-			#endif /* _WIN32 */
-		}
-
-		// A function returning the difference since the last call in milliseconds.
-		inline TimerValueType Timer::difference_in_microseconds()
-		{
-			#ifdef _WIN32
-				return difference_in_seconds()*1000000.0;
-			#else
-				return difference_in_nanoseconds()*0.001;
+				return difference_in_microseconds()*0.001;
 			#endif /* _WIN32 */
 		}
 
 		#ifdef _WIN32
 
 			// A function returning the difference since the last call in milliseconds.
-			inline TimerValueType Timer::difference_in_nanoseconds()
+			inline TimerValueType Timer::difference_in_microseconds()
 			{
-				return difference_in_seconds()*1000000000.0;
+				return difference_in_seconds()*1000000.0;
 			}
 
 		#endif /* _WIN32 */
+
+		// A function returning the difference since the last call in milliseconds.
+		inline TimerValueType Timer::difference_in_nanoseconds()
+		{
+			#ifdef _WIN32
+				return difference_in_seconds()*1000000000.0;
+			#else
+				return difference_in_microseconds()*1000.0;
+			#endif /* _WIN32 */
+		}
 
 		// A function returning whether the timer is paused or not.
 		inline bool Timer::is_paused()
