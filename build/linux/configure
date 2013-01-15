@@ -13,7 +13,7 @@ PATH_SRC=../../src
 PATH_BIN=../../bin
 PATH_MAN=man
 
-DEP_DLIB="" 
+DEP_DLIB="-llua5.2 -lglut -lopenal" 
 
 #================================================
 
